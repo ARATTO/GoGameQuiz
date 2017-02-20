@@ -1,4 +1,4 @@
-package los_eternos.gogamificationquiz;
+package los_eternos.gogamificationquiz.Pantallas;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -32,6 +32,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import los_eternos.gogamificationquiz.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
