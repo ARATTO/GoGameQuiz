@@ -8,9 +8,11 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <!-- INICIO TAMAÑOS DE LETRA PARA EL CUESTIONARIO. -->
+
     <dimen name="titulo_preguntas">50dp</dimen>
     <dimen name="contenido_preguntas">20dp</dimen>
     <dimen name="opciones_preguntas">20dp</dimen>
+    <dimen name="texto_boton_siguiente">15dp</dimen>
 
     <!-- FIN TAMAÑOS DE LETRA PARA EL CUESTIONARIO. -->
 

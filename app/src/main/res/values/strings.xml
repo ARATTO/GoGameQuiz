@@ -21,8 +21,9 @@
     <string name="action_settings">Settings</string>
 
     <!-- INICIO STRINGS CUESTIONARIO -->
+
     <string name="nombre_pregunta_1">PREGUNTA 1</string>
-    <string name="pregunta_1">Es un componente de interfaz de usuario que puede mostrar ya se pagina web remotos o HTML estático:</string>
+    <string name="pregunta_1">Es un componente de interfaz de usuario que puede mostrar ya sea pagina web remotos o HTML estático:</string>
     <string name="boton_siguiente">SIGUIENTE</string>
 
     <!-- FIN STRINGS CUESTIONARIO -->
