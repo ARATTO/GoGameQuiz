@@ -1,0 +1,18 @@
+//Esta clase corresponde a la parte logica de la activity de Cuestionario (Indicaciones de cuestionario)
+
+
+package los_eternos.gogamificationquiz.Pantallas;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+import los_eternos.gogamificationquiz.R;
+
+public class CuestionarioActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_cuestionario);
+    }
+}

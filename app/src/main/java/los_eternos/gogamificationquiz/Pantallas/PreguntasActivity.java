@@ -1,3 +1,5 @@
+//Esta clase corresponde a la parte logica de la activity de Preguntas del cuestionario
+
 package los_eternos.gogamificationquiz.Pantallas;
 
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,6 @@ public class PreguntasActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Cuestionario");
+        getSupportActionBar().setTitle("Cuestionario");             //Cambia el texto que aparece en la toolbar
     }
 }
