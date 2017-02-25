@@ -25,6 +25,9 @@
     <string name="nombre_pregunta_1">PREGUNTA 1</string>
     <string name="pregunta_1">Es un componente de interfaz de usuario que puede mostrar ya sea pagina web remotos o HTML estático:</string>
     <string name="boton_siguiente">SIGUIENTE</string>
+    <string name="indicaciones">INDICACIONES GENERALES</string>
+    <string name="confirmacion">Si estás listo para iniciar el cuestionario presiona "COMENZAR"</string>
+    <string name="empezar_cuestionario">COMENZAR</string>
 
     <!-- FIN STRINGS CUESTIONARIO -->
 </resources>

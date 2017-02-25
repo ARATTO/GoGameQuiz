@@ -42,7 +42,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Pantallas.CuestionarioActivity" />
+        <activity
+            android:name=".Pantallas.CuestionarioActivity"
+            android:parentActivityName=".Pantallas.MainActivity" />
         <activity android:name=".Pantallas.ResultadoActivity"></activity>
     </application>
 

@@ -100,7 +100,9 @@ public class MainActivity extends AppCompatActivity
             */
 
         } else if (id == R.id.nav_send) {
-
+            //Esto es solo para probar el CuestionarioActivity
+            Intent intent = new Intent(getApplicationContext(), CuestionarioActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

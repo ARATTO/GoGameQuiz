@@ -13,6 +13,8 @@
     <dimen name="contenido_preguntas">20dp</dimen>
     <dimen name="opciones_preguntas">20dp</dimen>
     <dimen name="texto_boton_siguiente">15dp</dimen>
+    <dimen name="indicaciones">25dp</dimen>
+    <dimen name="confirmacion">18dp</dimen>
 
     <!-- FIN TAMAÑOS DE LETRA PARA EL CUESTIONARIO. -->
 
