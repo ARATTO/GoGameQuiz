@@ -91,6 +91,10 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
+            //Esto es solo para probar el ResultadoActivity
+            Intent intent = new Intent(getApplicationContext(), ResultadoActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_share) {
 
             //Esto es solo para probar el PreguntasActivity
