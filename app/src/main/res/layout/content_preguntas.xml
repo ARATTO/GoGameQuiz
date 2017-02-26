@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Aqui se declara el contenido de activity_preguntas -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cuestionario"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Pantallas.PreguntasActivity"
+    tools:showIn="@layout/activity_preguntas"
+    android:weightSum="1"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/borde">
+
+        <TextView
+            android:layout_width="331dp"
+            android:layout_height="74dp"
+            android:text="PREGUNTA 1"
+            android:id="@+id/textView2"
+            android:textAlignment="center"
+            android:textSize="@dimen/titulo_preguntas"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="216dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/textView3"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:text="@string/pregunta_1"
+            android:textSize="@dimen/contenido_preguntas" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="10dp"
+        android:layout_height="10dp">
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="127dp"
+        android:background="@drawable/borde">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GridView"
+            android:id="@+id/radioButton"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.05"
+            android:checked="false"
+            android:textSize="@dimen/opciones_preguntas"
+            android:layout_alignTop="@+id/radioButton3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/radioButton2"
+            android:layout_alignEnd="@+id/radioButton2" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ScrollView"
+            android:id="@+id/radioButton2"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.05"
+            android:checked="false"
+            android:textSize="@dimen/opciones_preguntas"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WebView"
+            android:id="@+id/radioButton3"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.05"
+            android:checked="false"
+            android:textSize="@dimen/opciones_preguntas"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:id="@+id/radioButton4"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.05"
+            android:checked="false"
+            android:textSize="@dimen/opciones_preguntas"
+            android:layout_alignTop="@+id/radioButton2"
+            android:layout_alignLeft="@+id/radioButton3"
+            android:layout_alignStart="@+id/radioButton3" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="10dp"
+        android:layout_height="10dp">
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="134dp"
+        android:layout_height="wrap_content"
+        android:text="@string/boton_siguiente"
+        android:textSize="@dimen/texto_boton_siguiente"
+        android:id="@+id/button"
+        android:layout_below="@+id/radioButton2"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/color_boton"
+        android:background="@color/fondo_boton"
+        android:drawableLeft="@drawable/estado_siguiente"
+        android:drawablePadding="8dp"/>
+
+</LinearLayout>
