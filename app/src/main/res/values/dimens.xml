@@ -17,6 +17,7 @@
     <dimen name="confirmacion">18dp</dimen>
     <dimen name="informacion_resultado">47dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="md_keylines">16dp</dimen>
 
     <!-- FIN TAMAÑOS DE LETRA PARA EL CUESTIONARIO. -->
 
