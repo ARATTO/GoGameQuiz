@@ -64,8 +64,8 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
         /*  CODIGO DE LAS TAB  */
         private void setupViewPager(ViewPager viewPager) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
+            adapter.addFragment(new PerfilFragment(), "Perfil");
             adapter.addFragment(new MedallasFragment(), "Medallas");
-            //adapter.addFragment(new TileContentFragment(), "Medallas");
 
             viewPager.setAdapter(adapter);
         }
