@@ -45,7 +45,23 @@
         <activity
             android:name=".Pantallas.CuestionarioActivity"
             android:parentActivityName=".Pantallas.MainActivity" />
-        <activity android:name=".Pantallas.ResultadoActivity"></activity>
+        <activity android:name=".Pantallas.ResultadoActivity" />
+        <activity
+            android:name=".Pantallas.PerfilActivity"
+            android:label="@string/title_activity_perfil"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Pantallas.DescripcionMateriaActivity" />
+        <activity android:name=".Pantallas.LeaderboardsActivity" />
+        <activity android:name=".Pantallas.ListadoCuestionarioActivity" />
+        <activity android:name=".Pantallas.MedallasActivity" />
+        <activity android:name=".Pantallas.AsignarPuntosActivity" />
+        <activity android:name=".Pantallas.CrearActividadesActivity" />
     </application>
 
 </manifest>

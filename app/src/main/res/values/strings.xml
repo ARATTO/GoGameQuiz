@@ -31,6 +31,14 @@
     <string name="resultado">RESULTADO</string>
     <string name="informacion_resultado">Respondiste correctamente 18 de 20 preguntas</string>
     <string name="guardar_continuar">GUARDAR Y CONTINUAR</string>
+    <string name="title_activity_perfil">PerfilActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
     <!-- FIN STRINGS CUESTIONARIO -->
+
+
+    <!-- INICIO STRINGS LEADERBOARDS -->
+    <string name="yearBusquedaString">Año de tabla de lideres</string>
+    <!-- FIN STRINGS LEADERBOARDS -->
+
 </resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="places">
+        <item>Asistencia IAI115</item>
+        <item>Asistencia MAT115</item>
+        <item>Asistencia MET115</item>
+        <item>Asistencia PSI115</item>
+    </string-array>
+    <string-array name="place_desc">
+        <item>Puntaje: 200</item>
+        <item>Puntaje: 195</item>
+        <item>Puntaje: 180</item>
+        <item>Puntaje: 195</item>
+    </string-array>
+    <array name="places_picture">
+        <item>@drawable/a_iai115</item>
+        <item>@drawable/a_mat115</item>
+        <item>@drawable/a_mte115</item>
+        <item>@drawable/a_psi115</item>
+    </array>
+</resources>

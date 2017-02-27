@@ -11,6 +11,7 @@ public class Medalla {
     private String descripcionMedalla;
     private int esCuantitativa;
     private String imagenMedalla;
+    private int imagen;
 
     public int getIdMedalla() {
         return idMedalla;
@@ -56,12 +57,27 @@ public class Medalla {
 
     }
 
-    public Medalla(int idMedalla, String nombreMedalla, String descripcionMedalla, int esCuantitativa, String imagenMedalla) {
+    public int getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(int imagen) {
+        this.imagen = imagen;
+    }
+
+    public Medalla(int idMedalla, String nombreMedalla, String descripcionMedalla, int esCuantitativa, String imagenMedalla, int imagen) {
 
         this.idMedalla = idMedalla;
         this.nombreMedalla = nombreMedalla;
         this.descripcionMedalla = descripcionMedalla;
         this.esCuantitativa = esCuantitativa;
         this.imagenMedalla = imagenMedalla;
+        this.imagen = imagen;
+    }
+
+    public Medalla(int imagen, String Descripcion, int puntos){
+        this.imagen = imagen;
+        this.descripcionMedalla = Descripcion;
+        this.esCuantitativa = puntos;
     }
 }
