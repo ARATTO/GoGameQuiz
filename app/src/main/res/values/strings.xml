@@ -35,4 +35,10 @@
     <string name="section_format">Hello World from section: %1$d</string>
 
     <!-- FIN STRINGS CUESTIONARIO -->
+
+
+    <!-- INICIO STRINGS LEADERBOARDS -->
+    <string name="yearBusquedaString">Año de tabla de lideres</string>
+    <!-- FIN STRINGS LEADERBOARDS -->
+
 </resources>
