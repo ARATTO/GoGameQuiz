@@ -102,9 +102,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(getApplicationContext(), PreguntasActivity.class);
             startActivity(intent);
             */
-
-        } else if (id == R.id.nav_send) {
-
+            
         } else if (id == R.id.nav_send) {
             //Esto es solo para probar el CuestionarioActivity
             Intent intent = new Intent(getApplicationContext(), CuestionarioActivity.class);
