@@ -2,6 +2,7 @@
 
 package los_eternos.gogamificationquiz.Pantallas;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -20,5 +21,10 @@ public class PreguntasActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Cuestionario");             //Cambia el texto que aparece en la toolbar
+    }
+
+    public void siguientePregunta(){
+        Intent intent = new Intent(getApplicationContext(), ResultadoActivity.class);
+        startActivity(intent);
     }
 }

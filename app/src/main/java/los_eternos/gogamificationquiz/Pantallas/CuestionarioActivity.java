@@ -3,6 +3,7 @@
 
 package los_eternos.gogamificationquiz.Pantallas;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -24,5 +25,10 @@ public class CuestionarioActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowTitleEnabled(true); //Mostrar el texto de la toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  //Mostrar la flecha de "atras" en la toolbar. La navegabilidad se establece en AndroidManifest.xml
+    }
+
+    public void empezarCuestionario(){
+        Intent intent = new Intent(getApplicationContext(), PreguntasActivity.class);
+        startActivity(intent);
     }
 }

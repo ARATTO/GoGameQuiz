@@ -63,6 +63,7 @@
             android:layout_height="wrap_content"
             android:text="@string/guardar_continuar"
             android:id="@+id/button3"
+            android:onClick="salirCuestionario"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 

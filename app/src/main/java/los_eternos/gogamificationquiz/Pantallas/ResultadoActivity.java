@@ -3,15 +3,18 @@
 
 package los_eternos.gogamificationquiz.Pantallas;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 
 import los_eternos.gogamificationquiz.R;
 
 public class ResultadoActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +25,11 @@ public class ResultadoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle("Cuestionario");
+
+    }
+
+    public void salirCuestionario(){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 }
