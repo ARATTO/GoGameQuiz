@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_listamateria) {
 
-            Intent intent2 = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent2 = new Intent(getApplicationContext(), MateriasExistentesActivity.class);
             startActivity(intent2);
 
         } else if (id == R.id.nav_manage) {

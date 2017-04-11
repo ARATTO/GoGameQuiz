@@ -1,7 +1,15 @@
 package los_eternos.gogamificationquiz.Pantallas;
 
-/**
- * Created by Bryan Lobos1 on 21/03/2017.
- */
-public class ActividadesActivity {
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+import los_eternos.gogamificationquiz.R;
+
+public class ActividadesActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_actividades);
+    }
 }

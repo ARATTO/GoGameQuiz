@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import los_eternos.gogamificationquiz.R;
 
@@ -23,7 +24,7 @@ public class PreguntasActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Cuestionario");             //Cambia el texto que aparece en la toolbar
     }
 
-    public void siguientePregunta(){
+    public void siguientePregunta(View view){
         Intent intent = new Intent(getApplicationContext(), ResultadoActivity.class);
         startActivity(intent);
     }

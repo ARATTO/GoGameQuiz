@@ -336,7 +336,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                    Intent NavBar = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent NavBar = new Intent(getApplicationContext(), MateriasExistentesActivity.class);
                     startActivity(NavBar);
 
                 finish();

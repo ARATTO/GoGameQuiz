@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import los_eternos.gogamificationquiz.R;
 
@@ -27,7 +28,7 @@ public class CuestionarioActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);  //Mostrar la flecha de "atras" en la toolbar. La navegabilidad se establece en AndroidManifest.xml
     }
 
-    public void empezarCuestionario(){
+    public void empezarCuestionario(View view){
         Intent intent = new Intent(getApplicationContext(), PreguntasActivity.class);
         startActivity(intent);
     }
