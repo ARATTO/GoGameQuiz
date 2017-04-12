@@ -129,6 +129,7 @@
         android:layout_gravity="center_horizontal"
         android:textColor="@color/color_boton"
         android:background="@color/fondo_boton"
+        android:onClick="siguientePregunta"
         android:drawableLeft="@drawable/estado_siguiente"
         android:drawablePadding="8dp"/>
 
