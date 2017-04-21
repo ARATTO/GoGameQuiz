@@ -25,23 +25,11 @@
         <activity
             android:name=".Pantallas.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Pantallas.PreguntasActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Pantallas.CuestionarioActivity"
             android:parentActivityName=".Pantallas.MainActivity" />
@@ -49,6 +37,7 @@
         <activity
             android:name=".Pantallas.PerfilActivity"
             android:label="@string/title_activity_perfil"
+
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -63,6 +52,8 @@
         <activity android:name=".Pantallas.MedallasActivity" />
         <activity android:name=".Pantallas.AsignarPuntosActivity" />
         <activity android:name=".Pantallas.CrearActividadesActivity" />
+        <activity android:name=".Pantallas.ActividadesActivity" />
+        <activity android:name=".Pantallas.MateriasExistentesActivity"></activity>
     </application>
 
 </manifest>
