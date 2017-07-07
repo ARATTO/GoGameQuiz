@@ -23,8 +23,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.http.client.methods.HttpPost;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+import android.view.View;
+import org.apache.http.entity.StringEntity;
+import los_eternos.gogamificationquiz.Modelo.Materia;
 
- class ServiciosController
+class ServiciosController
 {
     public static String obtenerRespuestaPeticion(String url, Context ctx) {
         String respuesta = " ";
@@ -117,4 +123,36 @@ import java.util.List;
         }
         return false;
     }
+
+    public static List<Materia> get_materias(String peticion){
+        //Variables a retornar
+        List<Materia> materias = new ArrayList<Materia>();
+
+
+        String json = obtenerRespuestaPeticion(peticion);
+
+        try{
+            JSONArray materias_json = new JSONArray(json);
+            for(int i=0;i<materias_json.length();i++){
+                Materia pivote = new Materia();
+                JSONObject obj = materias_json.getJSONObject(i);
+                pivote.setCodigoMateria(obj.getString("CODMATERIA"));
+                pivote.setNombreMateria(obj.getString("NOMMATERIA"));
+                pivote.setImagenMateria(obj.getString("IMAGEN"));
+                pivote.setEsTecnicaElectiva(obj.getInt("ESTE"));
+                pivote.setIdGrupo(obj.getString("ID_GRUPO"));
+                pivote.setNomTipoGrupo(obj.getString("NOMTIPOGRUPO"));
+                materias.add(pivote);
+            }
+
+            return  materias;
+        }catch (JSONException e){
+
+            Log.v("ERROR_PARSEO", e.getMessage());
+            e.printStackTrace();
+            return  null;
+        }
+
+    }
+
 }
