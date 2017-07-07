@@ -1,40 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:layout_width="fill_parent"
-    android:layout_height="190dp">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="180dp"
-        android:layout_weight="1.36"
-        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="193dp"
-            app:srcCompat="@mipmap/ic_launcher"
-            android:id="@+id/imageView3"
-            android:layout_weight="1" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="180dp"
-        android:layout_weight="1"
-        android:layout_gravity="left"
-        android:orientation="horizontal"
-        android:weightSum="1">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp"
+        android:stretchColumns="1">
+
+        <TableRow>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                app:srcCompat="@mipmap/ic_launcher"
+                android:id="@+id/fotoPerfil"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text=" "
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/nombrePerfil"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+
+                />
+        </TableRow>
+
+        <TableRow>
+            <TextView android:paddingTop="5dp" />
+        </TableRow>
+
 
         <TextView
-            android:text="Rodrigo Daniel"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView6"
-            android:layout_weight="0.22"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:textStyle="bold"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+            android:text="Descripcion:"
+            android:layout_centerHorizontal="true"
+
             />
-    </LinearLayout>
-</LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/descripcionPerfil"
+            android:textStyle="italic"
+            android:textSize="19dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:text="La vida es un juego fabuloso, para los que desean jugar"
+            android:layout_centerHorizontal="true"
+
+            />
+
+
+    </TableLayout>
+
+
+</ScrollView>
+
