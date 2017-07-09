@@ -39,6 +39,7 @@ public class PerfilFragment extends Fragment {
         Conexion con = new Conexion();
         String url="";
 
+
         url += con.getURLLocal()+"perfil/1";
 
         List<Perfil> perfil = null;

@@ -44,3 +44,5 @@ local.properties
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+/app/src/main/java/los_eternos/gogamificationquiz/Controladores/Conexion.java
