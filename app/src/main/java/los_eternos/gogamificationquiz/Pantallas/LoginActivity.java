@@ -20,14 +20,13 @@ import los_eternos.gogamificationquiz.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-
-    private UserLoginTask mAuthTask = null;
-
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
-    private UserLoginTask userlogintask =null;
+    private UserLoginTask userlogintask = null;
+    private UserLoginTask mAuthTask = null;
     Conexion conn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //attemptLogin();
+
                 userlogintask = new UserLoginTask();
                 userlogintask.execute();
 
@@ -57,54 +56,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
-
-        // Reset errors.
-        mEmailView.setError(null);
-        mPasswordView.setError(null);
-
-        // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
-
-        boolean cancel = false;
-        View focusView = null;
-
-        // Check for a valid password, if the user entered one.
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        }
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-
-
-            //mAuthTask = new UserLoginTask(email, password);
-            //mAuthTask.execute((Void) null);
-        }
-    }
 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        /*private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }*/
         @Override
         protected void onPreExecute(){
 
@@ -112,45 +66,66 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-           List<Perfil> perfil = null;
+
+            //Metodo que se activa al ingresar datos al formulario y dar click al boton Registrar
+            //Esta tarea se ejecuta en segundo plano al hilo principal
+
+            List<Perfil> perfil = null;
             String email = mEmailView.getText().toString();
             String password = mPasswordView.getText().toString();
 
             int resultado = ControlServicio.obtenerRespuestaLogin(email, password);
 
             System.out.println("resultado: " + resultado);
-                /*switch(resultado){
+
+            switch(resultado){
+
                     case 1:
-                        //si es estudiante
 
-                   Intent intent = new Intent(LoginActivity.this,MateriasExistentesActivity.class);
+                        //Cuando el que se registra es un estudiante
 
-                   intent.putExtra("email",emaail);
-                   intent.putExtra("resultado",resultado);
-
-                   startActivity(intent);
+                        Intent intent = new Intent(LoginActivity.this,MateriasExistentesActivity.class);
+                        intent.putExtra("email",email);
+                        intent.putExtra("resultado",resultado);
+                        startActivity(intent);
 
                         break;
+
                     case 2:
-//otro metodo que traiga los datos del docente,
-//buscar el perfil por medio del correo usando el metodo de rodrigo obtener perfil
+
+                        //Cuando el que se registra es un docente
+                        //otro metodo que traiga los datos del docente,
+                        //buscar el perfil por medio del correo usando el metodo de rodrigo obtener perfil
                         //si es docente
                         System.out.println("soy estudiante docente");
 
                         break;
+
                     case 3:
-                        //si es administrador
+
+                        //Cuando el que se registra es un administrador
+
                         break;
+
                     case 4:
-                        //si esta mala la contra
+
+                        //Cuando la contraseña ingresada no es correcta
+
                         break;
+
                     case 5:
-                        //si esta malo el correo
+
+                        //Cuando el correo ingresado no es correcto
+
                         break;
+
                     default:
-                        //si es desconocido
+
+                        //Cuando ni el correo ni la contraseña no existe
+
                         break;
-                }*/
+
+                }
 
 
 
