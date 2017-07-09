@@ -9,6 +9,21 @@ public class Materia {
     private String nombreMateria;
     private int esTecnicaElectiva;
     private String imagenMateria;
+    private String idGrupo;
+    private String nomTipoGrupo;
+
+    public Materia() {
+    }
+
+    public Materia(int idMateria, String codigoMateria, String nombreMateria, String imagenMateria, int esTecnicaElectiva, String idGrupo, String nomTipoGrupo) {
+        this.idMateria = idMateria;
+        this.codigoMateria = codigoMateria;
+        this.nombreMateria = nombreMateria;
+        this.imagenMateria = imagenMateria;
+        this.esTecnicaElectiva = esTecnicaElectiva;
+        this.idGrupo = idGrupo;
+        this.nomTipoGrupo = nomTipoGrupo;
+    }
 
     public int getIdMateria() {
         return idMateria;
@@ -26,12 +41,12 @@ public class Materia {
         this.codigoMateria = codigoMateria;
     }
 
-    public String getNombreMateria() {
-        return nombreMateria;
+    public String getImagenMateria() {
+        return imagenMateria;
     }
 
-    public void setNombreMateria(String nombreMateria) {
-        this.nombreMateria = nombreMateria;
+    public void setImagenMateria(String imagenMateria) {
+        this.imagenMateria = imagenMateria;
     }
 
     public int getEsTecnicaElectiva() {
@@ -42,24 +57,27 @@ public class Materia {
         this.esTecnicaElectiva = esTecnicaElectiva;
     }
 
-    public String getImagenMateria() {
-        return imagenMateria;
+    public String getNombreMateria() {
+        return nombreMateria;
     }
 
-    public void setImagenMateria(String imagenMateria) {
-        this.imagenMateria = imagenMateria;
-    }
-
-    public Materia(int idMateria, String codigoMateria, String nombreMateria, int esTecnicaElectiva, String imagenMateria) {
-
-        this.idMateria = idMateria;
-        this.codigoMateria = codigoMateria;
+    public void setNombreMateria(String nombreMateria) {
         this.nombreMateria = nombreMateria;
-        this.esTecnicaElectiva = esTecnicaElectiva;
-        this.imagenMateria = imagenMateria;
     }
 
-    public Materia() {
+    public String getIdGrupo() {
+        return idGrupo;
+    }
 
+    public void setIdGrupo(String idGrupo) {
+        this.idGrupo = idGrupo;
+    }
+
+    public String getNomTipoGrupo() {
+        return nomTipoGrupo;
+    }
+
+    public void setNomTipoGrupo(String nomTipoGrupo) {
+        this.nomTipoGrupo = nomTipoGrupo;
     }
 }
