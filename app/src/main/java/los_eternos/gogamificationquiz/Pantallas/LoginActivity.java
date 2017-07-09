@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -88,6 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("email",email);
                         intent.putExtra("resultado",resultado);
                         startActivity(intent);
+                        Toast.makeText(getApplicationContext(), "Estudiante", Toast.LENGTH_SHORT).show();
 
                         break;
 
@@ -97,31 +99,41 @@ public class LoginActivity extends AppCompatActivity {
                         //otro metodo que traiga los datos del docente,
                         //buscar el perfil por medio del correo usando el metodo de rodrigo obtener perfil
                         //si es docente
-                        System.out.println("soy estudiante docente");
+                        Intent intent2 = new Intent(LoginActivity.this, MateriasExistentesActivity.class);
+                        intent2.putExtra("email", email);
+                        intent2.putExtra("resultado", resultado);
+                        startActivity(intent2);
+                        Toast.makeText(getApplicationContext(), "Docente", Toast.LENGTH_SHORT).show();
 
                         break;
 
                     case 3:
 
                         //Cuando el que se registra es un administrador
+                        Toast.makeText(getApplicationContext(), "Administrador", Toast.LENGTH_SHORT).show();
 
                         break;
 
                     case 4:
 
                         //Cuando la contraseña ingresada no es correcta
+                        mPasswordView.setError(getString(R.string.error_incorrect_password));
+                        mPasswordView.requestFocus();
 
                         break;
 
                     case 5:
 
                         //Cuando el correo ingresado no es correcto
+                        mEmailView.setError(getString(R.string.error_invalid_email));
+                        mEmailView.requestFocus();
 
                         break;
 
                     default:
 
                         //Cuando ni el correo ni la contraseña no existe
+                        Toast.makeText(getApplicationContext(), "No existe el usuario", Toast.LENGTH_SHORT).show();
 
                         break;
 
@@ -139,13 +151,8 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = null;
 
             if (success) {
-                    Intent NavBar = new Intent(getApplicationContext(), MateriasExistentesActivity.class);
-                    startActivity(NavBar);
                     finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
+            } 
         }
 
         @Override
