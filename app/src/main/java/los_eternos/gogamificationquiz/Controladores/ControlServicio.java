@@ -73,7 +73,6 @@ public class ControlServicio {
         return respuesta;
     }
 
-
     public static List<Perfil> obtenerPerfil(String peticion, Context ctx) {
         String json = obtenerRespuestaPeticion(peticion, ctx);
         List<Perfil> listaPerfil = new ArrayList<Perfil>();
@@ -95,9 +94,41 @@ public class ControlServicio {
             Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
             return null;
         }
+    }
 
+    public static int obtenerRespuestaLogin(String email, String password){
+
+        int resultado = 6;
+        HttpClient cliente = new DefaultHttpClient();
+        String url = "";
+        Conexion conn = new Conexion();
+        url += conn.getURLLocal() + "loginapp";
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("content-type", "application/json");
+        try{
+            JSONObject dato = new JSONObject();
+            dato.put("email", email);
+            dato.put("password", password);
+            StringEntity entity = new StringEntity(dato.toString());
+            httpPost.setEntity(entity);
+            HttpResponse resp = cliente.execute(httpPost);
+
+            StatusLine estado = resp.getStatusLine();
+            System.out.println("estado: " + estado);
+            //int codigoEstado = estado.getStatusCode();
+            resultado = Integer.parseInt(EntityUtils.toString(resp.getEntity()));
+
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.v("ERROR_DESCONOCIDO",e.getMessage());
+
+        }
+
+        return resultado;
 
     }
+
 
 
 

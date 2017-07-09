@@ -10,17 +10,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
-import los_eternos.gogamificationquiz.Controladores.ServiciosController;
+
+import java.util.List;
+
+import los_eternos.gogamificationquiz.Controladores.ControlServicio;
 import los_eternos.gogamificationquiz.Controladores.Conexion;
+import los_eternos.gogamificationquiz.Modelo.Perfil;
 import los_eternos.gogamificationquiz.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -117,25 +112,23 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
+           List<Perfil> perfil = null;
             String email = mEmailView.getText().toString();
             String password = mPasswordView.getText().toString();
 
-            int resultado = ServiciosController.obtenerRespuestaLogin(email, password);
+            int resultado = ControlServicio.obtenerRespuestaLogin(email, password);
 
             System.out.println("resultado: " + resultado);
                 /*switch(resultado){
                     case 1:
                         //si es estudiante
-//otro metodo que traiga los datos del estudiante
 
-                    Perfil = ServiciosController.obtenerPerfil(correo,getActivity);
+                   Intent intent = new Intent(LoginActivity.this,MateriasExistentesActivity.class);
 
-                    poner imagen del perfil en el drawer y el correo.
+                   intent.putExtra("email",emaail);
+                   intent.putExtra("resultado",resultado);
 
-                   materias = ServiciosController.obtenerMaterias(perfil);
-
-                   intent.Activity(materias);
+                   startActivity(intent);
 
                         break;
                     case 2:
