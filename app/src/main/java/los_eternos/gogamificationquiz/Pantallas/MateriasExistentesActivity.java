@@ -13,6 +13,31 @@ public class MateriasExistentesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_materias_existentes);
+
+        //recibir el correo del login
+        // Bundle datos = null;
+
+        //String datos = getIntent().getExtras();
+        //int tipoUsuario = datos.getInt("resultado");
+
+
+        //buscar el perfil
+        /*
+            List<Perfil> perfill = null;
+            Conexion c = new Conexion();
+            String url = "";
+
+            url+= c.getURLLocal()+ "perfil/" +datos.getString("email");
+
+             perfil = ControlServicio.obtenerPerfil(url,getActivity());
+
+         */
+
+
+        //buscar materias inscritas
+
+        //hacer el metodo
+
     }
 
     public void navegabilidad(View view){

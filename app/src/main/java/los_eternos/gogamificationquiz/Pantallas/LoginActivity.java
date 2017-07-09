@@ -10,16 +10,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
+
+import java.util.List;
+
+import los_eternos.gogamificationquiz.Controladores.ControlServicio;
 import los_eternos.gogamificationquiz.Controladores.Conexion;
+import los_eternos.gogamificationquiz.Modelo.Perfil;
 import los_eternos.gogamificationquiz.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -30,29 +26,31 @@ public class LoginActivity extends AppCompatActivity {
     // UI references.
     private EditText mEmailView;
     private EditText mPasswordView;
+    private UserLoginTask userlogintask =null;
     Conexion conn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Valores iniciales de los objetos de esta clase
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         // Set up the login form.
+
         mEmailView = (EditText) findViewById(R.id.email);
-
-
         mPasswordView = (EditText) findViewById(R.id.password);
-
         conn=new Conexion();
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                //attemptLogin();
+                userlogintask = new UserLoginTask();
+                userlogintask.execute();
 
             }
         });
-
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -93,20 +91,20 @@ public class LoginActivity extends AppCompatActivity {
             // perform the user login attempt.
 
 
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            //mAuthTask = new UserLoginTask(email, password);
+            //mAuthTask.execute((Void) null);
         }
     }
 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mEmail;
+        /*private final String mEmail;
         private final String mPassword;
 
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
-        }
+        }*/
         @Override
         protected void onPreExecute(){
 
@@ -114,31 +112,28 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // Creando objetos de conexion
-            HttpClient cliente = new DefaultHttpClient();
-            String url = "";
-            url += conn.getURLLocal() + "loginapp";
-            HttpPost httpPost = new HttpPost(url);
+            List<Perfil> perfil = null;
+            String email = mEmailView.getText().toString();
+            String password = mPasswordView.getText().toString();
 
-            httpPost.setHeader("content-type", "application/json");
-            try{
-                JSONObject dato = new JSONObject();
-                dato.put("email", mEmailView);
-                dato.put("password", mPasswordView);
-                StringEntity entity = new StringEntity(dato.toString());
-                httpPost.setEntity(entity);
-                HttpResponse resp = cliente.execute(httpPost);
+            int resultado = ControlServicio.obtenerRespuestaLogin(email, password);
 
-                StatusLine estado = resp.getStatusLine();
-                int codigoEstado = estado.getStatusCode();
-                int resultado = Integer.parseInt(EntityUtils.toString(resp.getEntity())) ;
-                System.out.println(resultado);
-                switch(resultado){
+            System.out.println("resultado: " + resultado);
+                /*switch(resultado){
                     case 1:
                         //si es estudiante
 
+                   Intent intent = new Intent(LoginActivity.this,MateriasExistentesActivity.class);
+
+                   intent.putExtra("email",emaail);
+                   intent.putExtra("resultado",resultado);
+
+                   startActivity(intent);
+
                         break;
                     case 2:
+//otro metodo que traiga los datos del docente,
+//buscar el perfil por medio del correo usando el metodo de rodrigo obtener perfil
                         //si es docente
                         System.out.println("soy estudiante docente");
 
@@ -155,17 +150,13 @@ public class LoginActivity extends AppCompatActivity {
                     default:
                         //si es desconocido
                         break;
-                }
+                }*/
 
 
 
-            }catch (Exception e){
-                e.printStackTrace();
-                Log.v("ERROR_DESCONOCIDO",e.getMessage());
 
-            }
 
-        return true;
+            return true;
         }
 
         @Override
@@ -173,9 +164,9 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = null;
 
             if (success) {
-                    Intent NavBar = new Intent(getApplicationContext(), MateriasExistentesActivity.class);
-                    startActivity(NavBar);
-                    finish();
+                Intent NavBar = new Intent(getApplicationContext(), MateriasExistentesActivity.class);
+                startActivity(NavBar);
+                finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
@@ -195,4 +186,3 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 }
-
