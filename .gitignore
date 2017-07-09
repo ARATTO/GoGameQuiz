@@ -45,3 +45,6 @@ local.properties
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+#clases que no deben cambiar
+app/src/main/java/los_eternos/gogamificationquiz/Controladores/Conexion.java 
