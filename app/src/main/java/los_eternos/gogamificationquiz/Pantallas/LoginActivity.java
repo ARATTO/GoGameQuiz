@@ -11,23 +11,20 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.util.List;
-
 import los_eternos.gogamificationquiz.Controladores.ControlServicio;
 import los_eternos.gogamificationquiz.Controladores.Conexion;
-import los_eternos.gogamificationquiz.Modelo.Perfil;
 import los_eternos.gogamificationquiz.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // UI references.
+
+    private UserLoginTask mAuthTask = null;
+
+    // Variables globales de la clase
     private EditText mEmailView;
     private EditText mPasswordView;
-    private UserLoginTask userlogintask = null;
-    private UserLoginTask mAuthTask = null;
+    private UserLoginTask userlogintask =null;
     Conexion conn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Set up the login form.
+        //Obteniendo datos del formulario.
 
         mEmailView = (EditText) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -45,7 +42,8 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                attemptLogin();//No se que hace, pero hace algo y es util jajajaja xDD
+                //Clase asincrona
                 userlogintask = new UserLoginTask();
                 userlogintask.execute();
 
@@ -57,8 +55,51 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    private void attemptLogin() {
+        if (mAuthTask != null) {
+            return;
+        }
+
+        // Reset errors.
+        mEmailView.setError(null);
+        mPasswordView.setError(null);
+
+        // Store values at the time of the login attempt.
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // Check for a valid password, if the user entered one.
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+
+
+            //mAuthTask = new UserLoginTask(email, password);
+            //mAuthTask.execute((Void) null);
+        }
+    }
 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        //Variables globales de la subclase
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
+        int resultado;
 
         @Override
         protected void onPreExecute(){
@@ -68,82 +109,10 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
 
-            //Metodo que se activa al ingresar datos al formulario y dar click al boton Registrar
-            //Esta tarea se ejecuta en segundo plano al hilo principal
+            //Metodo que verifica el email y la contraseña del usuario
+            resultado = ControlServicio.obtenerRespuestaLogin(email, password);
 
-            List<Perfil> perfil = null;
-            String email = mEmailView.getText().toString();
-            String password = mPasswordView.getText().toString();
-
-            int resultado = ControlServicio.obtenerRespuestaLogin(email, password);
-
-            System.out.println("resultado: " + resultado);
-
-            switch(resultado){
-
-                    case 1:
-
-                        //Cuando el que se registra es un estudiante
-
-                        Intent intent = new Intent(LoginActivity.this,MateriasExistentesActivity.class);
-                        intent.putExtra("email",email);
-                        intent.putExtra("resultado",resultado);
-                        startActivity(intent);
-                        Toast.makeText(getApplicationContext(), "Estudiante", Toast.LENGTH_SHORT).show();
-
-                        break;
-
-                    case 2:
-
-                        //Cuando el que se registra es un docente
-                        //otro metodo que traiga los datos del docente,
-                        //buscar el perfil por medio del correo usando el metodo de rodrigo obtener perfil
-                        //si es docente
-                        Intent intent2 = new Intent(LoginActivity.this, MateriasExistentesActivity.class);
-                        intent2.putExtra("email", email);
-                        intent2.putExtra("resultado", resultado);
-                        startActivity(intent2);
-                        Toast.makeText(getApplicationContext(), "Docente", Toast.LENGTH_SHORT).show();
-
-                        break;
-
-                    case 3:
-
-                        //Cuando el que se registra es un administrador
-                        Toast.makeText(getApplicationContext(), "Administrador", Toast.LENGTH_SHORT).show();
-
-                        break;
-
-                    case 4:
-
-                        //Cuando la contraseña ingresada no es correcta
-                        mPasswordView.setError(getString(R.string.error_incorrect_password));
-                        mPasswordView.requestFocus();
-
-                        break;
-
-                    case 5:
-
-                        //Cuando el correo ingresado no es correcto
-                        mEmailView.setError(getString(R.string.error_invalid_email));
-                        mEmailView.requestFocus();
-
-                        break;
-
-                    default:
-
-                        //Cuando ni el correo ni la contraseña no existe
-                        Toast.makeText(getApplicationContext(), "No existe el usuario", Toast.LENGTH_SHORT).show();
-
-                        break;
-
-                }
-
-
-
-
-
-        return true;
+            return true;
         }
 
         @Override
@@ -151,8 +120,63 @@ public class LoginActivity extends AppCompatActivity {
             mAuthTask = null;
 
             if (success) {
-                    finish();
-            } 
+
+                System.out.println(resultado);
+
+                switch(resultado){
+
+                    case 1:
+
+                        //Cuando el usuario sea un estudiante
+                        Intent intent = new Intent(getApplicationContext(), MateriasExistentesActivity.class);
+                        intent.putExtra("email", email);
+                        intent.putExtra("password", password);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(), "Estudiante", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case 2:
+
+                        //Cuando el usuario sea un docente
+                        Intent intent2 = new Intent(getApplicationContext(), MateriasExistentesActivity.class);
+                        intent2.putExtra("email", email);
+                        intent2.putExtra("password", password);
+                        startActivity(intent2);
+                        Toast.makeText(getApplicationContext(), "Docente", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case 3:
+
+                        //Cuando el usuario sea un administrador
+                        Toast.makeText(getApplicationContext(), "Administrador", Toast.LENGTH_SHORT).show();
+                        Intent intent3 = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent3);
+                        break;
+
+                    case 4:
+
+                        //Cuando la contraseña es incorrecta
+                        Toast.makeText(getApplicationContext(), "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
+                        Intent intent4 = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent4);
+                        break;
+
+                    default:
+
+                        //Cuando el usuario no existe
+                        System.out.println("No sirve");
+                        Toast.makeText(getApplicationContext(), "El usuario no existe", Toast.LENGTH_SHORT).show();
+                        Intent intent5 = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent5);
+                }
+
+                finish();
+
+            } else {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+            }
+
         }
 
         @Override
@@ -168,4 +192,3 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 }
-
