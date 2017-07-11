@@ -39,11 +39,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import los_eternos.gogamificationquiz.Modelo.Grupo;
+import los_eternos.gogamificationquiz.Modelo.Materia;
 import los_eternos.gogamificationquiz.Modelo.Perfil;
 
 public class ControlServicio {
 
-
+    //Metodo de Rodrigo para obtener las peticiones y respuestas
     public static String obtenerRespuestaPeticion(String url, Context ctx) {
         String respuesta = " ";
 
@@ -73,6 +75,7 @@ public class ControlServicio {
         return respuesta;
     }
 
+    //Metodo de Rodrigo para obtener el perfil
     public static List<Perfil> obtenerPerfil(String peticion, Context ctx) {
         String json = obtenerRespuestaPeticion(peticion, ctx);
         List<Perfil> listaPerfil = new ArrayList<Perfil>();
@@ -96,8 +99,73 @@ public class ControlServicio {
         }
     }
 
+    public static String obtenerRespuestaMateria(String email, int resultado){
+
+        String respuesta = " ";
+
+        HttpClient cliente = new DefaultHttpClient();
+        String url = "";
+        Conexion conn = new Conexion();
+        url += conn.getURLLocal() + "materiasExistentes";
+
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("content-type", "application/json");
+        try{
+            JSONObject dato = new JSONObject();
+            dato.put("email", email);
+            dato.put("resultado", resultado);
+            StringEntity entity = new StringEntity(dato.toString());
+            httpPost.setEntity(entity);
+            HttpResponse resp = cliente.execute(httpPost);
+
+            StatusLine estado = resp.getStatusLine();
+            System.out.println("estado: " + estado);
+            //int codigoEstado = estado.getStatusCode();
+            respuesta = EntityUtils.toString(resp.getEntity());
+
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.v("ERROR_DESCONOCIDO",e.getMessage());
+
+        }
+
+        return respuesta;
+
+
+    }
+
+    public static List<Materia> obtenerMaterias(String email, int resultado, Context ctx) {
+        String json = obtenerRespuestaMateria(email, resultado);
+        List<Materia> listaMateria = new ArrayList<Materia>();
+        try {
+            JSONArray librosJSON = new JSONArray(json);
+            for (int i = 0; i < librosJSON.length(); i++) {
+                JSONObject obj = librosJSON.getJSONObject(i);
+                Materia materia = new Materia();
+                materia.setIdMateria(obj.getInt("IDMATERIA"));
+                materia.setIdGrupo(obj.getInt("IDGRUPO"));
+                materia.setNombreDocente(obj.getString("NOMBREDOCENTE"));
+                materia.setNombreMateria(obj.getString("NOMBREMATERIA"));
+                materia.setCodigoMateria(obj.getString("CODIGOMATERIA"));
+                materia.setNombreGrupo(obj.getString("CODIGOGRUPO"));
+                materia.setImagenMateria(obj.getString("IMAGENMATERIA"));
+
+                listaMateria.add(materia);
+            }
+            return listaMateria;
+        } catch (Exception e) {
+            Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
+            return null;
+        }
+    }
+
+
+
+    //Metodo de Alam para verificar los datos del usuario en el login
     public static int obtenerRespuestaLogin(String email, String password){
 
+        //Verifica que el email y password ingresados existan
         int resultado = 6;
         HttpClient cliente = new DefaultHttpClient();
         String url = "";

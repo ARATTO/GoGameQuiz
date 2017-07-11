@@ -9,6 +9,7 @@ public class Docente {
     private String carnetDocente;
 
     public Docente() {
+
     }
 
     public Docente(String idDocente, String nomDocente, String carnetDocente) {
