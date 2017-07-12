@@ -116,7 +116,6 @@ public class MedallasFragment extends Fragment {
             holder.name.setText(mPlaces[position % mPlaces.length]);
             holder.description.setText(mPlaceDesc[position % mPlaceDesc.length]);
 
-            System.out.println(holder.picture.get);
         }
 
         @Override
