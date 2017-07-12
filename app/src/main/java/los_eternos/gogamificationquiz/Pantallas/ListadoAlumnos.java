@@ -6,11 +6,13 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -212,6 +214,43 @@ public class ListadoAlumnos extends Fragment {
         public static Bitmap decodeBase64(String input){
             byte[] decodedByte = Base64.decode(input, 0);
             return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+        }
+    }
+
+
+
+    public class LlenadoTask extends AsyncTask<Void, Void, Boolean> {
+
+
+        @Override
+        protected void onPreExecute(){
+
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+
+            return true;
+        }
+
+        /*@Override
+        protected void onProgressUpdate(Integer... progress) {
+            publishProgress(progress);
+        }*/
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+
+        }
+
+        @Override
+        protected void onCancelled() {
+            try {
+                this.finalize();
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+                Log.v("ERROR_ASYNC", throwable.getMessage());
+            }
         }
     }
 }

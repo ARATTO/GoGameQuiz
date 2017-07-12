@@ -42,6 +42,7 @@ import java.util.List;
 import los_eternos.gogamificationquiz.Modelo.Materia;
 import los_eternos.gogamificationquiz.Modelo.MostrarActividades;
 import los_eternos.gogamificationquiz.Modelo.MostrarAlumnos;
+import los_eternos.gogamificationquiz.Modelo.MostrarCuestionario;
 import los_eternos.gogamificationquiz.Modelo.MostrarMedallas;
 
 import los_eternos.gogamificationquiz.Modelo.Perfil;
@@ -362,9 +363,56 @@ public class ControlServicio {
         }
     }
 
+    public static String obtenerRespuestaCuestionario(String idMateria,String idGrupo, Context ctx){
+        String resultado = "";
+        HttpClient cliente = new DefaultHttpClient();
+        String url = "";
+        Conexion conn = new Conexion();
+        url += conn.getURLLocal() + "cuestionariosapp";
+        HttpPost httpPost = new HttpPost(url);
 
+        httpPost.setHeader("content-type", "application/json");
+        try{
+            JSONObject dato = new JSONObject();
+            dato.put("Grupo", idGrupo);
+            dato.put("Materia", idMateria);
+            StringEntity entity = new StringEntity(dato.toString());
+            httpPost.setEntity(entity);
+            HttpResponse resp = cliente.execute(httpPost);
 
+            StatusLine estado = resp.getStatusLine();
+            System.out.println("estado: " + estado);
+            //int codigoEstado = estado.getStatusCode();
+            resultado = (EntityUtils.toString(resp.getEntity()));
+            System.out.println(resultado);
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.v("ERROR_DESCONOCIDO",e.getMessage());
 
+        }
 
+        return resultado;
+    }
 
+    public static ArrayList<MostrarCuestionario> obtenerCuestionario( String im, String ig,Context ctx) {
+        String json = obtenerRespuestaCuestionario(im,ig, ctx);
+        ArrayList<MostrarCuestionario> listaCuestionario = new ArrayList<MostrarCuestionario>();
+        System.out.println("json"+json);
+        try {
+            JSONArray cuestionariosJSON = new JSONArray(json);
+            for (int i = 0; i < cuestionariosJSON.length(); i++) {
+                JSONObject obj = cuestionariosJSON.getJSONObject(i);
+                MostrarCuestionario cuestionario = new MostrarCuestionario();
+                cuestionario.setNombre(obj.getString("nombrecuestionario"));
+                cuestionario.setDuracion(obj.getString("duracioncuestionario"));
+
+                listaCuestionario.add(cuestionario);
+            }
+            return listaCuestionario;
+        } catch (Exception e) {
+            System.out.println(e);
+            Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
+            return null;
+        }
+    }
 }

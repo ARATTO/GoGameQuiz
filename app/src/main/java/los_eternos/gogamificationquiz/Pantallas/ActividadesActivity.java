@@ -33,6 +33,7 @@ import los_eternos.gogamificationquiz.Controladores.Conexion;
 import los_eternos.gogamificationquiz.Controladores.ControlServicio;
 import los_eternos.gogamificationquiz.Modelo.MostrarActividades;
 import los_eternos.gogamificationquiz.Modelo.MostrarAlumnos;
+import los_eternos.gogamificationquiz.Modelo.MostrarCuestionario;
 import los_eternos.gogamificationquiz.Modelo.MostrarMedallas;
 import los_eternos.gogamificationquiz.R;
 
@@ -43,6 +44,7 @@ public class ActividadesActivity extends AppCompatActivity {
     private ArrayList<MostrarAlumnos> alumnos;
     private ArrayList<MostrarMedallas> medallas;
     private ArrayList<MostrarActividades> actividades;
+    private ArrayList<MostrarCuestionario> cuestionarios;
     private DrawerLayout mDrawerLayout;
     static  public TabLayout tabs;
 
@@ -61,9 +63,6 @@ public class ActividadesActivity extends AppCompatActivity {
         idmateria += inte.getStringExtra("idmateria");
         idgrupo += inte.getStringExtra("idgrupo");*/
 
-        /*LlenadoDatos llenado = new LlenadoDatos();
-        llenado.execute();*/
-
         //Consulta de alumnos por materia y grupo
         alumnos = ControlServicio.obtenerAlumnos(idmateria,idgrupo,ActividadesActivity.this);
         //Termina Consulta de alumnos por materia y grupo
@@ -75,19 +74,22 @@ public class ActividadesActivity extends AppCompatActivity {
         //Consulta de actividades por materia y grupo
         actividades = ControlServicio.obtenerActividades(idmateria,idgrupo,ActividadesActivity.this);
         //Termina Consulta de actividades por materia y grupo
+
+        //Consulta de actividades por materia y grupo
+        cuestionarios = ControlServicio.obtenerCuestionario(idmateria,idgrupo,ActividadesActivity.this);
+        //Termina Consulta de actividades por materia y grupo
+
+
         /*AGREGANDO TOOLBAR*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
                 /*AGREGANDO MOVILIDAD A LA TOOLBAR*/
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager, alumnos, medallas, actividades);
+        setupViewPager(viewPager, alumnos, medallas, actividades, cuestionarios);
 
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-
-
-
     }
 
 
@@ -105,13 +107,14 @@ public class ActividadesActivity extends AppCompatActivity {
 
 
 
-    private void setupViewPager(ViewPager viewPager, ArrayList<MostrarAlumnos> alumnos, ArrayList<MostrarMedallas> medallas, ArrayList<MostrarActividades> actividades ) {
+    private void setupViewPager(ViewPager viewPager, ArrayList<MostrarAlumnos> alumnos, ArrayList<MostrarMedallas> medallas, ArrayList<MostrarActividades> actividades, ArrayList<MostrarCuestionario> cuestionarios ) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
 
         /*CREO LOS FRAGMENTS*/
         ListadoMedallas medals = new ListadoMedallas();
         ListadoAlumnos alums = new ListadoAlumnos();
         Actividades activis = new Actividades();
+        ListadoCuestionario cuestios = new ListadoCuestionario();
         /*CREO LOS FRAGMENTS*/
 
 
@@ -145,6 +148,14 @@ public class ActividadesActivity extends AppCompatActivity {
             puntos.add(act.getIdtipo());
         }
 
+        ArrayList<String> nombrec = new ArrayList<>();
+        ArrayList<String> duracionc = new ArrayList<>();
+
+        for (MostrarCuestionario act:cuestionarios){
+            nombrec.add(act.getNombre());
+            duracionc.add(act.getDuracion());
+        }
+
         /*LE MANDO PARAMETROS AL FRAGMENT QUE HE CREADO*/
         Bundle parametro = new Bundle();
         parametro.putStringArrayList("nombre",nombre);
@@ -164,7 +175,6 @@ public class ActividadesActivity extends AppCompatActivity {
         parametro2.putStringArrayList("ids_medalla",id_medalla);
         medals.setArguments(parametro2);
 
-
         Bundle parametro3 = new Bundle();
         parametro3.putStringArrayList("nombre",nombres);
         parametro3.putStringArrayList("puntos",puntos);
@@ -172,15 +182,20 @@ public class ActividadesActivity extends AppCompatActivity {
         parametro3.putString("idmateria",idmateria);
         activis.setArguments(parametro3);
 
-
+        Bundle parametro4 = new Bundle();
+        parametro4.putStringArrayList("nombrec",nombrec);
+        parametro4.putStringArrayList("duracionc",duracionc);
+        parametro4.putString("idgrupo",idgrupo);
+        parametro4.putString("idmateria",idmateria);
+        cuestios.setArguments(parametro4);
 
         /*LE MANDO PARAMETROS AL FRAGMENT QUE HE CREADO*/
-
 
         /*AGREGO EL NUEVO FRAGMENT COMO UNA TAB*/
         adapter.addFragment(alums, "Alumnos");
         adapter.addFragment(medals,"Medallas");
-        adapter.addFragment(activis, "Actividades");
+        adapter.addFragment(activis, "Actividad");
+        adapter.addFragment(cuestios,"Quiz");
 
             /*AJUSTA EL TAMAÑO DE LAS TABS*/
         viewPager.setAdapter(adapter);
@@ -247,5 +262,6 @@ public class ActividadesActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     */
+
 
 }
