@@ -29,7 +29,7 @@ package los_eternos.gogamificationquiz.Pantallas;
 public class Actividades extends Fragment {
 
     ArrayList<String> nombre=null;
-    ArrayList<String> idtipo=null;
+    ArrayList<String> puntos=null;
     String idgrupo="";
     String nommateria="";
 
@@ -56,12 +56,12 @@ public class Actividades extends Fragment {
         ViewHolder.nommateria=nommateria;
 
         nombre = b;
-        idtipo = c;
+        puntos = c;
 
         //return inflater.inflate(R.layout.item_alumnos, null);
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
 
-        ContentAdapter adapter = new ContentAdapter(recyclerView.getContext(),nombre,idtipo);
+        ContentAdapter adapter = new ContentAdapter(recyclerView.getContext(),nombre,puntos);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -71,7 +71,7 @@ public class Actividades extends Fragment {
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView name;
-        public TextView idtipo;
+        public TextView puntos;
         public static String idgrupo="";
         public static String nommateria="";
 
@@ -80,7 +80,7 @@ public class Actividades extends Fragment {
             super(inflater.inflate(R.layout.item_actividades, parent, false));
 
             name = (TextView) itemView.findViewById(R.id.nombre);
-            idtipo = (TextView) itemView.findViewById(R.id.descripcion);
+            puntos = (TextView) itemView.findViewById(R.id.descripcion);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -130,7 +130,7 @@ public class Actividades extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.name.setText(nombre[position % nombre.length]);
-            holder.idtipo.setText(descripcion[position % descripcion.length]);
+            holder.puntos.setText(descripcion[position % descripcion.length]);
         }
 
         @Override
