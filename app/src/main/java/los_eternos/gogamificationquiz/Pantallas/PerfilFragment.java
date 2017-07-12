@@ -40,7 +40,7 @@ public class PerfilFragment extends Fragment {
         String url="";
 
 
-        url += con.getURLLocal()+"perfil/1";
+        url += con.getURLLocal()+"perfil/elias_barrera@hotmail.com";
 
         List<Perfil> perfil = null;
 
