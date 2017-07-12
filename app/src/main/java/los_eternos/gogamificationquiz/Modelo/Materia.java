@@ -9,21 +9,41 @@ public class Materia {
     private String nombreMateria;
     private int esTecnicaElectiva;
     private String imagenMateria;
-    private String idGrupo;
+    private int idGrupo;
+    private String nombreDocente;
     private String nomTipoGrupo;
+    private String codigoGrupo;
 
     public Materia() {
     }
 
-    public Materia(int idMateria, String codigoMateria, String nombreMateria, String imagenMateria, int esTecnicaElectiva, String idGrupo, String nomTipoGrupo) {
+    public Materia(int idMateria, String codigoMateria, String nombreMateria, String imagenMateria, int esTecnicaElectiva, String nomTipoGrupo) {
         this.idMateria = idMateria;
         this.codigoMateria = codigoMateria;
         this.nombreMateria = nombreMateria;
         this.imagenMateria = imagenMateria;
         this.esTecnicaElectiva = esTecnicaElectiva;
-        this.idGrupo = idGrupo;
         this.nomTipoGrupo = nomTipoGrupo;
     }
+
+    public Materia(String nombreMateria, String codigoMateria, String codigoGrupo, String imagenMateria){
+        this.nombreMateria = nombreMateria;
+        this.codigoMateria = codigoMateria;
+        this.codigoGrupo = codigoGrupo;
+        this.imagenMateria = imagenMateria;
+    }
+
+    public String getNombreDocente() { return nombreDocente; }
+
+    public void setNombreDocente(String nombreDocente) { this.nombreDocente = nombreDocente; }
+
+    public String getNombreGrupo() { return codigoGrupo; }
+
+    public void setNombreGrupo(String nombreGrupo) { this.codigoGrupo = nombreGrupo; }
+
+    public int getIdGrupo() { return idGrupo; }
+
+    public void setIdGrupo(int idGrupo) { this.idGrupo = idGrupo; }
 
     public int getIdMateria() {
         return idMateria;
@@ -63,14 +83,6 @@ public class Materia {
 
     public void setNombreMateria(String nombreMateria) {
         this.nombreMateria = nombreMateria;
-    }
-
-    public String getIdGrupo() {
-        return idGrupo;
-    }
-
-    public void setIdGrupo(String idGrupo) {
-        this.idGrupo = idGrupo;
     }
 
     public String getNomTipoGrupo() {
