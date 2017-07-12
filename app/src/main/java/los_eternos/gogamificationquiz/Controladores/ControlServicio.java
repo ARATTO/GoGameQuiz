@@ -39,6 +39,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import los_eternos.gogamificationquiz.Modelo.MostrarActividades;
+import los_eternos.gogamificationquiz.Modelo.MostrarAlumnos;
+import los_eternos.gogamificationquiz.Modelo.MostrarMedallas;
 import los_eternos.gogamificationquiz.Modelo.Perfil;
 
 public class ControlServicio {
@@ -127,6 +130,168 @@ public class ControlServicio {
 
         return resultado;
 
+    }
+
+    public static String obtenerRespuestaAlumnos(String idmateria, String idGrupo, Context ctx){
+        String resultado=null;
+        HttpClient cliente = new DefaultHttpClient();
+        String url = "";
+        Conexion conn = new Conexion();
+        url += conn.getURLLocal() + "alumnos";
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("content-type", "application/json");
+        try{
+
+            JSONObject dato = new JSONObject();
+            dato.put("Materia", idmateria);
+            dato.put("Grupo", idGrupo);
+            StringEntity entity = new StringEntity(dato.toString());
+            httpPost.setEntity(entity);
+
+            HttpResponse resp = cliente.execute(httpPost);
+
+            StatusLine estado = resp.getStatusLine();
+            System.out.println("estado: " + estado);
+            //int codigoEstado = estado.getStatusCode();
+            resultado = (EntityUtils.toString(resp.getEntity()));
+
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.v("ERROR_DESCONOCIDO",e.getMessage());
+
+        }
+
+        return resultado;
+    }
+
+    public static ArrayList<MostrarAlumnos> obtenerAlumnos( String im, String ig,Context ctx) {
+        String json = obtenerRespuestaAlumnos(im,ig, ctx);
+        ArrayList<MostrarAlumnos> listaAlumnos = new ArrayList<MostrarAlumnos>();
+        try {
+            JSONArray alumnosJSON = new JSONArray(json);
+            for (int i = 0; i < alumnosJSON.length(); i++) {
+                JSONObject obj = alumnosJSON.getJSONObject(i);
+                MostrarAlumnos alumnos = new MostrarAlumnos();
+                alumnos.setCARNET(obj.getString("carnetestudiante"));
+                alumnos.setNOMALUMNO(obj.getString("nombreestudiante"));
+                alumnos.setFOTOPERFIL(obj.getString("imagenperfil"));
+
+                listaAlumnos.add(alumnos);
+            }
+            return listaAlumnos;
+        } catch (Exception e) {
+            System.out.println(e);
+            Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
+            return null;
+        }
+    }
+
+    //OBTENER LAS MEDALLAS DE LA MATERIA
+    public static String obtenerRespuestaMedallas(String idmateria,Context ctx){
+        String resultado = "";
+        HttpClient cliente = new DefaultHttpClient();
+        String url = "";
+        Conexion conn = new Conexion();
+        url += conn.getURLLocal() + "medallasapp";
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("content-type", "application/json");
+        try{
+            JSONObject dato = new JSONObject();
+            dato.put("Materia", idmateria);
+            StringEntity entity = new StringEntity(dato.toString());
+            httpPost.setEntity(entity);
+            HttpResponse resp = cliente.execute(httpPost);
+
+            StatusLine estado = resp.getStatusLine();
+            System.out.println("estado: " + estado);
+            //int codigoEstado = estado.getStatusCode();
+            resultado = (EntityUtils.toString(resp.getEntity()));
+
+        }catch (Exception e){
+
+            e.printStackTrace();
+            Log.v("ERROR_DESCONOCIDO",e.getMessage());
+
+        }
+
+        return resultado;
+    }
+
+    public static ArrayList<MostrarMedallas> obtenerMedallas( String im,Context ctx) {
+        String json = obtenerRespuestaMedallas(im, ctx);
+        ArrayList<MostrarMedallas> listaMedallas = new ArrayList<MostrarMedallas>();
+        try {
+            JSONArray medallasJSON = new JSONArray(json);
+            for (int i = 0; i < medallasJSON.length(); i++) {
+                JSONObject obj = medallasJSON.getJSONObject(i);
+                MostrarMedallas medallas = new MostrarMedallas();
+                medallas.setId_medalla(obj.getString("id"));
+                medallas.setFoto(obj.getString("imagenmedalla"));
+                medallas.setNommedalla(obj.getString("nombremedalla"));
+
+                listaMedallas.add(medallas);
+            }
+            return listaMedallas;
+        } catch (Exception e) {
+            System.out.println(e);
+            Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
+            return null;
+        }
+    }
+
+    public static String obtenerRespuestaActividades(String idMateria,String idGrupo, Context ctx){
+        String resultado = "";
+        HttpClient cliente = new DefaultHttpClient();
+        String url = "";
+        Conexion conn = new Conexion();
+        url += conn.getURLLocal() + "actividadesapp";
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("content-type", "application/json");
+        try{
+            JSONObject dato = new JSONObject();
+            dato.put("Grupo", idGrupo);
+            dato.put("Materia", idMateria);
+            StringEntity entity = new StringEntity(dato.toString());
+            httpPost.setEntity(entity);
+            HttpResponse resp = cliente.execute(httpPost);
+
+            StatusLine estado = resp.getStatusLine();
+            System.out.println("estado: " + estado);
+            //int codigoEstado = estado.getStatusCode();
+            resultado = (EntityUtils.toString(resp.getEntity()));
+            System.out.println(resultado);
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.v("ERROR_DESCONOCIDO",e.getMessage());
+
+        }
+
+        return resultado;
+    }
+
+    public static ArrayList<MostrarActividades> obtenerActividades( String im, String ig,Context ctx) {
+        String json = obtenerRespuestaActividades(im,ig, ctx);
+        ArrayList<MostrarActividades> listaActividades = new ArrayList<MostrarActividades>();
+        System.out.println("json"+json);
+        try {
+            JSONArray actividadesJSON = new JSONArray(json);
+            for (int i = 0; i < actividadesJSON.length(); i++) {
+                JSONObject obj = actividadesJSON.getJSONObject(i);
+                MostrarActividades actividades = new MostrarActividades();
+                actividades.setIdtipo(obj.getString("puntosactividad"));
+                actividades.setNombre(obj.getString("nombreactividad"));
+
+                listaActividades.add(actividades);
+            }
+            return listaActividades;
+        } catch (Exception e) {
+            System.out.println(e);
+            Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
+            return null;
+        }
     }
 
 

@@ -19,6 +19,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="item_title"> </string>
+    <string name="item_desc"> </string>
 
     <!-- INICIO STRINGS CUESTIONARIO -->
 
@@ -38,5 +40,8 @@
     <!-- INICIO STRINGS LEADERBOARDS -->
     <string name="yearBusquedaString">Año de tabla de lideres</string>
     <!-- FIN STRINGS LEADERBOARDS -->
+
+    <string name="btn_cancel">Cancelar</string>
+    <string name="btn_asignar_todos">Asignar a todos</string>
 
 </resources>
