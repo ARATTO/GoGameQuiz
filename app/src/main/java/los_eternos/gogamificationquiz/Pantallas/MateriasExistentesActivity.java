@@ -26,7 +26,7 @@ public class MateriasExistentesActivity extends AppCompatActivity {
 
     Conexion con;
     //String email = "rodrigo_bazan@hotmail.com";
-    //String resultado = "2";
+    //int resultado = 2;
     private ArrayList<Materia> materias;
     static  public TabLayout tabs;
 
@@ -40,34 +40,37 @@ public class MateriasExistentesActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_materias_existentes);
-
+        con = new Conexion();
         int resultado = getIntent().getExtras().getInt("resultado");
         String email = getIntent().getExtras().getString("email");
 
         if(resultado==1){
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle("Materias inscritas");
             materias = ControlServicio.obtenerMaterias(email, resultado, MateriasExistentesActivity.this);
+
+
+            ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+            setupViewPager(viewPager, materias);
         }
 
         else{
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle("Materias impartidas");
             materias = ControlServicio.obtenerMaterias(email, resultado, MateriasExistentesActivity.this);
+
+
+            ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+            setupViewPager(viewPager, materias);
         }
 
-        con = new Conexion();
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-
-        System.out.print(materias);
-
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager, materias);
 
     }
 

@@ -125,10 +125,7 @@ public class ControlServicio {
             resultado = (EntityUtils.toString(resp.getEntity()));
             System.out.print(resultado);
         }catch (Exception e){
-
-
             Log.v("ERROR_DESCONOCIDO",e.getMessage());
-
         }
 
         return resultado;
