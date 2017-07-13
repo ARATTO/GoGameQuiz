@@ -4,12 +4,12 @@ package los_eternos.gogamificationquiz.Modelo;
  * Created by Bryan Lobos1 on 11/08/2016.
  */
 public class Materia {
-    private int idMateria;
+    private String idMateria;
     private String codigoMateria;
     private String nombreMateria;
     private int esTecnicaElectiva;
     private String imagenMateria;
-    private int idGrupo;
+    private String idGrupo;
     private String nombreDocente;
     private String nomTipoGrupo;
     private String codigoGrupo;
@@ -17,7 +17,7 @@ public class Materia {
     public Materia() {
     }
 
-    public Materia(int idMateria, String codigoMateria, String nombreMateria, String imagenMateria, int esTecnicaElectiva, String nomTipoGrupo) {
+    public Materia(String idMateria, String codigoMateria, String nombreMateria, String imagenMateria, int esTecnicaElectiva, String nomTipoGrupo) {
         this.idMateria = idMateria;
         this.codigoMateria = codigoMateria;
         this.nombreMateria = nombreMateria;
@@ -41,15 +41,15 @@ public class Materia {
 
     public void setNombreGrupo(String nombreGrupo) { this.codigoGrupo = nombreGrupo; }
 
-    public int getIdGrupo() { return idGrupo; }
+    public String getIdGrupo() { return idGrupo; }
 
-    public void setIdGrupo(int idGrupo) { this.idGrupo = idGrupo; }
+    public void setIdGrupo(String idGrupo) { this.idGrupo = idGrupo; }
 
-    public int getIdMateria() {
+    public String getIdMateria() {
         return idMateria;
     }
 
-    public void setIdMateria(int idMateria) {
+    public void setIdMateria(String idMateria) {
         this.idMateria = idMateria;
     }
 

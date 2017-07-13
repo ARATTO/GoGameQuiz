@@ -52,7 +52,13 @@
         <activity android:name=".Pantallas.AsignarPuntosActivity" />
         <activity android:name=".Pantallas.CrearActividadesActivity" />
         <activity android:name=".Pantallas.ActividadesActivity" />
-        <activity android:name=".Pantallas.MateriasExistentesActivity"></activity>
+        <activity android:name=".Pantallas.MateriasExistentesActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

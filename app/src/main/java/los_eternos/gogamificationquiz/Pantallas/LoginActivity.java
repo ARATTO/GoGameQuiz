@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-
 import android.widget.Toast;
 import los_eternos.gogamificationquiz.Controladores.ControlServicio;
 import los_eternos.gogamificationquiz.Controladores.Conexion;
@@ -43,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 attemptLogin();//No se que hace, pero hace algo y es util jajajaja xDD
                 //Clase asincrona
                 userlogintask = new UserLoginTask();
@@ -98,7 +96,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
-
         //Variables globales de la subclase
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
@@ -112,7 +109,6 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
 
-
             //Metodo que verifica el email y la contraseña del usuario
             resultado = ControlServicio.obtenerRespuestaLogin(email, password);
 
@@ -125,13 +121,11 @@ public class LoginActivity extends AppCompatActivity {
 
             if (success) {
 
-
                 System.out.println(resultado);
 
                 switch(resultado){
-                    case 1:
-                        //si es estudiante
 
+                    case 1:
 
                         //Cuando el usuario sea un estudiante
                         Intent intent = new Intent(getApplicationContext(), MateriasExistentesActivity.class);
@@ -141,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         Toast.makeText(getApplicationContext(), "Estudiante", Toast.LENGTH_SHORT).show();
                         break;
+
                     case 2:
 
                         //Cuando el usuario sea un docente
@@ -151,6 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent2);
                         Toast.makeText(getApplicationContext(), "Docente", Toast.LENGTH_SHORT).show();
                         break;
+
                     case 3:
 
                         //Cuando el usuario sea un administrador
@@ -158,16 +154,16 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent3 = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent3);
                         break;
-                    case 4:
 
+                    case 4:
 
                         //Cuando la contraseña es incorrecta
                         Toast.makeText(getApplicationContext(), "La contraseña es incorrecta", Toast.LENGTH_SHORT).show();
                         Intent intent4 = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent4);
                         break;
-                    default:
 
+                    default:
 
                         //Cuando el usuario no existe
                         System.out.println("No sirve");
@@ -182,7 +178,6 @@ public class LoginActivity extends AppCompatActivity {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
-
 
         }
 

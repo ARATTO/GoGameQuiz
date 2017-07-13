@@ -102,22 +102,19 @@ public class ControlServicio {
         }
     }
 
-    public static String obtenerRespuestaMateria(String email, int resultado){
-
-        String respuesta = " ";
-
+    public static String obtenerRespuestaMateria(String email, String result){
+        String resultado = "";
         HttpClient cliente = new DefaultHttpClient();
         String url = "";
         Conexion conn = new Conexion();
         url += conn.getURLLocal() + "materiasExistentes";
-
         HttpPost httpPost = new HttpPost(url);
 
         httpPost.setHeader("content-type", "application/json");
         try{
             JSONObject dato = new JSONObject();
             dato.put("email", email);
-            dato.put("resultado", resultado);
+            dato.put("resulta",result);
             StringEntity entity = new StringEntity(dato.toString());
             httpPost.setEntity(entity);
             HttpResponse resp = cliente.execute(httpPost);
@@ -125,39 +122,38 @@ public class ControlServicio {
             StatusLine estado = resp.getStatusLine();
             System.out.println("estado: " + estado);
             //int codigoEstado = estado.getStatusCode();
-            respuesta = EntityUtils.toString(resp.getEntity());
-
+            resultado = (EntityUtils.toString(resp.getEntity()));
+            System.out.print(resultado);
         }catch (Exception e){
-            e.printStackTrace();
+
+
             Log.v("ERROR_DESCONOCIDO",e.getMessage());
 
         }
 
-        return respuesta;
+        return resultado;
 
 
     }
 
-    public static List<Materia> obtenerMaterias(String email, int resultado, Context ctx) {
+    public static ArrayList<Materia> obtenerMaterias(String email, String resultado, Context ctx) {
         String json = obtenerRespuestaMateria(email, resultado);
-        List<Materia> listaMateria = new ArrayList<Materia>();
+        ArrayList<Materia> listaMateria = new ArrayList<Materia>();
         try {
-            JSONArray librosJSON = new JSONArray(json);
-            for (int i = 0; i < librosJSON.length(); i++) {
-                JSONObject obj = librosJSON.getJSONObject(i);
-                Materia materia = new Materia();
-                materia.setIdMateria(obj.getInt("IDMATERIA"));
-                materia.setIdGrupo(obj.getInt("IDGRUPO"));
-                materia.setNombreDocente(obj.getString("NOMBREDOCENTE"));
-                materia.setNombreMateria(obj.getString("NOMBREMATERIA"));
-                materia.setCodigoMateria(obj.getString("CODIGOMATERIA"));
-                materia.setNombreGrupo(obj.getString("CODIGOGRUPO"));
-                materia.setImagenMateria(obj.getString("IMAGENMATERIA"));
+            JSONArray materiasJSON = new JSONArray(json);
+            for (int i = 0; i < materiasJSON.length(); i++) {
+                JSONObject obj = materiasJSON.getJSONObject(i);
+                Materia materias = new Materia();
+                materias.setImagenMateria(obj.getString("IMAGENMATERIA"));
+                materias.setNombreMateria(obj.getString("NOMBREMATERIA"));
+                materias.setCodigoMateria(obj.getString("CODIGOMATERIA"));
+                materias.setNombreGrupo(obj.getString("CODIGOGRUPO"));
 
-                listaMateria.add(materia);
+                listaMateria.add(materias);
             }
             return listaMateria;
         } catch (Exception e) {
+            System.out.println(e);
             Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
             return null;
         }
