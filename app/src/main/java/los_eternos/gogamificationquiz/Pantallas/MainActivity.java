@@ -104,8 +104,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-            //Esto es solo para probar el ActividadesActivity
-            Intent intent = new Intent(getApplicationContext(), ActividadesActivity.class);
+            //Esto es solo para probar el DocenteActivity
+            Intent intent = new Intent(getApplicationContext(), DocenteActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_send) {

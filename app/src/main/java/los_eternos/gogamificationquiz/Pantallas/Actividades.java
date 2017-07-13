@@ -34,7 +34,7 @@ public class Actividades extends Fragment {
     ArrayList<String> nombre=null;
     ArrayList<String> puntos=null;
     String idgrupo="";
-    String nommateria="";
+    String idmateria="";
 
 
     @Override
@@ -53,10 +53,10 @@ public class Actividades extends Fragment {
         }
 
         idgrupo=d;
-        nommateria=e;
+        idmateria=e;
 
         ViewHolder.idgrupo=idgrupo;
-        ViewHolder.nommateria=nommateria;
+        ViewHolder.idmateria=idmateria;
 
         nombre = b;
         puntos = c;
@@ -76,7 +76,7 @@ public class Actividades extends Fragment {
         public TextView name;
         public TextView puntos;
         public static String idgrupo="";
-        public static String nommateria="";
+        public static String idmateria="";
 
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -87,18 +87,20 @@ public class Actividades extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    /*String nom,id;
-                    nom = nommateria;
-                    id = idgrupo;
+                    String idgru,idmat;
+                    idmat = idmateria;
+                    idgru = idgrupo;
 
-                    System.out.println("valor del idGrupo en la lista: "+id);
-                    System.out.println("valor del nombre en la lista: "+nom);
+                    System.out.println("Agrege funcionalidad a este boton");
+
+                    /*System.out.println("valor del idGrupo en la lista: "+idgru);
+                    System.out.println("valor del nombre en la lista: "+idmat);
 
                     Context context = v.getContext();
-                    Intent intent = new Intent(context, ActividadesActivity.class);
-                    intent.putExtra("idActividad",idtipo.getText());
-                    intent.putExtra("nommateria",nom);
-                    intent.putExtra("idgrupo",id);
+                    Intent intent = new Intent(context, DocenteActivity.class);
+                    intent.putExtra("puntos",puntos.getText());
+                    intent.putExtra("idmateria",idmat);
+                    intent.putExtra("idgrupo",idgru);
                     context.startActivity(intent);*/
                 }
             });

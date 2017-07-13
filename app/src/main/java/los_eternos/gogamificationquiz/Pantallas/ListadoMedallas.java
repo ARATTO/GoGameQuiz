@@ -93,15 +93,16 @@ public class ListadoMedallas extends Fragment {
             picture = (ImageView) itemView.findViewById(R.id.tile_picture);
             name = (TextView) itemView.findViewById(R.id.tile_title);
             id =(TextView)itemView.findViewById(R.id.id_oculto);
-            /*itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Context context = v.getContext();
+                    System.out.println("Asignar Medallas");
+                    /*Context context = v.getContext();
                     Intent intent = new Intent(context, DetailActivity.class);
                     intent.putExtra(DetailActivity.EXTRA_POSITION, getAdapterPosition());
-                    context.startActivity(intent);
+                    context.startActivity(intent);*/
                 }
-            });*/
+            });
         }
     }
 
@@ -186,7 +187,7 @@ public class ListadoMedallas extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             String text="";
-
+                            // Asignar medalla a un alumno
                             for (String nombre: names_alumnos) {
                                 text+=nombre;
                                 text+=" ";
@@ -199,7 +200,7 @@ public class ListadoMedallas extends Fragment {
                     });
                     builder.setItems(names_alumnos, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int item) {
-                            // Do something with the selection
+                            // Asignar medallas a todos los alumnos
                             Toast.makeText(contexto, names_alumnos[item]+" "+carnets_alumnos[item]+" "+ holder.id.getText(), Toast.LENGTH_SHORT).show();
                         }
                     });

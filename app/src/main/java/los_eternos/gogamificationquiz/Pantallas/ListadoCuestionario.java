@@ -1,5 +1,6 @@
 package los_eternos.gogamificationquiz.Pantallas;
 
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,11 +14,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import los_eternos.gogamificationquiz.R;
-
 /**
- * Created by Bryan Lobos1 on 11/07/2017.
+ * Created by Bryan Lobos1 on 12/07/2017.
  */
-public class ListadoCuestionario extends Fragment{
+public class ListadoCuestionario extends Fragment {
     ArrayList<String> nombre=null;
     ArrayList<String> duracion=null;
     String idgrupo="";
@@ -82,7 +82,7 @@ public class ListadoCuestionario extends Fragment{
                     System.out.println("valor del nombre en la lista: "+nom);
 
                     Context context = v.getContext();
-                    Intent intent = new Intent(context, ActividadesActivity.class);
+                    Intent intent = new Intent(context, DocenteActivity.class);
                     intent.putExtra("idActividad",idtipo.getText());
                     intent.putExtra("nommateria",nom);
                     intent.putExtra("idgrupo",id);
