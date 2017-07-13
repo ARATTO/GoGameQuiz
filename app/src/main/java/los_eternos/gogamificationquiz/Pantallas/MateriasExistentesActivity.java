@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Adapter;
 
@@ -24,32 +25,54 @@ import los_eternos.gogamificationquiz.R;
 public class MateriasExistentesActivity extends AppCompatActivity {
 
     Conexion con;
-    String email = "rodrigo_bazan@hotmail.com";
-    String resultado = "2";
+    //String email = "rodrigo_bazan@hotmail.com";
+    //String resultado = "2";
     private ArrayList<Materia> materias;
     static  public TabLayout tabs;
 
+    //Bundle datos = this.getIntent().getExtras();
+
+
+    Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_actividades);
+        setContentView(R.layout.activity_materias_existentes);
+
+        int resultado = getIntent().getExtras().getInt("resultado");
+        String email = getIntent().getExtras().getString("email");
+
+        if(resultado==1){
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setTitle("Materias inscritas");
+            materias = ControlServicio.obtenerMaterias(email, resultado, MateriasExistentesActivity.this);
+        }
+
+        else{
+            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setTitle("Materias impartidas");
+            materias = ControlServicio.obtenerMaterias(email, resultado, MateriasExistentesActivity.this);
+        }
+
         con = new Conexion();
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        materias = ControlServicio.obtenerMaterias(email, resultado, MateriasExistentesActivity.this);
+
         System.out.print(materias);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager, materias);
 
-        tabs = (TabLayout) findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
     }
 
     public void setupViewPager(ViewPager viewPager, ArrayList<Materia> materias){
         Adapter adapter = new Adapter(getSupportFragmentManager());
-
 
         MateriasExistentesFragment materia = new MateriasExistentesFragment();
 
@@ -77,7 +100,6 @@ public class MateriasExistentesActivity extends AppCompatActivity {
         adapter.addFragment(materia, "Materias");
 
         viewPager.setAdapter(adapter);
-
 
     }
 

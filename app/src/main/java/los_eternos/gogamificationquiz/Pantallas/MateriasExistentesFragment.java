@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,9 +17,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import los_eternos.gogamificationquiz.Controladores.Conexion;
 import los_eternos.gogamificationquiz.Modelo.Materia;
-import los_eternos.gogamificationquiz.Modelo.MostrarAlumnos;
+
 import los_eternos.gogamificationquiz.R;
 
 /**
@@ -104,20 +102,11 @@ public class MateriasExistentesFragment extends Fragment {
 
         public ContentAdapter(Context context, ArrayList<String> nom, ArrayList<String> cod, ArrayList<String> gru, ArrayList<String> ima) {
             Resources resources = context.getResources();
-            //nombre = resources.getStringArray(R.array.places);
-            //mPlaceDesc = resources.getStringArray(R.array.place_desc);
-            //imagen
-            //   TypedArray a = resources.obtainTypedArray(R.array.place_avator);
-            // mPlaceAvators = new Drawable[a.length()];
-            //for (int i = 0; i < mPlaceAvators.length; i++) {
-            //   mPlaceAvators[i] = a.getDrawable(i);
-            // }
-            //a.recycle();
+
 
             LENGTH = nom.size();
             nombreMaterias = new String[nom.size()];
             nombreMaterias = nom.toArray(nombreMaterias);
-            //mPlaceDesc = new String[]{"texto"};
 
 
             codigoMaterias = new String[cod.size()];

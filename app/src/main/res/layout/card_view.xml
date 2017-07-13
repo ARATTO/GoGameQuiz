@@ -34,14 +34,12 @@
             android:id="@+id/materia_nombre"
             android:layout_toRightOf="@+id/materia_imagen"
             android:layout_alignParentTop="true"
-            android:textSize="25sp"
-            android:text="INTRODUCCION"/>
+            android:textSize="25sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/materia_codigo"
-            android:text="IAI115"
             android:layout_toRightOf="@+id/materia_imagen"
             android:layout_below="@+id/materia_nombre"
             />
@@ -49,7 +47,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/grupo_nombre"
-            android:text="LABORATORIO"
             android:layout_toRightOf="@+id/materia_imagen"
             android:layout_below="@+id/materia_codigo"
             />

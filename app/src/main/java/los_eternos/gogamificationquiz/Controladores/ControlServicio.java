@@ -102,7 +102,7 @@ public class ControlServicio {
         }
     }
 
-    public static String obtenerRespuestaMateria(String email, String result){
+    public static String obtenerRespuestaMateria(String email, int result){
         String resultado = "";
         HttpClient cliente = new DefaultHttpClient();
         String url = "";
@@ -136,7 +136,7 @@ public class ControlServicio {
 
     }
 
-    public static ArrayList<Materia> obtenerMaterias(String email, String resultado, Context ctx) {
+    public static ArrayList<Materia> obtenerMaterias(String email, int resultado, Context ctx) {
         String json = obtenerRespuestaMateria(email, resultado);
         ArrayList<Materia> listaMateria = new ArrayList<Materia>();
         try {
@@ -151,6 +151,7 @@ public class ControlServicio {
 
                 listaMateria.add(materias);
             }
+            System.out.println(listaMateria);
             return listaMateria;
         } catch (Exception e) {
             System.out.println(e);
