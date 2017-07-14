@@ -96,7 +96,7 @@ public class MateriasExistentesFragment extends Fragment {
 
 
         ArrayList<Materia> materias = new ArrayList<Materia>();
-        public
+
         private int LENGTH;
         private  String[] nombreMaterias ;
         private  String[] codigoMaterias ;

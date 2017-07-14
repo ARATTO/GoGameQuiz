@@ -5,36 +5,21 @@ package los_eternos.gogamificationquiz.Controladores;
  */
 
 import android.content.Context;
-import android.database.CharArrayBuffer;
-import android.database.ContentObserver;
-import android.database.Cursor;
-import android.database.DataSetObserver;
-import android.database.MatrixCursor;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Toast;
-import android.content.ContentResolver;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.apache.http.HttpEntity;
 
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +27,7 @@ import java.util.List;
 import los_eternos.gogamificationquiz.Modelo.Materia;
 import los_eternos.gogamificationquiz.Modelo.MostrarActividades;
 import los_eternos.gogamificationquiz.Modelo.MostrarAlumnos;
+import los_eternos.gogamificationquiz.Modelo.MostrarCuestionario;
 import los_eternos.gogamificationquiz.Modelo.MostrarMedallas;
 
 import los_eternos.gogamificationquiz.Modelo.Perfil;
@@ -289,7 +275,7 @@ public class ControlServicio {
             for (int i = 0; i < alumnosJSON.length(); i++) {
                 JSONObject obj = alumnosJSON.getJSONObject(i);
                 MostrarAlumnos alumnos = new MostrarAlumnos();
-                alumnos.setCARNET(obj.getString("carnetestudiante"));
+                alumnos.setCARNET(obj.getString("email"));
                 alumnos.setNOMALUMNO(obj.getString("nombreestudiante"));
                 alumnos.setFOTOPERFIL(obj.getString("imagenperfil"));
 
@@ -378,7 +364,6 @@ public class ControlServicio {
             System.out.println("estado: " + estado);
             //int codigoEstado = estado.getStatusCode();
             resultado = (EntityUtils.toString(resp.getEntity()));
-            System.out.println(resultado);
         }catch (Exception e){
             e.printStackTrace();
             Log.v("ERROR_DESCONOCIDO",e.getMessage());
@@ -391,7 +376,6 @@ public class ControlServicio {
     public static ArrayList<MostrarActividades> obtenerActividades( String im, String ig,Context ctx) {
         String json = obtenerRespuestaActividades(im,ig, ctx);
         ArrayList<MostrarActividades> listaActividades = new ArrayList<MostrarActividades>();
-        System.out.println("json"+json);
         try {
             JSONArray actividadesJSON = new JSONArray(json);
             for (int i = 0; i < actividadesJSON.length(); i++) {
@@ -410,9 +394,57 @@ public class ControlServicio {
         }
     }
 
+    public static String obtenerRespuestaCuestionario(String idMateria,String idGrupo, Context ctx){
+        String resultado = "";
+        HttpClient cliente = new DefaultHttpClient();
+        String url = "";
+        Conexion conn = new Conexion();
+        url += conn.getURLLocal() + "cuestionariosapp";
+        HttpPost httpPost = new HttpPost(url);
 
+        httpPost.setHeader("content-type", "application/json");
+        try{
+            JSONObject dato = new JSONObject();
+            dato.put("Grupo", idGrupo);
+            dato.put("Materia", idMateria);
+            StringEntity entity = new StringEntity(dato.toString());
+            httpPost.setEntity(entity);
+            HttpResponse resp = cliente.execute(httpPost);
 
+            StatusLine estado = resp.getStatusLine();
+            System.out.println("estado: " + estado);
+            //int codigoEstado = estado.getStatusCode();
+            resultado = (EntityUtils.toString(resp.getEntity()));
+            System.out.println("resultado: "+resultado);
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.v("ERROR_DESCONOCIDO",e.getMessage());
 
+        }
+
+        return resultado;
+    }
+
+    public static ArrayList<MostrarCuestionario> obtenerCuestionario(String im, String ig, Context ctx) {
+        String json = obtenerRespuestaCuestionario(im,ig, ctx);
+        ArrayList<MostrarCuestionario> listaCuestionario = new ArrayList<MostrarCuestionario>();
+        try {
+            JSONArray cuestionariosJSON = new JSONArray(json);
+            for (int i = 0; i < cuestionariosJSON.length(); i++) {
+                JSONObject obj = cuestionariosJSON.getJSONObject(i);
+                MostrarCuestionario cuestionario = new MostrarCuestionario();
+                cuestionario.setNombre(obj.getString("nombrecuestionario"));
+                cuestionario.setDuracion(obj.getString("duracioncuestionario"));
+
+                listaCuestionario.add(cuestionario);
+            }
+            return listaCuestionario;
+        } catch (Exception e) {
+            System.out.println(e);
+            Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
+            return null;
+        }
+    }
 
 
 }

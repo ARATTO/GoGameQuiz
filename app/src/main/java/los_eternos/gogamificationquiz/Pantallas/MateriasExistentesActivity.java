@@ -135,8 +135,6 @@ public class MateriasExistentesActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
-
-
     }//FIN DE CLASE ADAPTER
 
 }

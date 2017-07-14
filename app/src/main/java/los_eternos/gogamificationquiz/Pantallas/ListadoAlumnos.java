@@ -6,11 +6,13 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,10 +67,6 @@ public class ListadoAlumnos extends Fragment {
         AlumnoViewHolder.idgrupo= grupo;
         AlumnoViewHolder.idmateria= materia;
 
-        System.out.println(Nombre);
-        System.out.println(Carnet);
-        System.out.println(Foto);
-
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
         ContentAdapter adapter = new ContentAdapter(recyclerView.getContext(), Nombre, Carnet, Foto);
         recyclerView.setAdapter(adapter);
@@ -86,10 +84,9 @@ public class ListadoAlumnos extends Fragment {
         public TextView descripcion;
         public ImageView mano;
         public ImageView punto;
-        public static String idgrupo="";
-        public static String idmateria="";
+        public static String idgrupo = "";
+        public static String idmateria = "";
         public static Conexion con = new Conexion();
-
 
 
         public AlumnoViewHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -98,27 +95,28 @@ public class ListadoAlumnos extends Fragment {
             imagen = (ImageView) itemView.findViewById(R.id.list_avatar);
             nommateria = (TextView) itemView.findViewById(R.id.list_title);
             descripcion = (TextView) itemView.findViewById(R.id.list_desc);
-            mano= (ImageView) itemView.findViewById(R.id.list_avatar2);
-            punto= (ImageView) itemView.findViewById(R.id.list_avatar3);
+            mano = (ImageView) itemView.findViewById(R.id.list_avatar3);
+            punto = (ImageView) itemView.findViewById(R.id.list_avatar2);
 
             //Perfil del alumno
-            /*imagen.setOnClickListener(new View.OnClickListener() {
+            imagen.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Context context = v.getContext();
+                    System.out.print("Agrege logica de mostrar perfil");
+                    /*Context context = v.getContext();
                     Intent intent = new Intent(context, PerfilActivity.class);//necesita correo,si estudiante o docente
-                    intent.putExtra(PerfilActivity.EXTRA_POSITION, getAdapterPosition());
-                    intent.putExtra("CARNET",descripcion.getText());
+                    intent.putExtra("correo",descripcion.getText());
                     intent.putExtra("IS_LIST",true);
-                    context.startActivity(intent);
+                    context.startActivity(intent);*/
                 }
-            });*/
+            });
 
 
-            /*mano.setOnClickListener( new View.OnClickListener(){
-
+            mano.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v){
+                public void onClick(View v) {
+                    System.out.println("Asignar participacion");
+                }
                         /*NO SE UTILIZA/*if(idActividad.isEmpty()){
                             System.out.println("no a seleccionado actividad: ");
                             Toast.makeText(v.getContext(), "Seleccione una actividad", Toast.LENGTH_SHORT).show();
@@ -141,8 +139,19 @@ public class ListadoAlumnos extends Fragment {
                     }
                 }
             });*/
+            });
+
+            punto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    System.out.println("Asignar asistencia");
+                }
+            });
+
         }
     }
+
+
     /**
      * Adapter to display recycler view.
      */
@@ -160,31 +169,13 @@ public class ListadoAlumnos extends Fragment {
         // private final Drawable[] mPlaceAvators;
 
         public ContentAdapter(Context context, ArrayList<String> nom, ArrayList<String> carnet, ArrayList<String> foto) {
-            Resources resources = context.getResources();
-            //nombre = resources.getStringArray(R.array.places);
-            //mPlaceDesc = resources.getStringArray(R.array.place_desc);
-            //imagen
-            //   TypedArray a = resources.obtainTypedArray(R.array.place_avator);
-            // mPlaceAvators = new Drawable[a.length()];
-            //for (int i = 0; i < mPlaceAvators.length; i++) {
-            //   mPlaceAvators[i] = a.getDrawable(i);
-            // }
-            //a.recycle();
-
             LENGTH = nom.size();
             nombres = new String[nom.size()];
             nombres = nom.toArray(nombres);
-            //mPlaceDesc = new String[]{"texto"};
-
-
             carnets = new String[carnet.size()];
             carnets = carnet.toArray(carnets);
-
-
             fotos = new String[foto.size()];
             fotos = foto.toArray(fotos);
-
-
         }
 
         @Override
@@ -212,6 +203,44 @@ public class ListadoAlumnos extends Fragment {
         public static Bitmap decodeBase64(String input){
             byte[] decodedByte = Base64.decode(input, 0);
             return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+        }
+    }
+
+
+
+    public class LlenadoVista extends AsyncTask<Void, Void, Boolean> {
+
+
+        @Override
+        protected void onPreExecute(){
+
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+
+
+            return true;
+        }
+
+        /*@Override
+        protected void onProgressUpdate(Integer... progress) {
+            publishProgress(progress);
+        }*/
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+
+        }
+
+        @Override
+        protected void onCancelled() {
+            try {
+                this.finalize();
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+                Log.v("ERROR_ASYNC", throwable.getMessage());
+            }
         }
     }
 }
