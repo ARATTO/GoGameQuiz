@@ -102,12 +102,12 @@ public class ControlServicio {
         }
     }
 
-    public static String obtenerRespuestaMateria(String email, int result){
+    public static String obtenerRespuestaMateriaDocente(String email, int result){
         String resultado = "";
         HttpClient cliente = new DefaultHttpClient();
         String url = "";
         Conexion conn = new Conexion();
-        url += conn.getURLLocal() + "materiasExistentes";
+        url += conn.getURLLocal() + "materiasExistentesDocentes";
         HttpPost httpPost = new HttpPost(url);
 
         httpPost.setHeader("content-type", "application/json");
@@ -133,8 +133,8 @@ public class ControlServicio {
 
     }
 
-    public static ArrayList<Materia> obtenerMaterias(String email, int resultado, Context ctx) {
-        String json = obtenerRespuestaMateria(email, resultado);
+    public static ArrayList<Materia> obtenerMateriasDocente(String email, int resultado, Context ctx) {
+        String json = obtenerRespuestaMateriaDocente(email, resultado);
         ArrayList<Materia> listaMateria = new ArrayList<Materia>();
         try {
             JSONArray materiasJSON = new JSONArray(json);
@@ -156,6 +156,60 @@ public class ControlServicio {
             return null;
         }
     }
+
+    public static String obtenerRespuestaMateriaEstudiante(String email, int result){
+        String resultado = "";
+        HttpClient cliente = new DefaultHttpClient();
+        String url = "";
+        Conexion conn = new Conexion();
+        url += conn.getURLLocal() + "materiasExistentesEstudiantes";
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("content-type", "application/json");
+        try{
+            JSONObject dato = new JSONObject();
+            dato.put("email", email);
+            dato.put("resulta",result);
+            StringEntity entity = new StringEntity(dato.toString());
+            httpPost.setEntity(entity);
+            HttpResponse resp = cliente.execute(httpPost);
+
+            StatusLine estado = resp.getStatusLine();
+            System.out.println("estado: " + estado);
+            //int codigoEstado = estado.getStatusCode();
+            resultado = (EntityUtils.toString(resp.getEntity()));
+            System.out.print(resultado);
+        }catch (Exception e){
+            Log.v("ERROR_DESCONOCIDO",e.getMessage());
+        }
+
+        return resultado;
+    }
+
+    public static ArrayList<Materia> obtenerMateriasEstudiante(String email, int resultado, Context ctx){
+        String json = obtenerRespuestaMateriaEstudiante(email, resultado);
+        ArrayList<Materia> listaMateria = new ArrayList<Materia>();
+        try {
+            JSONArray materiasJSON = new JSONArray(json);
+            for (int i = 0; i < materiasJSON.length(); i++) {
+                JSONObject obj = materiasJSON.getJSONObject(i);
+                Materia materias = new Materia();
+                materias.setImagenMateria(obj.getString("IMAGENMATERIA"));
+                materias.setNombreMateria(obj.getString("NOMBREMATERIA"));
+                materias.setCodigoMateria(obj.getString("CODIGOMATERIA"));
+                materias.setNombreGrupo(obj.getString("CODIGOGRUPO"));
+
+                listaMateria.add(materias);
+            }
+            System.out.println(listaMateria);
+            return listaMateria;
+        } catch (Exception e) {
+            System.out.println(e);
+            Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
+            return null;
+        }
+    }
+
 
 
 

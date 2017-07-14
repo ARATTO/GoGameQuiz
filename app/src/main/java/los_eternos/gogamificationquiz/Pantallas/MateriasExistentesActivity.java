@@ -45,12 +45,13 @@ public class MateriasExistentesActivity extends AppCompatActivity {
         String email = getIntent().getExtras().getString("email");
 
         if(resultado==1){
+
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle("Materias inscritas");
-            materias = ControlServicio.obtenerMaterias(email, resultado, MateriasExistentesActivity.this);
+            materias = ControlServicio.obtenerMateriasEstudiante(email, resultado, MateriasExistentesActivity.this);
 
 
             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -58,12 +59,13 @@ public class MateriasExistentesActivity extends AppCompatActivity {
         }
 
         else{
+
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle("Materias impartidas");
-            materias = ControlServicio.obtenerMaterias(email, resultado, MateriasExistentesActivity.this);
+            materias = ControlServicio.obtenerMateriasDocente(email, resultado, MateriasExistentesActivity.this);
 
 
             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
