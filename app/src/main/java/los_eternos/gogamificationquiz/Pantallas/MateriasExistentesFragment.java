@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -72,6 +74,7 @@ public class MateriasExistentesFragment extends Fragment {
         public TextView codmateria;
         public TextView nombgrupo;
         public ImageView imagmateria;
+        public RelativeLayout relative;
 
 
         public MateriaViewHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -81,6 +84,7 @@ public class MateriasExistentesFragment extends Fragment {
             codmateria = (TextView) itemView.findViewById(R.id.materia_codigo);
             nombgrupo = (TextView) itemView.findViewById(R.id.grupo_nombre);
             imagmateria = (ImageView) itemView.findViewById(R.id.materia_imagen);
+            relative = (RelativeLayout) itemView.findViewById(R.id.main_content);
 
         }
 
@@ -92,6 +96,7 @@ public class MateriasExistentesFragment extends Fragment {
 
 
         ArrayList<Materia> materias = new ArrayList<Materia>();
+        public
         private int LENGTH;
         private  String[] nombreMaterias ;
         private  String[] codigoMaterias ;
@@ -147,6 +152,9 @@ public class MateriasExistentesFragment extends Fragment {
             byte[] decodedByte = Base64.decode(input, 0);
             return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
         }
+
     }
+
+
 
 }
