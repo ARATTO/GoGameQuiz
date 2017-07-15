@@ -90,6 +90,7 @@ public class ControlServicio {
 
     //Metodo de Alam para buscar en el servidor las materias que el docente imparte
     public static String obtenerRespuestaMateriaDocente(String email, int result){
+
         String resultado = "";
         HttpClient cliente = new DefaultHttpClient();
         String url = "";
@@ -98,6 +99,7 @@ public class ControlServicio {
         HttpPost httpPost = new HttpPost(url);
 
         httpPost.setHeader("content-type", "application/json");
+
         try{
             JSONObject dato = new JSONObject();
             dato.put("email", email);
@@ -111,42 +113,60 @@ public class ControlServicio {
             //int codigoEstado = estado.getStatusCode();
             resultado = (EntityUtils.toString(resp.getEntity()));
             System.out.print(resultado);
+
         }catch (Exception e){
+
             Log.v("ERROR_DESCONOCIDO",e.getMessage());
+
         }
 
         return resultado;
-
 
     }
 
     //Metodo de Alam para obtener las materias que el docente imparte
     public static ArrayList<Materia> obtenerMateriasDocente(String email, int resultado, Context ctx) {
+
         String json = obtenerRespuestaMateriaDocente(email, resultado);
         ArrayList<Materia> listaMateria = new ArrayList<Materia>();
+
         try {
+
             JSONArray materiasJSON = new JSONArray(json);
+
             for (int i = 0; i < materiasJSON.length(); i++) {
+
                 JSONObject obj = materiasJSON.getJSONObject(i);
+
                 Materia materias = new Materia();
                 materias.setImagenMateria(obj.getString("IMAGENMATERIA"));
                 materias.setNombreMateria(obj.getString("NOMBREMATERIA"));
                 materias.setCodigoMateria(obj.getString("CODIGOMATERIA"));
                 materias.setNombreGrupo(obj.getString("CODIGOGRUPO"));
+                materias.setCodigoCiclo(obj.getString("CODIGOCICLO"));
+                materias.setIdMateria(obj.getString("IDMATERIA"));
+                materias.setIdGrupo(obj.getString("IDGRUPO"));
 
                 listaMateria.add(materias);
             }
+
             System.out.println(listaMateria);
+
             return listaMateria;
+
         } catch (Exception e) {
+
             System.out.println(e);
             Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
+
             return null;
+
         }
     }
 
     //Metodo de Alam para buscar en el servidor las materias que el estudiante inscribio
     public static String obtenerRespuestaMateriaEstudiante(String email, int result){
+
         String resultado = "";
         HttpClient cliente = new DefaultHttpClient();
         String url = "";
@@ -155,6 +175,7 @@ public class ControlServicio {
         HttpPost httpPost = new HttpPost(url);
 
         httpPost.setHeader("content-type", "application/json");
+
         try{
             JSONObject dato = new JSONObject();
             dato.put("email", email);
@@ -168,35 +189,54 @@ public class ControlServicio {
             //int codigoEstado = estado.getStatusCode();
             resultado = (EntityUtils.toString(resp.getEntity()));
             System.out.print(resultado);
+
         }catch (Exception e){
+
             Log.v("ERROR_DESCONOCIDO",e.getMessage());
+
         }
 
         return resultado;
+
     }
 
     //Metodo de Alam para obtener las materias que el estudiante inscribio
     public static ArrayList<Materia> obtenerMateriasEstudiante(String email, int resultado, Context ctx){
+
         String json = obtenerRespuestaMateriaEstudiante(email, resultado);
         ArrayList<Materia> listaMateria = new ArrayList<Materia>();
+
         try {
+
             JSONArray materiasJSON = new JSONArray(json);
+
             for (int i = 0; i < materiasJSON.length(); i++) {
+
                 JSONObject obj = materiasJSON.getJSONObject(i);
+
                 Materia materias = new Materia();
                 materias.setImagenMateria(obj.getString("IMAGENMATERIA"));
                 materias.setNombreMateria(obj.getString("NOMBREMATERIA"));
                 materias.setCodigoMateria(obj.getString("CODIGOMATERIA"));
                 materias.setNombreGrupo(obj.getString("CODIGOGRUPO"));
+                materias.setCodigoCiclo(obj.getString("CODIGOCICLO"));
+                materias.setIdMateria(obj.getString("IDMATERIA"));
+                materias.setIdGrupo(obj.getString("IDGRUPO"));
 
                 listaMateria.add(materias);
             }
+
             System.out.println(listaMateria);
+
             return listaMateria;
+
         } catch (Exception e) {
+
             System.out.println(e);
             Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
+
             return null;
+
         }
     }
 

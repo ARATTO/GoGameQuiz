@@ -86,6 +86,7 @@ public class MateriasExistentesActivity extends AppCompatActivity {
 
     public void setupViewPager(ViewPager viewPager, ArrayList<Materia> materias){
 
+        //Aqui se almacenan los valores que recibe del servidor
         Adapter adapter = new Adapter(getSupportFragmentManager());
 
         MateriasExistentesFragment materia = new MateriasExistentesFragment();
@@ -93,22 +94,35 @@ public class MateriasExistentesActivity extends AppCompatActivity {
         ArrayList<String> nombreMateria = new ArrayList<>();
         ArrayList<String> codigoMateria = new ArrayList<>();
         ArrayList<String> nombreGrupo = new ArrayList<>();
+        ArrayList<String> codigoCiclo = new ArrayList<>();
         ArrayList<String> imagenMateria = new ArrayList<>();
+        ArrayList<String> idMateria = new ArrayList<>();
+        ArrayList<String> idGrupo = new ArrayList<>();
 
         for (Materia mef: materias){
+
             nombreMateria.add(mef.getNombreMateria());
             codigoMateria.add(mef.getCodigoMateria());
             nombreGrupo.add(mef.getNombreGrupo());
+            codigoCiclo.add(mef.getCodigoCiclo());
             imagenMateria.add(mef.getImagenMateria());
+            idMateria.add(mef.getIdMateria());
+            idGrupo.add(mef.getIdGrupo());
+
         }
 
+        //Paso de parametros de la Activity al Fragment
         Bundle parametro = new Bundle();
+
         parametro.putStringArrayList("nombrem",nombreMateria);
         parametro.putStringArrayList("codma",codigoMateria);
         parametro.putStringArrayList("foto",imagenMateria);
         parametro.putStringArrayList("nomgru",nombreGrupo);
-        //parametro.putString("idgrupo",idgrupo);
-        //parametro.putString("idmateria",idmateria);
+        parametro.putStringArrayList("codci", codigoCiclo);
+        parametro.putStringArrayList("idmate", idMateria);
+        parametro.putStringArrayList("idgru", idGrupo);
+        parametro.putInt("resultado",resultado);
+        parametro.putString("email",email);
         materia.setArguments(parametro);
 
         adapter.addFragment(materia, "Materias");
@@ -117,7 +131,9 @@ public class MateriasExistentesActivity extends AppCompatActivity {
 
     }
 
+    //CLASE ADAPTER
     static class Adapter extends FragmentPagerAdapter {
+
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
@@ -144,6 +160,7 @@ public class MateriasExistentesActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
-    }//FIN DE CLASE ADAPTER
+    }
+    //FIN DE CLASE ADAPTER
 
 }
