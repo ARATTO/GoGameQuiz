@@ -3,12 +3,14 @@ package los_eternos.gogamificationquiz.Pantallas;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -62,6 +64,7 @@ public class ListadoCuestionario extends Fragment {
 
         public TextView name;
         public TextView duracion;
+        //public FloatingActionButton flotante;
         public static String idgrupo="";
         public static String nommateria="";
 
@@ -71,9 +74,19 @@ public class ListadoCuestionario extends Fragment {
 
             name = (TextView) itemView.findViewById(R.id.nombre);
             duracion = (TextView) itemView.findViewById(R.id.cuestionario);
+            //flotante = (FloatingActionButton) itemView.findViewById(R.id.fab);
+            /*flotante.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                System.out.print("Replace with your own action");
+
+                                            }
+            });*/
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    System.out.print("Replace with your own action");
                     /*String nom,id;
                     nom = nommateria;
                     id = idgrupo;

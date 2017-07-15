@@ -16,6 +16,7 @@ import java.util.List;
 
 import los_eternos.gogamificationquiz.Controladores.Conexion;
 import los_eternos.gogamificationquiz.Controladores.ControlServicio;
+import los_eternos.gogamificationquiz.Modelo.Materia;
 import los_eternos.gogamificationquiz.Modelo.MostrarActividades;
 import los_eternos.gogamificationquiz.Modelo.MostrarAlumnos;
 import los_eternos.gogamificationquiz.Modelo.MostrarCuestionario;
@@ -28,6 +29,7 @@ public class EstudianteActivity extends AppCompatActivity {
     String idgrupo ="1";
     String idmateria ="1";
     private ArrayList<MostrarCuestionario> cuestionarios;
+    private Materia materias;
     private DrawerLayout mDrawerLayout;
     static  public TabLayout tabs;
 
@@ -48,13 +50,18 @@ public class EstudianteActivity extends AppCompatActivity {
         cuestionarios = ControlServicio.obtenerCuestionario(idmateria,idgrupo,EstudianteActivity.this);
         //Termina Consulta de actividades por materia y grupo
 
+        //Consulta de actividades por materia y grupo
+        materias = ControlServicio.obtenerDescripcionMateria(idmateria,EstudianteActivity.this);
+        //Termina Consulta de actividades por materia y grupo
+
         /*AGREGANDO TOOLBAR*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
                 /*AGREGANDO MOVILIDAD A LA TOOLBAR*/
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager, cuestionarios);
+        setupViewPager(viewPager, cuestionarios, materias);
 
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
@@ -75,10 +82,11 @@ public class EstudianteActivity extends AppCompatActivity {
 
 
 
-    private void setupViewPager(ViewPager viewPager, ArrayList<MostrarCuestionario> cuestionarios ) {
+    private void setupViewPager(ViewPager viewPager, ArrayList<MostrarCuestionario> cuestionarios , Materia materias ) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
 
         ListadoCuestionario cuestios = new ListadoCuestionario();
+        ListadoMaterias materi = new ListadoMaterias();
         /*CREO LOS FRAGMENTS*/
 
 
@@ -98,10 +106,29 @@ public class EstudianteActivity extends AppCompatActivity {
         parametro.putString("idmateria",idmateria);
         cuestios.setArguments(parametro);
 
+        String nombrema;
+        String codigoma;
+        String imagenma;
+
+
+            nombrema=materias.getNombreMateria();
+            codigoma=materias.getCodigoMateria();
+            imagenma=materias.getImagenMateria();
+
+
+        Bundle parametro2 = new Bundle();
+        parametro2.putString("nombrema",nombrema);
+        parametro2.putString("codigoma",codigoma);
+        parametro2.putString("imagenma",imagenma);
+        parametro2.putString("idmateria",idmateria);
+        materi.setArguments(parametro2);
+
+
         /*LE MANDO PARAMETROS AL FRAGMENT QUE HE CREADO*/
 
         /*AGREGO EL NUEVO FRAGMENT COMO UNA TAB*/
         adapter.addFragment(cuestios,"Cuestionario");
+        adapter.addFragment(materi,"Descripcion de Materia");
 
             /*AJUSTA EL TAMAÑO DE LAS TABS*/
         viewPager.setAdapter(adapter);

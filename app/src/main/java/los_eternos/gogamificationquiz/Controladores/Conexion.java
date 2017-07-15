@@ -7,7 +7,7 @@ package los_eternos.gogamificationquiz.Controladores;
  */
 public class Conexion {
 
-    public String URLLocal = "http://192.168.1.103:8000/";
+    public String URLLocal = "http://192.168.1.101:8000/";
 
     public Conexion() {}
 

@@ -20,6 +20,7 @@ import org.apache.http.HttpEntity;
 
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -397,6 +398,67 @@ public class ControlServicio {
             return null;
         }
     }
+
+    public static String obtenerRespuestaDescripcionMateria(String idMateria, Context ctx){
+        String resultado = "";
+        HttpClient cliente = new DefaultHttpClient();
+        String url = "";
+        Conexion conn = new Conexion();
+        url += conn.getURLLocal() + "materiasapp";
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("content-type", "application/json");
+        try{
+            JSONObject dato = new JSONObject();
+            dato.put("Materia", idMateria);
+            StringEntity entity = new StringEntity(dato.toString());
+            httpPost.setEntity(entity);
+            HttpResponse resp = cliente.execute(httpPost);
+
+            StatusLine estado = resp.getStatusLine();
+            System.out.println("estado: " + estado);
+            resultado = (EntityUtils.toString(resp.getEntity()));
+            System.out.println("resultado: "+resultado);
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.v("ERROR_DESCONOCIDO",e.getMessage());
+
+        }
+
+        return resultado;
+    }
+
+    public static Materia obtenerDescripcionMateria(String im, Context ctx) {
+        String json = obtenerRespuestaDescripcionMateria(im, ctx);
+
+
+            Materia materia = new Materia();
+            try{
+                JSONArray materiasJSON = new JSONArray(json);
+                if(materiasJSON.length()!=0){
+
+                    JSONObject obj = materiasJSON.getJSONObject(0);
+
+                    materia.setNombreMateria(obj.getString("NOMBREMATERIA"));
+                    materia.setCodigoMateria(obj.getString("CODIGOMATERIA"));
+                    materia.setImagenMateria(obj.getString("IMAGENMATERIA"));
+
+                } else{
+                    System.out.print("error");
+                }
+
+            }catch(Exception e){
+                e.printStackTrace();
+                Log.v("ERROR_DESCONOCIDO",e.getMessage());
+                return null;
+
+            }
+
+        return materia;
+
+    }
+
+
 
 
 }

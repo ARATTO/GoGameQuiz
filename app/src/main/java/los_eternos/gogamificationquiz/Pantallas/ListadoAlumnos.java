@@ -164,9 +164,6 @@ public class ListadoAlumnos extends Fragment {
         private  String[] nombres ;
         private  String[] carnets ;
         private  String[] fotos ;
-        private  Drawable[] iconos;
-        //private String[] mPlaceDesc;
-        // private final Drawable[] mPlaceAvators;
 
         public ContentAdapter(Context context, ArrayList<String> nom, ArrayList<String> carnet, ArrayList<String> foto) {
             LENGTH = nom.size();
@@ -203,44 +200,6 @@ public class ListadoAlumnos extends Fragment {
         public static Bitmap decodeBase64(String input){
             byte[] decodedByte = Base64.decode(input, 0);
             return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
-        }
-    }
-
-
-
-    public class LlenadoVista extends AsyncTask<Void, Void, Boolean> {
-
-
-        @Override
-        protected void onPreExecute(){
-
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-
-
-            return true;
-        }
-
-        /*@Override
-        protected void onProgressUpdate(Integer... progress) {
-            publishProgress(progress);
-        }*/
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-
-        }
-
-        @Override
-        protected void onCancelled() {
-            try {
-                this.finalize();
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-                Log.v("ERROR_ASYNC", throwable.getMessage());
-            }
         }
     }
 }
