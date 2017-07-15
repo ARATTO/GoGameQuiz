@@ -24,35 +24,41 @@ import los_eternos.gogamificationquiz.R;
 
 public class MateriasExistentesActivity extends AppCompatActivity {
 
-    Conexion con;
-    //String email = "rodrigo_bazan@hotmail.com";
-    //int resultado = 2;
+    //DECLARACION DE VARIABLES GLOBALES
+
+    private Toolbar toolbar;
+    private Conexion con;
+    private String email;
+    private int resultado;
     private ArrayList<Materia> materias;
-    static  public TabLayout tabs;
 
-    //Bundle datos = this.getIntent().getExtras();
-
-
-    Toolbar toolbar;
+    //FIN DE DECLARACION DE VARIABLES GLOBALES
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //Invoca al layout de materias existentes
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_materias_existentes);
-        con = new Conexion();
-        int resultado = getIntent().getExtras().getInt("resultado");
-        String email = getIntent().getExtras().getString("email");
+
+
+        con = new Conexion(); //Instancia de la clase conexion
+        resultado = getIntent().getExtras().getInt("resultado"); //Recibe el parametro resultado de LoginActivity
+        email = getIntent().getExtras().getString("email"); //Recibe el parametro email de LoginActivity
 
         if(resultado==1){
 
+            //Cuando ingresa a la app un estudiante
+
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
+
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("Materias inscritas");
-            materias = ControlServicio.obtenerMateriasEstudiante(email, resultado, MateriasExistentesActivity.this);
+            getSupportActionBar().setTitle("Materias inscritas"); //Texto que va en la Toolbar
 
+            //Recibe las materias y grupos que el estudiante ha inscrito
+            materias = ControlServicio.obtenerMateriasEstudiante(email, resultado, MateriasExistentesActivity.this);
 
             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
             setupViewPager(viewPager, materias);
@@ -60,23 +66,26 @@ public class MateriasExistentesActivity extends AppCompatActivity {
 
         else{
 
+            //Cuando ingresa a la app un docente
+
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
+
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle("Materias impartidas");
-            materias = ControlServicio.obtenerMateriasDocente(email, resultado, MateriasExistentesActivity.this);
+            getSupportActionBar().setTitle("Materias impartidas"); //Texto que va en la toolbar
 
+            //Recibe las materias y grupos que el docente imparte
+            materias = ControlServicio.obtenerMateriasDocente(email, resultado, MateriasExistentesActivity.this);
 
             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
             setupViewPager(viewPager, materias);
         }
 
-
-
     }
 
     public void setupViewPager(ViewPager viewPager, ArrayList<Materia> materias){
+
         Adapter adapter = new Adapter(getSupportFragmentManager());
 
         MateriasExistentesFragment materia = new MateriasExistentesFragment();

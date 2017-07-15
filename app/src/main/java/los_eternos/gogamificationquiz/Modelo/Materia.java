@@ -13,6 +13,7 @@ public class Materia {
     private String nombreDocente;
     private String nomTipoGrupo;
     private String codigoGrupo;
+    private String codigoCiclo;
 
     public Materia() {
     }
@@ -52,6 +53,10 @@ public class Materia {
     public void setIdMateria(String idMateria) {
         this.idMateria = idMateria;
     }
+
+    public String getCodigoCiclo() { return codigoCiclo; }
+
+    public void setCodigoCiclo(String codigoCiclo){ this.codigoCiclo = codigoCiclo; }
 
     public String getCodigoMateria() {
         return codigoMateria;

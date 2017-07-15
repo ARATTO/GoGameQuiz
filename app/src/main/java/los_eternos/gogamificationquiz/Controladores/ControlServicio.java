@@ -88,6 +88,7 @@ public class ControlServicio {
         }
     }
 
+    //Metodo de Alam para buscar en el servidor las materias que el docente imparte
     public static String obtenerRespuestaMateriaDocente(String email, int result){
         String resultado = "";
         HttpClient cliente = new DefaultHttpClient();
@@ -119,6 +120,7 @@ public class ControlServicio {
 
     }
 
+    //Metodo de Alam para obtener las materias que el docente imparte
     public static ArrayList<Materia> obtenerMateriasDocente(String email, int resultado, Context ctx) {
         String json = obtenerRespuestaMateriaDocente(email, resultado);
         ArrayList<Materia> listaMateria = new ArrayList<Materia>();
@@ -143,6 +145,7 @@ public class ControlServicio {
         }
     }
 
+    //Metodo de Alam para buscar en el servidor las materias que el estudiante inscribio
     public static String obtenerRespuestaMateriaEstudiante(String email, int result){
         String resultado = "";
         HttpClient cliente = new DefaultHttpClient();
@@ -172,6 +175,7 @@ public class ControlServicio {
         return resultado;
     }
 
+    //Metodo de Alam para obtener las materias que el estudiante inscribio
     public static ArrayList<Materia> obtenerMateriasEstudiante(String email, int resultado, Context ctx){
         String json = obtenerRespuestaMateriaEstudiante(email, resultado);
         ArrayList<Materia> listaMateria = new ArrayList<Materia>();
@@ -196,10 +200,7 @@ public class ControlServicio {
         }
     }
 
-
-
-
-    //Metodo de Alam para verificar los datos del usuario en el login
+    //Metodo de Alam para consultar en el servidor los datos del usuario en el login
     public static int obtenerRespuestaLogin(String email, String password){
 
         //Verifica que el email y password ingresados existan

@@ -1,24 +1,28 @@
 package los_eternos.gogamificationquiz.Pantallas;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import los_eternos.gogamificationquiz.Modelo.Docente;
 import los_eternos.gogamificationquiz.Modelo.Materia;
 
 import los_eternos.gogamificationquiz.R;
@@ -27,7 +31,7 @@ import los_eternos.gogamificationquiz.R;
  * Created by Hunter on 12/7/2017.
  */
 
-public class MateriasExistentesFragment extends Fragment {
+public class MateriasExistentesFragment extends Fragment{
 
     ArrayList<String> nombreMateria;
     ArrayList<String> codigoMateria;
@@ -75,6 +79,7 @@ public class MateriasExistentesFragment extends Fragment {
         public TextView nombgrupo;
         public ImageView imagmateria;
         public RelativeLayout relative;
+        private final Context context;
 
 
         public MateriaViewHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -85,6 +90,16 @@ public class MateriasExistentesFragment extends Fragment {
             nombgrupo = (TextView) itemView.findViewById(R.id.grupo_nombre);
             imagmateria = (ImageView) itemView.findViewById(R.id.materia_imagen);
             relative = (RelativeLayout) itemView.findViewById(R.id.main_content);
+            context = itemView.getContext();
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context.getApplicationContext(), CuestionarioActivity.class);
+
+                    context.startActivity(intent);
+                }
+            });
+
 
         }
 
@@ -102,12 +117,16 @@ public class MateriasExistentesFragment extends Fragment {
         private  String[] codigoMaterias ;
         private  String[] nombreGrupos ;
         private  String[] imagenMaterias;
-        //private String[] mPlaceDesc;
+        Context context;
+         //private String[] mPlaceDesc;
         // private final Drawable[] mPlaceAvators;
+
+
 
         public ContentAdapter(Context context, ArrayList<String> nom, ArrayList<String> cod, ArrayList<String> gru, ArrayList<String> ima) {
             Resources resources = context.getResources();
 
+            this.context = context;
 
             LENGTH = nom.size();
             nombreMaterias = new String[nom.size()];
@@ -127,6 +146,8 @@ public class MateriasExistentesFragment extends Fragment {
 
         }
 
+
+
         @Override
         public MateriaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return new MateriaViewHolder(LayoutInflater.from(parent.getContext()), parent);
@@ -134,6 +155,7 @@ public class MateriasExistentesFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(MateriaViewHolder holder, int position) {
+
             holder.imagmateria.setImageBitmap(decodeBase64(imagenMaterias[position % imagenMaterias.length]));
             holder.nommateria.setText(nombreMaterias[position % nombreMaterias.length]);
             holder.codmateria.setText(codigoMaterias[position % codigoMaterias.length]);
