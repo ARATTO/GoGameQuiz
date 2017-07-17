@@ -58,6 +58,23 @@
             android:layout_toRightOf="@+id/materia_imagen"
             android:layout_below="@+id/grupo_nombre"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_materia"
+            android:visibility="invisible"
+            android:layout_toRightOf="@+id/materia_imagen"
+            android:layout_below="@+id/codigo_ciclo"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_grupo"
+            android:visibility="invisible"
+            android:layout_toRightOf="@+id/materia_imagen"
+            android:layout_below="@+id/id_materia"
+            />
+
 
     </RelativeLayout>
 
