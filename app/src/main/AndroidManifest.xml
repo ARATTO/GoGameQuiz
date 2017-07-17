@@ -44,9 +44,11 @@
         <activity android:name=".Pantallas.MedallasActivity" />
         <activity android:name=".Pantallas.AsignarPuntosActivity" />
         <activity android:name=".Pantallas.CrearActividadesActivity" />
+
         <activity android:name=".Pantallas.DocenteActivity" />
         <activity android:name=".Pantallas.MateriasExistentesActivity" />
         <activity android:name=".Pantallas.EstudianteActivity"></activity>
+
     </application>
 
 </manifest>
