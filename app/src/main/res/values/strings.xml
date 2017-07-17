@@ -38,7 +38,7 @@
 
 
     <!-- INICIO STRINGS LEADERBOARDS -->
-    <string name="yearBusquedaString">Año de tabla de lideres</string>
+    <string name="Lideres">Tabla de Lideres</string>
     <!-- FIN STRINGS LEADERBOARDS -->
 
     <string name="btn_cancel">Cancelar</string>
