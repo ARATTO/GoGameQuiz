@@ -116,6 +116,7 @@ public class ListadoAlumnos extends Fragment {
                 @Override
                 public void onClick(View v) {
                     System.out.println("Asignar participacion");
+
                 }
                         /*NO SE UTILIZA/*if(idActividad.isEmpty()){
                             System.out.println("no a seleccionado actividad: ");
