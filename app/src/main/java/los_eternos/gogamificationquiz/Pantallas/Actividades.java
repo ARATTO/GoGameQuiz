@@ -1,6 +1,7 @@
 package los_eternos.gogamificationquiz.Pantallas;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -9,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
@@ -33,8 +35,12 @@ public class Actividades extends Fragment {
 
     ArrayList<String> nombre=null;
     ArrayList<String> puntos=null;
+    ArrayList<String> ids=null;
     String idgrupo="";
     String idmateria="";
+    private ArrayList<String> lista_alumnos_nombres;
+    private ArrayList<String> lista_alumnos_carnets;
+    private ArrayList<String> lista_idact;
 
 
     @Override
@@ -49,6 +55,9 @@ public class Actividades extends Fragment {
             c = getArguments().getStringArrayList("puntos");
             d += getArguments().getString("idgrupo");
             e += getArguments().getString("idmateria");
+            lista_alumnos_nombres = getArguments().getStringArrayList("nombres_alumnos");
+            lista_alumnos_carnets = getArguments().getStringArrayList("carnets_alumno");
+            lista_idact = getArguments().getStringArrayList("idactividades");
 
         }
 
@@ -64,7 +73,7 @@ public class Actividades extends Fragment {
         //return inflater.inflate(R.layout.item_alumnos, null);
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
 
-        ContentAdapter adapter = new ContentAdapter(recyclerView.getContext(),nombre,puntos);
+        ContentAdapter adapter = new ContentAdapter(recyclerView.getContext(),nombre,puntos,lista_alumnos_nombres,lista_alumnos_carnets,lista_idact);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -75,6 +84,7 @@ public class Actividades extends Fragment {
 
         public TextView name;
         public TextView puntos;
+        public TextView ids;
         public static String idgrupo="";
         public static String idmateria="";
 
@@ -84,6 +94,7 @@ public class Actividades extends Fragment {
 
             name = (TextView) itemView.findViewById(R.id.nombre);
             puntos = (TextView) itemView.findViewById(R.id.descripcion);
+            ids = (TextView) itemView.findViewById(R.id.idAct);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -117,13 +128,24 @@ public class Actividades extends Fragment {
         private int LENGTH;
         private  String[] nombre ;
         private String[] descripcion;
+        private String[] idas;
+        private  Context contexto;
+        private  ArrayList<String> alumnos;
+        private  ArrayList<String> carnets;
 
-        public ContentAdapter(Context context, ArrayList<String> nombres, ArrayList<String> puntos) {
+        public ContentAdapter(Context context, ArrayList<String> nombres, ArrayList<String> puntos,ArrayList<String> alumnos,ArrayList<String> carnets,ArrayList<String> ids) {
             LENGTH = nombres.size();
             nombre = new String[nombres.size()];
             nombre = nombres.toArray(nombre);
             descripcion = new String[puntos.size()];
             descripcion = puntos.toArray(descripcion);
+            idas = new String[ids.size()];
+            idas = ids.toArray(idas);
+
+            contexto=context;
+            this.alumnos=alumnos;
+            this.carnets=carnets;
+
 
         }
 
@@ -134,8 +156,48 @@ public class Actividades extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.name.setText(nombre[position % nombre.length]);
-            holder.puntos.setText("Puntos de actividad: "+descripcion[position % descripcion.length]);
+            final ViewHolder holder1=holder;
+            holder1.name.setText(nombre[position % nombre.length]);
+            holder1.puntos.setText("Puntos de actividad: "+descripcion[position % descripcion.length]);
+            holder1.ids.setText(idas[position% idas.length]);
+            holder1.name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    final String[] names_alumnos =alumnos.toArray(new String[alumnos.size()]);
+                    final String[] carnets_alumnos =carnets.toArray(new String[carnets.size()]);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(contexto);
+                    builder.setTitle("Seleccione un Estudiante");
+                    builder.setIcon(R.drawable.gogame);
+                    builder.setNegativeButton(R.string.btn_cancel,null);
+                    builder.setPositiveButton(R.string.btn_asignar_todos, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            String text="";
+                            // Asignar medalla a un alumno
+                            for (String nombre: carnets_alumnos) {
+                                text+=nombre;
+                                text+=" ";
+                            }
+
+                            text+=holder1.ids.getText();
+                            Toast.makeText(contexto, text, Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+                    builder.setItems(names_alumnos, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int item) {
+                            // Asignar medallas a todos los alumnos
+                            //modulo para asginar puntos
+                            Toast.makeText(contexto, names_alumnos[item]+" "+carnets_alumnos[item]+" "+ holder1.ids.getText(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
+                }
+            });
         }
 
         @Override

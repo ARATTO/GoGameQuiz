@@ -372,7 +372,6 @@ public class ControlServicio {
             for (int i = 0; i < medallasJSON.length(); i++) {
                 JSONObject obj = medallasJSON.getJSONObject(i);
                 MostrarMedallas medallas = new MostrarMedallas();
-                medallas.setId_medalla(obj.getString("id"));
                 medallas.setFoto(obj.getString("imagenmedalla"));
                 medallas.setNommedalla(obj.getString("nombremedalla"));
 
@@ -426,6 +425,7 @@ public class ControlServicio {
                 MostrarActividades actividades = new MostrarActividades();
                 actividades.setIdtipo(obj.getString("puntosactividad"));
                 actividades.setNombre(obj.getString("nombreactividad"));
+                actividades.setIdact(obj.getString("id"));
 
                 listaActividades.add(actividades);
             }

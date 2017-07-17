@@ -103,11 +103,10 @@ public class ListadoAlumnos extends Fragment {
                 @Override
                 public void onClick(View v) {
                     System.out.print("Agrege logica de mostrar perfil");
-                    /*Context context = v.getContext();
-                    Intent intent = new Intent(context, PerfilActivity.class);//necesita correo,si estudiante o docente
-                    intent.putExtra("correo",descripcion.getText());
-                    intent.putExtra("IS_LIST",true);
-                    context.startActivity(intent);*/
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context.getApplicationContext(), PerfilActivity.class);
+                    intent.putExtra("email", descripcion.getText());
+                    context.startActivity(intent);
                 }
             });
 

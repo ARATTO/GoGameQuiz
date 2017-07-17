@@ -108,21 +108,22 @@ public class DocenteActivity extends AppCompatActivity {
 
         ArrayList<String> nommedallas = new ArrayList<>();
         ArrayList<String> fotome = new ArrayList<>();
-        ArrayList<String> id_medalla= new ArrayList<>();
 
 
         for (MostrarMedallas me:medallas){
             nommedallas.add(me.getNommedalla());
             fotome.add(me.getFoto());
-            id_medalla.add(me.getId_medalla());
         }
 
         ArrayList<String> nombres = new ArrayList<>();
         ArrayList<String> puntos = new ArrayList<>();
+        ArrayList<String> idact = new ArrayList<>();
+
 
         for (MostrarActividades act:actividades){
             nombres.add(act.getNombre());
             puntos.add(act.getIdtipo());
+            idact.add(act.getIdact());
         }
 
 
@@ -140,14 +141,14 @@ public class DocenteActivity extends AppCompatActivity {
         parametro2.putStringArrayList("fotome",fotome);
         parametro2.putString("idgrupo",idgrupo);
         parametro2.putString("idmateria",idmateria);
-        parametro2.putStringArrayList("nombres_alumnos",nombre);
-        parametro2.putStringArrayList("carnets_alumno",carnet);
-        parametro2.putStringArrayList("ids_medalla",id_medalla);
         medals.setArguments(parametro2);
 
         Bundle parametro3 = new Bundle();
         parametro3.putStringArrayList("nombre",nombres);
         parametro3.putStringArrayList("puntos",puntos);
+        parametro3.putStringArrayList("nombres_alumnos",nombre);
+        parametro3.putStringArrayList("carnets_alumno",carnet);
+        parametro3.putStringArrayList("idactividades",idact);
         parametro3.putString("idgrupo",idgrupo);
         parametro3.putString("idmateria",idmateria);
         activis.setArguments(parametro3);

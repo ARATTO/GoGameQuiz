@@ -35,6 +35,7 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
         private RecyclerView recycler;
         private RecyclerView.Adapter adapter;
         private RecyclerView.LayoutManager lManager;
+        private String correo;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,9 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
             //codigo de conexion
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
+
+            Intent inte = getIntent();
+            correo += inte.getStringExtra("email");
 
             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
             setupViewPager(viewPager);
