@@ -36,9 +36,12 @@ public class MedallasFragment extends Fragment {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
     View v;
+    public static String correo="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        correo +=getArguments().getString("correo");
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -81,7 +84,7 @@ public class MedallasFragment extends Fragment {
             String url="";
 
 
-            url += con.getURLLocal()+"medallasPerfil/elias_barrera@hotmail.com";
+            url += con.getURLLocal()+"medallasPerfil/"+correo;
 
 
             medallas = ControlServicio.obtenerMedalla(url,context);

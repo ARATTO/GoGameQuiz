@@ -18,6 +18,7 @@ local.properties
 
 # Gradle generated files
 .gradle/
+.idea/gradle.xml
 
 # Signing files
 .signing/
@@ -45,4 +46,5 @@ local.properties
 ehthumbs.db
 Thumbs.db
 
-/app/src/main/java/los_eternos/gogamificationquiz/Controladores/Conexion.java
+#clases que no deben cambiar
+app/src/main/java/los_eternos/gogamificationquiz/Controladores/Conexion.java 

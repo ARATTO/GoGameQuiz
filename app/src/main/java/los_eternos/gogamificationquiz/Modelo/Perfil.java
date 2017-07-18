@@ -14,6 +14,7 @@ public class Perfil {
     private String imagenPerfil;
     private String descripcionPerfil;
     private String apodo;
+    private String email;
 
     public Perfil() {
     }
@@ -93,5 +94,13 @@ public class Perfil {
 
     public void setApodo(String apodo) {
         this.apodo = apodo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

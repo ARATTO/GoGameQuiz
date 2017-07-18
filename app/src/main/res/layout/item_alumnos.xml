@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="?android:attr/selectableItemBackground"
+    android:padding="@dimen/md_keylines">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/list_avatar"
+            android:layout_width="@dimen/avator_size"
+            android:layout_height="@dimen/avator_size"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/eternos" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/list_avatar"
+            android:layout_toEndOf="@+id/list_avatar">
+            <TextView
+                android:id="@+id/list_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/md_keylines"
+                tools:text="Dario Araya"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="@dimen/article_subheading" />
+
+            <TextView
+                android:id="@+id/list_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/md_keylines"
+                android:textColor="@color/colorAccent"
+                android:ellipsize="end"
+                android:singleLine="true"
+                tools:text="AM11098"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="@dimen/list_body"
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/list_avatar2"
+            android:layout_width="@dimen/avator_size"
+            android:layout_height="@dimen/avator_size"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/ic_participacion_gray"
+            android:layout_alignParentTop="true"
+
+            android:layout_alignParentRight="true"/>
+        <ImageView
+            android:id="@+id/list_avatar3"
+            android:layout_width="@dimen/avator_size"
+            android:layout_height="@dimen/avator_size"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/ic_asistencia_gray"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/list_avatar2"
+            android:layout_toStartOf="@+id/list_avatar2"
+            />
+    </RelativeLayout>
+</LinearLayout>

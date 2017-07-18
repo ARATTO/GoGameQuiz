@@ -1,12 +1,13 @@
 package los_eternos.gogamificationquiz.Controladores;
 
-/**
- * Created by rodrigo on 07-07-17.
- */
 
+/*
+ * Created by Bryan Lobos1 on 06/07/2017.
+ */
 public class Conexion {
 
     public String URLLocal = "http://192.168.1.6:8000/";
+
 
     public Conexion() {}
 

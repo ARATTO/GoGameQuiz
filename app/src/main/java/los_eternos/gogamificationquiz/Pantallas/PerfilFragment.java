@@ -39,9 +39,11 @@ public class PerfilFragment extends Fragment {
         Conexion con = new Conexion();
         String url="";
 
+        String correo =getArguments().getString("correo");
 
-        url += con.getURLLocal()+"perfil/elias_barrera@hotmail.com";
+        url += con.getURLLocal()+"perfil/"+correo;
 
+        System.out.println("url: "+url);
         List<Perfil> perfil = null;
 
         perfil = ControlServicio.obtenerPerfil(url, getActivity());

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+xmlns:tools="http://schemas.android.com/tools"
+android:background="?android:attr/selectableItemBackground"
+android:padding="@dimen/tile_padding">
+
+<ImageView
+    android:id="@+id/tile_picture"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/tile_height"
+    android:scaleType="centerCrop"
+    tools:src="@drawable/eternos"
+    android:background="@android:color/transparent"/>
+
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/tile_height"
+    android:alpha="0.3"
+    android:background="@android:color/transparent" />
+
+<TextView
+    android:id="@+id/tile_title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/tile_height"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:text="@string/item_title"
+    android:textColor="@color/primary_light"
+    android:textSize="@dimen/article_titles" />
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/id_oculto"
+    android:visibility="invisible"/>
+</RelativeLayout>

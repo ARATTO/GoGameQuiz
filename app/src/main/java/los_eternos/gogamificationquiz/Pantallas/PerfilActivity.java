@@ -35,6 +35,7 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
         private RecyclerView recycler;
         private RecyclerView.Adapter adapter;
         private RecyclerView.LayoutManager lManager;
+        private String correo="";
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,11 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
             //codigo de conexion
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
+
+            Intent inte = getIntent();
+            correo += inte.getStringExtra("email");
+
+            System.out.println("el correo que recibo: "+correo);
 
             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
             setupViewPager(viewPager);
@@ -69,8 +75,18 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
         /*  CODIGO DE LAS TAB  */
         private void setupViewPager(ViewPager viewPager) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
-            adapter.addFragment(new PerfilFragment(), "Perfil");
-            adapter.addFragment(new MedallasFragment(), "Medallas");
+
+            PerfilFragment perfilFragment = new PerfilFragment();
+            MedallasFragment medallasFragment = new MedallasFragment();
+
+            Bundle datos = new Bundle();
+            datos.putString("correo",correo);
+
+            perfilFragment.setArguments(datos);
+            medallasFragment.setArguments(datos);
+
+            adapter.addFragment(perfilFragment, "Perfil");
+            adapter.addFragment(medallasFragment, "Medallas");
 
             viewPager.setAdapter(adapter);
         }

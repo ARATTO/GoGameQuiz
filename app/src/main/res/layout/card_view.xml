@@ -10,9 +10,11 @@
     tools:targetApi="lollipop">
 
     <RelativeLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
+        android:background="@drawable/borde"
         >
 
         <ImageView
@@ -30,18 +32,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:id="@+id/materia_nombre"
             android:layout_toRightOf="@+id/materia_imagen"
             android:layout_alignParentTop="true"
-            android:textSize="25sp"
-            android:text="INTRODUCCION"/>
+            android:textSize="25sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/materia_codigo"
-            android:text="IAI115"
             android:layout_toRightOf="@+id/materia_imagen"
             android:layout_below="@+id/materia_nombre"
             />
@@ -49,20 +48,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/grupo_nombre"
-            android:text="LABORATORIO"
             android:layout_toRightOf="@+id/materia_imagen"
             android:layout_below="@+id/materia_codigo"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/grupo_codigo"
-            android:text="CODIGO"
+            android:id="@+id/codigo_ciclo"
+            android:layout_toRightOf="@+id/materia_imagen"
+            android:layout_below="@+id/grupo_nombre"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_materia"
             android:visibility="invisible"
             android:layout_toRightOf="@+id/materia_imagen"
-            android:layout_below="@+id/materia_codigo"
-
+            android:layout_below="@+id/codigo_ciclo"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_grupo"
+            android:visibility="invisible"
+            android:layout_toRightOf="@+id/materia_imagen"
+            android:layout_below="@+id/id_materia"
+            />
+
 
     </RelativeLayout>
 
