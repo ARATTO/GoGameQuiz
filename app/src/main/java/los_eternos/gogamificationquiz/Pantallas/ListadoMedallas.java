@@ -35,6 +35,7 @@ public class ListadoMedallas extends Fragment {
 
     ArrayList<String> Nombre;
     ArrayList<String> Foto;
+    ArrayList<String> Punto;
     String id_grupo="";
     String nombre_materia="";
 
@@ -48,22 +49,26 @@ public class ListadoMedallas extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ArrayList<String> b = null;
         ArrayList<String> c = null;
+        ArrayList<String> d = null;
 
         if( getArguments() != null){
             b = getArguments().getStringArrayList("nommedalla");
             c = getArguments().getStringArrayList("fotome");
+            d = getArguments().getStringArrayList("puntosmi");
             id_grupo=getArguments().getString("idgrupo");
             nombre_materia=getArguments().getString("idmateria");
         }
 
         Nombre = b;
         Foto = c;
+        Punto=d;
 
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
         ContentAdapter adapter = new ContentAdapter(recyclerView.getContext(),
                 Nombre,
-                Foto);
+                Foto,
+                Punto);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         // Set padding for Tiles
@@ -76,12 +81,12 @@ public class ListadoMedallas extends Fragment {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView picture;
         public TextView name;
-        public TextView id;
+        public TextView puntos;
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.item_medallas, parent, false));
             picture = (ImageView) itemView.findViewById(R.id.tile_picture);
             name = (TextView) itemView.findViewById(R.id.tile_title);
-            id =(TextView)itemView.findViewById(R.id.id_oculto);
+            puntos =(TextView)itemView.findViewById(R.id.id_oculto);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -103,13 +108,16 @@ public class ListadoMedallas extends Fragment {
 
         private  String[] nombres;
         private  String[] fotos;
+        private  String[] puntos;
 
-        public ContentAdapter(Context context,ArrayList<String> nombre, ArrayList<String> foto) {
+        public ContentAdapter(Context context,ArrayList<String> nombre, ArrayList<String> foto,ArrayList<String> punto) {
             LENGTH = nombre.size();
             nombres = new String[nombre.size()];
             nombres = nombre.toArray(nombres);
             fotos = new String[foto.size()];
             fotos = foto.toArray(fotos);
+            puntos = new String[punto.size()];
+            puntos = punto.toArray(puntos);
         }
 
         @Override
@@ -121,6 +129,7 @@ public class ListadoMedallas extends Fragment {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.picture.setImageBitmap(decodeBase64(fotos[position % fotos.length]));
             holder.name.setText(nombres[position % nombres.length]);
+            holder.puntos.setText("Puntos para Ganarla: "+puntos[position % puntos.length]);
         }
 
         @Override

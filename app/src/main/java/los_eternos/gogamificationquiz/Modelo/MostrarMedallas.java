@@ -6,12 +6,23 @@ package los_eternos.gogamificationquiz.Modelo;
 public class MostrarMedallas {
     private String nommedalla;
     private String foto;
+    private String puntosminimos;
 
-    public MostrarMedallas(String nommedalla, String foto) {
+    public MostrarMedallas(String nommedalla, String foto, String puntosminimos) {
         this.nommedalla = nommedalla;
         this.foto = foto;
+        this.puntosminimos = puntosminimos;
     }
+
     public MostrarMedallas() {
+    }
+
+    public String getPuntosminimos() {
+        return puntosminimos;
+    }
+
+    public void setPuntosminimos(String puntosminimos) {
+        this.puntosminimos = puntosminimos;
     }
 
     public String getNommedalla() {

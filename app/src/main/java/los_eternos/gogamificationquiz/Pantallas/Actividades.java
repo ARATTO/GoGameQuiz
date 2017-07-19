@@ -36,7 +36,7 @@ public class Actividades extends Fragment {
     ArrayList<String> nombre=null;
     ArrayList<String> puntos=null;
     ArrayList<String> ids=null;
-    String idgrupo="";
+    public static String idgrupo="";
     String idmateria="";
     private ArrayList<String> lista_alumnos_nombres;
     private ArrayList<String> lista_alumnos_carnets;
@@ -171,26 +171,40 @@ public class Actividades extends Fragment {
                     builder.setTitle("Seleccione un Estudiante");
                     builder.setIcon(R.drawable.gogame);
                     builder.setNegativeButton(R.string.btn_cancel,null);
+
+                    //modulo para asignar puntos a todos los estudiantes
                     builder.setPositiveButton(R.string.btn_asignar_todos, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            String text="";
-                            // Asignar medalla a un alumno
-                            for (String nombre: carnets_alumnos) {
-                                text+=nombre;
-                                text+=" ";
+
+
+                            for (int k=0; k<carnets_alumnos.length; k++){
+                                String text = holder1.ids.getText().toString();
+                                System.out.print("correo: "+carnets_alumnos[k]+ "  " );
+                                System.out.println("actividad: "+text);
+
+                                String resultado = ControlServicio.asignarPuntos(carnets_alumnos[k], Integer.parseInt(text),idgrupo);
                             }
 
-                            text+=holder1.ids.getText();
-                            Toast.makeText(contexto, text, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(contexto, "Se ingreso correctamente los puntos al grupo", Toast.LENGTH_SHORT).show();
 
                         }
                     });
+
+                    //modulo para asignar puntos a un solo estudiante
                     builder.setItems(names_alumnos, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int item) {
-                            // Asignar medallas a todos los alumnos
-                            //modulo para asginar puntos
-                            Toast.makeText(contexto, names_alumnos[item]+" "+carnets_alumnos[item]+" "+ holder1.ids.getText(), Toast.LENGTH_LONG).show();
+
+                            //Toast.makeText(contexto, names_alumnos[item]+" "+carnets_alumnos[item]+" "+ holder1.ids.getText(), Toast.LENGTH_LONG).show();
+
+                            System.out.println("correo: "+carnets_alumnos[item]);
+
+
+
+                            String resultado = ControlServicio.asignarPuntos(carnets_alumnos[item], Integer.parseInt(holder1.ids.getText().toString()),idgrupo);
+
+                            Toast.makeText(contexto,resultado,Toast.LENGTH_LONG).show();
+
                         }
                     });
                     AlertDialog alert = builder.create();

@@ -86,7 +86,7 @@ public class ListadoCuestionario extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.print("Replace with your own action");
+                    System.out.print("Resolver Cuestionario");
                     /*String nom,id;
                     nom = nommateria;
                     id = idgrupo;

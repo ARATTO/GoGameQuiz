@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import los_eternos.gogamificationquiz.Controladores.Conexion;
+import los_eternos.gogamificationquiz.Controladores.ControlServicio;
 import los_eternos.gogamificationquiz.Modelo.MostrarAlumnos;
 import los_eternos.gogamificationquiz.R;
 
@@ -36,7 +38,7 @@ public class ListadoAlumnos extends Fragment {
     ArrayList<String> Carnet;
     ArrayList<String> Foto;
     String materia="";
-    String grupo="";
+    public static String grupo="";
     // static Conexion con;
 
 
@@ -113,8 +115,12 @@ public class ListadoAlumnos extends Fragment {
 
             mano.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    System.out.println("Asignar participacion");
+                public void onClick(View v) {//participacion
+                    String resultado =  ControlServicio.asignarPuntos(descripcion.getText().toString(),-2, grupo);
+
+                    System.out.println("Parcipacion resultado: "+resultado);
+
+                    Toast.makeText(v.getContext(), resultado, Toast.LENGTH_LONG).show();
 
                 }
                         /*NO SE UTILIZA/*if(idActividad.isEmpty()){
@@ -143,8 +149,12 @@ public class ListadoAlumnos extends Fragment {
 
             punto.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    System.out.println("Asignar asistencia");
+                public void onClick(View v2) {//asistencia
+                    String resultado = ControlServicio.asignarPuntos(descripcion.getText().toString(),-1,grupo);
+
+                    System.out.println("Asistencia resultado: "+resultado);
+
+                    Toast.makeText(v2.getContext(), resultado, Toast.LENGTH_LONG).show();
                 }
             });
 

@@ -43,5 +43,6 @@
 
     <string name="btn_cancel">Cancelar</string>
     <string name="btn_asignar_todos">Asignar a todos</string>
+    <string name="btn_ok">Entendido</string>
 
 </resources>

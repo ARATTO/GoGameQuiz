@@ -374,6 +374,7 @@ public class ControlServicio {
                 MostrarMedallas medallas = new MostrarMedallas();
                 medallas.setFoto(obj.getString("imagenmedalla"));
                 medallas.setNommedalla(obj.getString("nombremedalla"));
+                medallas.setPuntosminimos(obj.getString("cantidadminimapuntos"));
 
                 listaMedallas.add(medallas);
             }
@@ -599,6 +600,46 @@ public class ControlServicio {
             Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
             return null;
         }
+    }
+
+    public static String asignarPuntos(String email, int actividad, String idGrupo){
+
+        String resultado = "";
+        HttpClient cliente = new DefaultHttpClient();
+        String url = "";
+        Conexion conn = new Conexion();
+        url += conn.getURLLocal() + "puntosPerfil";
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("content-type", "application/json");
+
+        try{
+            JSONObject dato = new JSONObject();
+            dato.put("email", email);
+            dato.put("actividad",actividad);
+            dato.put("grupo",idGrupo);
+
+            StringEntity entity = new StringEntity(dato.toString());
+            httpPost.setEntity(entity);
+            HttpResponse resp = cliente.execute(httpPost);
+
+            StatusLine estado = resp.getStatusLine();
+            System.out.println("estado en asignar puntos: " + estado);
+            int codigoEstado = estado.getStatusCode();
+            resultado = (EntityUtils.toString(resp.getEntity()));
+            System.out.println("el resultado de asignar puntos es: "+resultado);
+
+
+
+        }catch (Exception e){
+            System.out.println("hubo error");
+            Log.v("ERROR_DESCONOCIDO",e.getMessage());
+            resultado = "hubo un error verifique su conexion";
+
+        }
+
+        return resultado;
+
     }
 
 
