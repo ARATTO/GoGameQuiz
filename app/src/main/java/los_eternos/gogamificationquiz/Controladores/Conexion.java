@@ -8,7 +8,7 @@ public class Conexion {
 
 
 
-    public String URLLocal = "http://192.168.1.8:8000/";
+    public String URLLocal = "http://192.168.0.101:8000/";
 
     public Conexion() {}
 
