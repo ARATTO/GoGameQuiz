@@ -5,8 +5,8 @@ package los_eternos.gogamificationquiz.Modelo;
  */
 public class Respuesta {
     private int idRespuesta;
-    private int idPregunta;
-    private int esCorrecta;
+    private String idPregunta;
+    private String esCorrecta;
     private String Alternativas;
 
     public int getIdRespuesta() {
@@ -17,19 +17,19 @@ public class Respuesta {
         this.idRespuesta = idRespuesta;
     }
 
-    public int getIdPregunta() {
+    public String getIdPregunta() {
         return idPregunta;
     }
 
-    public void setIdPregunta(int idPregunta) {
+    public void setIdPregunta(String idPregunta) {
         this.idPregunta = idPregunta;
     }
 
-    public int getEsCorrecta() {
+    public String getEsCorrecta() {
         return esCorrecta;
     }
 
-    public void setEsCorrecta(int esCorrecta) {
+    public void setEsCorrecta(String esCorrecta) {
         this.esCorrecta = esCorrecta;
     }
 
@@ -41,7 +41,7 @@ public class Respuesta {
         Alternativas = alternativas;
     }
 
-    public Respuesta(int idRespuesta, int idPregunta, int esCorrecta, String alternativas) {
+    public Respuesta(int idRespuesta, String idPregunta, String esCorrecta, String alternativas) {
 
         this.idRespuesta = idRespuesta;
         this.idPregunta = idPregunta;
