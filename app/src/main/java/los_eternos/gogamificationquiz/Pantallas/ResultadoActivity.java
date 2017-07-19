@@ -9,13 +9,17 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import los_eternos.gogamificationquiz.R;
 
 public class ResultadoActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+    TextView informacionResultado;
     Button button;
+
+    private double notaFinal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +28,12 @@ public class ResultadoActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setTitle("Cuestionario");
+
+        informacionResultado = (TextView) findViewById(R.id.informacion_resultado);
+        notaFinal = getIntent().getExtras().getDouble("notaFinal");
+        informacionResultado.setText("Cuestionario finalizado con nota: " + notaFinal);
+
 
     }
 

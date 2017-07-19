@@ -130,7 +130,6 @@ public class LoginActivity extends AppCompatActivity {
                         //Cuando el usuario sea un estudiante
                         Intent intent = new Intent(getApplicationContext(), MateriasExistentesActivity.class);
                         intent.putExtra("email", email);
-                        //intent.putExtra("password", password);
                         intent.putExtra("resultado", resultado);
                         startActivity(intent);
                         Toast.makeText(getApplicationContext(), "Estudiante", Toast.LENGTH_SHORT).show();
@@ -141,7 +140,6 @@ public class LoginActivity extends AppCompatActivity {
                         //Cuando el usuario sea un docente
                         Intent intent2 = new Intent(getApplicationContext(), MateriasExistentesActivity.class);
                         intent2.putExtra("email", email);
-                        //intent2.putExtra("password", password);
                         intent2.putExtra("resultado", resultado);
                         startActivity(intent2);
                         Toast.makeText(getApplicationContext(), "Docente", Toast.LENGTH_SHORT).show();

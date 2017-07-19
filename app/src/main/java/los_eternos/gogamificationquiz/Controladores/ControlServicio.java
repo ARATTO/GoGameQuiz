@@ -150,6 +150,7 @@ public class ControlServicio {
                 materias.setCodigoCiclo(obj.getString("CODIGOCICLO"));
                 materias.setIdMateria(obj.getString("IDMATERIA"));
                 materias.setIdGrupo(obj.getString("IDGRUPO"));
+                materias.setIdPerfil(obj.getString("IDPERFIL"));
 
                 listaMateria.add(materias);
             }
@@ -226,6 +227,7 @@ public class ControlServicio {
                 materias.setCodigoCiclo(obj.getString("CODIGOCICLO"));
                 materias.setIdMateria(obj.getString("IDMATERIA"));
                 materias.setIdGrupo(obj.getString("IDGRUPO"));
+                materias.setIdPerfil(obj.getString("IDPERFIL"));
 
                 listaMateria.add(materias);
             }

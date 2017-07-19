@@ -14,6 +14,7 @@ public class Materia {
     private String nomTipoGrupo;
     private String codigoGrupo;
     private String codigoCiclo;
+    private String idPerfil;
 
     public Materia() {
     }
@@ -37,6 +38,10 @@ public class Materia {
     public String getNombreDocente() { return nombreDocente; }
 
     public void setNombreDocente(String nombreDocente) { this.nombreDocente = nombreDocente; }
+
+    public String getIdPerfil() { return idPerfil; }
+
+    public void setIdPerfil(String idPerfil) { this.idPerfil = idPerfil; }
 
     public String getNombreGrupo() { return codigoGrupo; }
 

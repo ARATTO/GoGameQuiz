@@ -42,10 +42,10 @@ public class PreguntasActivity extends AppCompatActivity {
     private ArrayList<String> respuestasString = new ArrayList<>(); //Aqui se guarda la respuesta que se muestran en los radiobutton
     private ArrayList<String> correctas = new ArrayList<>(); //Aqui se almacenan el identificador de respuesta correcto o incorrecta
     private int respuestacorrecta; //Guarda la posicion de la respuesta correcta
-    private int numeroPregunta;
-    private int numeroRespuesta;
-    private int cantidadPreguntas;
-    private int notaFinal;
+    private int numeroPregunta; //Almacena el indice del arreglo preguntasString
+    private int numeroRespuesta;    //Almacena el indice del arreglo respuestasString
+    private int cantidadPreguntas;  //Numero de preguntas del cuestionario
+    private double notaFinal;       //Nota obtenida al resolver todo el cuestionario
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,55 +68,67 @@ public class PreguntasActivity extends AppCompatActivity {
         numeroRespuesta = 0;
         cantidadPreguntas = 1;
         notaFinal = 0;
-        MostrarPregunta();
+
+        MostrarPregunta();  //Metodo que muestra las preguntas
 
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int id = group.getCheckedRadioButtonId();
-                int index = -1;
+                int id = group.getCheckedRadioButtonId();   //Obtiene el valor del indice de los radiobutton
+                int index = -1; //Valor del indice cuando no se selecciona ninguna opcion
+                //Se comprueba cual de los indices fue seleccionado
                 for(int i = 0; i < ids_respuesta.length; i++) {
                     if (ids_respuesta[i] == id) {
                         index = i;
                     }
                 }
+                //Si se escogio alguna de las opciones (radiobutton)
                 if (index != -1){
+                    //Si la opcion seleccionada es la respuesta correcta
                     if (index == respuestacorrecta){
-                        Toast.makeText(getApplicationContext(), "Correcta", Toast.LENGTH_SHORT).show();
+
                         numeroPregunta++;
                         numeroRespuesta+=4;
                         cantidadPreguntas++;
                         notaFinal++;
+
+                        //Cuando nos pasamos de 10 preguntas
                         if (cantidadPreguntas > 10){
+
                             Intent intent = new Intent(getApplicationContext(), ResultadoActivity.class);
+                            intent.putExtra("notaFinal", notaFinal); //Manda notaFinal a ResultadoActivity
                             startActivity(intent);
                         }
+                        //Cuando no hemos pasado 10 preguntas
                         else {
-                            MostrarPregunta();
+                            MostrarPregunta();  //Metodo que muestra las preguntas
                         }
 
                     }
+                    //Si la opcion seleccionada no es la respuesta correcta
                     else{
-                        Toast.makeText(getApplicationContext(), "Incorrecta", Toast.LENGTH_SHORT).show();
+
                         numeroPregunta++;
                         numeroRespuesta+=4;
                         cantidadPreguntas++;
+
+                        //Cuando nos pasamos de 10 preguntas
                         if (cantidadPreguntas > 10){
+
                             Intent intent = new Intent(getApplicationContext(), ResultadoActivity.class);
+                            intent.putExtra("notaFinal", notaFinal); //Manda notaFinal a ResultadoActivity
                             startActivity(intent);
                         }
+                        //Cuando no hemos pasado 10 preguntas
                         else {
-                            MostrarPregunta();
+                            MostrarPregunta();  //Metodo que muestra las preguntas
                         }
-
                     }
                 }
+                //Cuando no se selecciona ninguna opcion (radiobutton)
                 else{
                     Toast.makeText(getApplicationContext(), "Debe escoger una respuesta", Toast.LENGTH_SHORT).show();
                 }
-
-
-
 
             }
         });
@@ -140,11 +152,13 @@ public class PreguntasActivity extends AppCompatActivity {
             correctas.add(res.getEsCorrecta());
         }
 
-        titulo.setText("PREGUNTA " + (numeroPregunta + 1));
+        //Valor final que mostrara el TextView de titulo
+        titulo.setText("PREGUNTA " + (numeroPregunta + 1) + " de 10");
 
         //Valor final que mostrara el TextView
         pregunta.setText(preguntasString.get(numeroPregunta));
 
+        //Deja limpios los radiobutton
         group.clearCheck();
 
         //Valor final que mostraran los RadioButton
@@ -153,19 +167,18 @@ public class PreguntasActivity extends AppCompatActivity {
             respuesta.setText(respuestasString.get(numeroRespuesta + i));
         }
 
-
+        //Valor final que mostrara cual es la respuesta correcta
         for(int i = 0; i < ids_respuesta.length; i++){
             if (correctas.get(i + numeroRespuesta) == "1"){
                 respuestacorrecta = i;
             }
         }
 
+        //En la ultima pregunta cambia el texto del boton
         if (cantidadPreguntas == 10){
             boton.setText("Comprobar");
         }
 
-
     }
-
 
 }

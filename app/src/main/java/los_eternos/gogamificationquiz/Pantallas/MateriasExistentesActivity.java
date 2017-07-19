@@ -46,7 +46,7 @@ public class MateriasExistentesActivity extends AppCompatActivity {
         resultado = getIntent().getExtras().getInt("resultado"); //Recibe el parametro resultado de LoginActivity
         email = getIntent().getExtras().getString("email"); //Recibe el parametro email de LoginActivity
 
-        if(resultado==1){
+        if(resultado == 1){
 
             //Cuando ingresa a la app un estudiante
 
@@ -98,6 +98,7 @@ public class MateriasExistentesActivity extends AppCompatActivity {
         ArrayList<String> imagenMateria = new ArrayList<>();
         ArrayList<String> idMateria = new ArrayList<>();
         ArrayList<String> idGrupo = new ArrayList<>();
+        ArrayList<String> idPerfil = new ArrayList<>();
 
         for (Materia mef: materias){
 
@@ -108,6 +109,7 @@ public class MateriasExistentesActivity extends AppCompatActivity {
             imagenMateria.add(mef.getImagenMateria());
             idMateria.add(mef.getIdMateria());
             idGrupo.add(mef.getIdGrupo());
+            idPerfil.add(mef.getIdPerfil());
 
         }
 
@@ -121,6 +123,7 @@ public class MateriasExistentesActivity extends AppCompatActivity {
         parametro.putStringArrayList("codci", codigoCiclo);
         parametro.putStringArrayList("idmate", idMateria);
         parametro.putStringArrayList("idgru", idGrupo);
+        parametro.putStringArrayList("idper", idPerfil);
         parametro.putInt("resultado",resultado);
         parametro.putString("email",email);
         materia.setArguments(parametro);
