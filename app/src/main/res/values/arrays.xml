@@ -13,6 +13,7 @@
         <item>Puntaje: 180</item>
         <item>Puntaje: 195</item>
     </string-array>
+
     <array name="places_picture">
         <item>@drawable/a_iai115</item>
         <item>@drawable/a_mat115</item>

@@ -1,6 +1,7 @@
 package los_eternos.gogamificationquiz.Pantallas;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
@@ -54,6 +55,7 @@ public class DocenteActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setTitle("Informacion");
                 builder.setIcon(R.drawable.gogame);
+                builder.setView(R.layout.informacion_docente);
                 builder.setNegativeButton(R.string.btn_cancel,null);
                 builder.setPositiveButton(R.string.btn_ok,null);
                 AlertDialog alert = builder.create();

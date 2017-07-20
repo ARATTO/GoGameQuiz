@@ -45,4 +45,8 @@
     <string name="btn_asignar_todos">Asignar a todos</string>
     <string name="btn_ok">Entendido</string>
 
+    <string name="InfoAsis">Al dar click sobre el punto puede asignar puntos de asistencia</string>
+    <string name="InfoPart">Al dar click sobre la mano puede asignar puntos de participacion</string>
+
+
 </resources>
