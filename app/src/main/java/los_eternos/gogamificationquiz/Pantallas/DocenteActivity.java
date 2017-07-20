@@ -30,8 +30,8 @@ import los_eternos.gogamificationquiz.R;
 
 public class DocenteActivity extends AppCompatActivity {
     Conexion con;
-    String idgrupo ="1";
-    String idmateria ="1";
+    String idgrupo ="";
+    String idmateria ="";
     private ArrayList<MostrarAlumnos> alumnos;
     private ArrayList<MostrarMedallas> medallas;
     private ArrayList<MostrarActividades> actividades;
@@ -46,6 +46,10 @@ public class DocenteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_docente);
         con=new Conexion();
+
+        Intent inte = getIntent();
+        idmateria += inte.getStringExtra("idmateria");
+        idgrupo += inte.getStringExtra("idgrupo");
 
         flot = (FloatingActionButton) findViewById(R.id.fab);
 

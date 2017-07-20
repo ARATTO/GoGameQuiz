@@ -1,5 +1,6 @@
 package los_eternos.gogamificationquiz.Pantallas;
 
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -27,8 +28,9 @@ import los_eternos.gogamificationquiz.R;
 
 public class EstudianteActivity extends AppCompatActivity {
     Conexion con;
-    String idgrupo ="1";
-    String idmateria ="1";
+    public String idgrupo ="";
+    public String idmateria ="";
+    public String idperfil ="";
     private ArrayList<MostrarCuestionario> cuestionarios;
     private Materia materias;
     private ArrayList<MostrarLideres> lideres;
@@ -44,9 +46,11 @@ public class EstudianteActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        /*Intent inte = getIntent();
+        Intent inte = getIntent();
         idmateria += inte.getStringExtra("idmateria");
-        idgrupo += inte.getStringExtra("idgrupo");*/
+        idgrupo += inte.getStringExtra("idgrupo");
+        idperfil += inte.getStringExtra("idperfil");
+
 
         //Consulta de actividades por materia y grupo
         cuestionarios = ControlServicio.obtenerCuestionario(idmateria,idgrupo,EstudianteActivity.this);
@@ -99,18 +103,22 @@ public class EstudianteActivity extends AppCompatActivity {
 
         ArrayList<String> nombrec = new ArrayList<>();
         ArrayList<String> duracionc = new ArrayList<>();
+        ArrayList<String> idc = new ArrayList<>();
 
 
         for (MostrarCuestionario m:cuestionarios){
             nombrec.add(m.getNombre());
             duracionc.add(m.getDuracion());
+            idc.add(m.getIdC());
         }
 
         Bundle parametro = new Bundle();
         parametro.putStringArrayList("nombrec",nombrec);
         parametro.putStringArrayList("duracionc",duracionc);
+        parametro.putStringArrayList("ids",idc);
         parametro.putString("idgrupo",idgrupo);
         parametro.putString("idmateria",idmateria);
+        parametro.putString("idperfil",idperfil);
         cuestios.setArguments(parametro);
 
         String nombrema;

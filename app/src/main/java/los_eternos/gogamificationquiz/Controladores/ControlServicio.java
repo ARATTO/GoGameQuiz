@@ -625,6 +625,7 @@ public class ControlServicio {
                 MostrarCuestionario cuestionario = new MostrarCuestionario();
                 cuestionario.setNombre(obj.getString("nombrecuestionario"));
                 cuestionario.setDuracion(obj.getString("duracioncuestionario"));
+                cuestionario.setIdC(obj.getString("id"));
 
                 listaCuestionario.add(cuestionario);
             }
@@ -786,6 +787,39 @@ public class ControlServicio {
 
         return resultado;
 
+    }
+
+    public static void mandarNota(String idperfil, String idcuestionario, double notaFinal){
+
+        String resultado;
+        HttpClient cliente = new DefaultHttpClient();
+        String url = "";
+        Conexion conn = new Conexion();
+        url += conn.getURLLocal() + "guardarNotasCuestionario";
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("content-type", "application/json");
+
+        try{
+            JSONObject dato = new JSONObject();
+            dato.put("idperfil", idperfil);
+            dato.put("idcuestionario", idcuestionario);
+            dato.put("notafinal", notaFinal);
+            StringEntity entity = new StringEntity(dato.toString());
+            httpPost.setEntity(entity);
+            HttpResponse resp = cliente.execute(httpPost);
+
+            StatusLine estado = resp.getStatusLine();
+            System.out.println("estado: " + estado);
+            //int codigoEstado = estado.getStatusCode();
+            resultado = (EntityUtils.toString(resp.getEntity()));
+            System.out.print(resultado);
+
+        }catch (Exception e){
+
+            Log.v("ERROR_DESCONOCIDO",e.getMessage());
+
+        }
     }
 
 

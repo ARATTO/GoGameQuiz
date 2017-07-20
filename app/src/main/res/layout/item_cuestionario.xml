@@ -38,6 +38,16 @@
             android:textAppearance="?attr/textAppearanceListItem"
             android:textSize="@dimen/list_body" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/id"
+            android:layout_alignBaseline="@+id/cuestionario"
+            android:layout_alignBottom="@+id/cuestionario"
+            android:layout_alignRight="@+id/nombre"
+            android:layout_alignEnd="@+id/nombre"
+            android:visibility="invisible" />
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

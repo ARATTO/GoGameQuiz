@@ -6,13 +6,23 @@ package los_eternos.gogamificationquiz.Modelo;
 public class MostrarCuestionario {
     private String nombre;
     private String duracion;
+    private String idC;
 
-    public MostrarCuestionario(String nombre, String duracion) {
+    public MostrarCuestionario(String nombre, String idC, String duracion) {
         this.nombre = nombre;
+        this.idC = idC;
         this.duracion = duracion;
     }
 
     public MostrarCuestionario() {
+    }
+
+    public String getIdC() {
+        return idC;
+    }
+
+    public void setIdC(String idC) {
+        this.idC = idC;
     }
 
     public String getNombre() {

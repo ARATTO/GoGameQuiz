@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import los_eternos.gogamificationquiz.Controladores.ControlServicio;
 import los_eternos.gogamificationquiz.R;
 
 public class ResultadoActivity extends AppCompatActivity {
@@ -18,6 +19,8 @@ public class ResultadoActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView informacionResultado;
     Button button;
+    public String idcuestionario;
+    public String idperfil;
 
     private double notaFinal;
 
@@ -25,6 +28,11 @@ public class ResultadoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado);
+
+        Intent inte = getIntent();
+        idcuestionario = inte.getStringExtra("idcuestionario");
+        idperfil += inte.getStringExtra("idperfil");
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -38,7 +46,8 @@ public class ResultadoActivity extends AppCompatActivity {
     }
 
     public void salirCuestionario(View view){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), EstudianteActivity.class);
+        ControlServicio.mandarNota(idperfil, idcuestionario, notaFinal);
         startActivity(intent);
     }
 }

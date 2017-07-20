@@ -31,6 +31,11 @@ public class PreguntasActivity extends AppCompatActivity {
     RadioGroup group;
     Button boton;
 
+    public String idcuestionario;
+    public String idperfil;
+
+
+
     //Variables globales
     private int idpregunta;
     private int ids_respuesta[] = {
@@ -51,6 +56,10 @@ public class PreguntasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preguntas);
+
+        Intent inte = getIntent();
+        idcuestionario += inte.getStringExtra("idcuestionario");
+        idperfil += inte.getStringExtra("idperfil");
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -96,6 +105,8 @@ public class PreguntasActivity extends AppCompatActivity {
                         if (cantidadPreguntas > 10){
 
                             Intent intent = new Intent(getApplicationContext(), ResultadoActivity.class);
+                            intent.putExtra("idcuestionario",idcuestionario);
+                            intent.putExtra("idperfil",idperfil);
                             intent.putExtra("notaFinal", notaFinal); //Manda notaFinal a ResultadoActivity
                             startActivity(intent);
                         }
@@ -116,6 +127,8 @@ public class PreguntasActivity extends AppCompatActivity {
                         if (cantidadPreguntas > 10){
 
                             Intent intent = new Intent(getApplicationContext(), ResultadoActivity.class);
+                            intent.putExtra("idcuestionario",idcuestionario);
+                            intent.putExtra("idperfil",idperfil);
                             intent.putExtra("notaFinal", notaFinal); //Manda notaFinal a ResultadoActivity
                             startActivity(intent);
                         }

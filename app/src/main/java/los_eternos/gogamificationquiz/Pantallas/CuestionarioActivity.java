@@ -14,11 +14,17 @@ import los_eternos.gogamificationquiz.R;
 public class CuestionarioActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+    public String idcuestionario;
+    public String idperfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cuestionario);
+
+        Intent inte = getIntent();
+        idcuestionario += inte.getStringExtra("idcuestionario");
+        idperfil += inte.getStringExtra("idperfil");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -30,6 +36,8 @@ public class CuestionarioActivity extends AppCompatActivity {
 
     public void empezarCuestionario(View view){
         Intent intent = new Intent(getApplicationContext(), PreguntasActivity.class);
+        intent.putExtra("idcuestionario",idcuestionario);
+        intent.putExtra("idperfil",idperfil);
         startActivity(intent);
     }
 }
