@@ -33,6 +33,8 @@ import los_eternos.gogamificationquiz.Modelo.MostrarLideres;
 import los_eternos.gogamificationquiz.Modelo.MostrarMedallas;
 
 import los_eternos.gogamificationquiz.Modelo.Perfil;
+import los_eternos.gogamificationquiz.Modelo.Pregunta;
+import los_eternos.gogamificationquiz.Modelo.Respuesta;
 
 public class ControlServicio {
 
@@ -148,6 +150,7 @@ public class ControlServicio {
                 materias.setCodigoCiclo(obj.getString("CODIGOCICLO"));
                 materias.setIdMateria(obj.getString("IDMATERIA"));
                 materias.setIdGrupo(obj.getString("IDGRUPO"));
+                materias.setIdPerfil(obj.getString("IDPERFIL"));
 
                 listaMateria.add(materias);
             }
@@ -224,6 +227,7 @@ public class ControlServicio {
                 materias.setCodigoCiclo(obj.getString("CODIGOCICLO"));
                 materias.setIdMateria(obj.getString("IDMATERIA"));
                 materias.setIdGrupo(obj.getString("IDGRUPO"));
+                materias.setIdPerfil(obj.getString("IDPERFIL"));
 
                 listaMateria.add(materias);
             }
@@ -240,6 +244,148 @@ public class ControlServicio {
             return null;
 
         }
+    }
+
+    //Metodo de Alam para buscar en el servidor las preguntas del cuestionario
+    public static String obtenerRespuestaPregunta(int idpregunta){
+        String resultado = "";
+        HttpClient cliente = new DefaultHttpClient();
+        String url = "";
+        Conexion conn = new Conexion();
+        url += conn.getURLLocal() + "preguntasCuestionario";
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("content-type", "application/json");
+
+        try{
+            JSONObject dato = new JSONObject();
+            dato.put("idpregunta", idpregunta);
+            StringEntity entity = new StringEntity(dato.toString());
+            httpPost.setEntity(entity);
+            HttpResponse resp = cliente.execute(httpPost);
+
+            StatusLine estado = resp.getStatusLine();
+            System.out.println("estado: " + estado);
+            //int codigoEstado = estado.getStatusCode();
+            resultado = (EntityUtils.toString(resp.getEntity()));
+            System.out.print(resultado);
+
+        }catch (Exception e){
+
+            Log.v("ERROR_DESCONOCIDO",e.getMessage());
+
+        }
+
+        return resultado;
+
+    }
+
+    //Metodo de Alam para obtener las preguntas del cuestionario
+    public static ArrayList<Pregunta> obtenerPreguntas(int idpregunta, Context ctx){
+
+        String json = obtenerRespuestaPregunta(idpregunta);
+        ArrayList<Pregunta> listaPregunta = new ArrayList<Pregunta>();
+
+        try {
+
+            JSONArray preguntasJSON = new JSONArray(json);
+
+            for (int i = 0; i < preguntasJSON.length(); i++) {
+
+                JSONObject obj = preguntasJSON.getJSONObject(i);
+
+                Pregunta pregunta = new Pregunta();
+
+                pregunta.setPregunta(obj.getString("PREGUNTA"));
+
+                listaPregunta.add(pregunta);
+            }
+
+            System.out.println(listaPregunta);
+
+            return listaPregunta;
+
+        } catch (Exception e) {
+
+            System.out.println(e);
+            Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
+
+            return null;
+
+        }
+    }
+
+    //Metodo de Alam para buscar en el servidor las respuestas de una pregunta
+    public static String obtenerRespuestaRespuesta(int idpregunta){
+
+        String resultado = "";
+        HttpClient cliente = new DefaultHttpClient();
+        String url = "";
+        Conexion conn = new Conexion();
+        url += conn.getURLLocal() + "respuestasCuestionario";
+        HttpPost httpPost = new HttpPost(url);
+
+        httpPost.setHeader("content-type", "application/json");
+
+        try{
+            JSONObject dato = new JSONObject();
+            dato.put("idpregunta", idpregunta);
+            StringEntity entity = new StringEntity(dato.toString());
+            httpPost.setEntity(entity);
+            HttpResponse resp = cliente.execute(httpPost);
+
+            StatusLine estado = resp.getStatusLine();
+            System.out.println("estado: " + estado);
+            //int codigoEstado = estado.getStatusCode();
+            resultado = (EntityUtils.toString(resp.getEntity()));
+            System.out.print(resultado);
+
+        }catch (Exception e){
+
+            Log.v("ERROR_DESCONOCIDO",e.getMessage());
+
+        }
+
+        return resultado;
+
+    }
+
+    //Metodo de Alam para obtener las respuestas de las preguntas
+    public static ArrayList<Respuesta> obtenerRespuestas(int idpregunta, Context ctx){
+
+        String json = obtenerRespuestaRespuesta(idpregunta);
+        ArrayList<Respuesta> listaRespuesta = new ArrayList<Respuesta>();
+
+        try {
+
+            JSONArray respuestasJSON = new JSONArray(json);
+
+            for (int i = 0; i < respuestasJSON.length(); i++) {
+
+                JSONObject obj = respuestasJSON.getJSONObject(i);
+
+                Respuesta respuestas = new Respuesta();
+
+                respuestas.setIdPregunta(obj.getString("IDPREGUNTA"));
+                respuestas.setAlternativas(obj.getString("ALTERNATIVA"));
+                respuestas.setEsCorrecta(obj.getString("ESCORRECTA"));
+
+                listaRespuesta.add(respuestas);
+            }
+
+            System.out.println(listaRespuesta);
+
+            return listaRespuesta;
+
+        } catch (Exception e) {
+
+            System.out.println(e);
+            Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
+
+            return null;
+
+        }
+
     }
 
     //Metodo de Alam para consultar en el servidor los datos del usuario en el login

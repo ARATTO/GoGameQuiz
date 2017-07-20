@@ -9,13 +9,14 @@
 
     <!-- INICIO TAMAÑOS DE LETRA PARA EL CUESTIONARIO. -->
 
-    <dimen name="titulo_preguntas">50dp</dimen>
+    <dimen name="titulo_preguntas">30dp</dimen>
     <dimen name="contenido_preguntas">20dp</dimen>
     <dimen name="opciones_preguntas">20dp</dimen>
     <dimen name="texto_boton_siguiente">15dp</dimen>
     <dimen name="indicaciones">25dp</dimen>
     <dimen name="confirmacion">18dp</dimen>
-    <dimen name="informacion_resultado">47dp</dimen>
+    <dimen name="titulo_resultados">45dp</dimen>
+    <dimen name="informacion_resultado">45dp</dimen>
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="md_keylines">16dp</dimen>
 

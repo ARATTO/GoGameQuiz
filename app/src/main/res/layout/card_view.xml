@@ -74,6 +74,14 @@
             android:layout_toRightOf="@+id/materia_imagen"
             android:layout_below="@+id/id_materia"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_perfil"
+            android:visibility="invisible"
+            android:layout_toRightOf="@+id/materia_imagen"
+            android:layout_below="@+id/id_grupo"
+            />
 
 
     </RelativeLayout>

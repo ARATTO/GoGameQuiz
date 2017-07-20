@@ -4,16 +4,16 @@ package los_eternos.gogamificationquiz.Modelo;
  * Created by Bryan Lobos1 on 18/02/2017.
  */
 public class Pregunta {
-    private int idPregunta;
+    private String idPregunta;
     private int idCategoria;
     private int idTipoPregunta;
     private String Pregunta;
 
-    public int getIdPregunta() {
+    public String getIdPregunta() {
         return idPregunta;
     }
 
-    public void setIdPregunta(int idPregunta) {
+    public void setIdPregunta(String idPregunta) {
         this.idPregunta = idPregunta;
     }
 
@@ -45,7 +45,7 @@ public class Pregunta {
 
     }
 
-    public Pregunta(int idPregunta, int idCategoria, int idTipoPregunta, String pregunta) {
+    public Pregunta(String idPregunta, int idCategoria, int idTipoPregunta, String pregunta) {
 
         this.idPregunta = idPregunta;
         this.idCategoria = idCategoria;
