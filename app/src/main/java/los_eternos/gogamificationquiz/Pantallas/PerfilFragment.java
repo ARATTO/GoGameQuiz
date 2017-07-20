@@ -39,16 +39,18 @@ public class PerfilFragment extends Fragment {
         Conexion con = new Conexion();
         String url="";
 
+        String correo =getArguments().getString("correo");
 
-        url += con.getURLLocal()+"perfil/1";
+        url += con.getURLLocal()+"perfil/"+correo;
 
+        System.out.println("url: "+url);
         List<Perfil> perfil = null;
 
         perfil = ControlServicio.obtenerPerfil(url, getActivity());
 
 
         for (int i =0; i<perfil.size();i++){
-           nombre.setText(perfil.get(i).getNombrePerfil());
+            nombre.setText(perfil.get(i).getNombrePerfil());
 
             byte[] decodedByte = Base64.decode(perfil.get(i).getImagenPerfil(), 0);
 

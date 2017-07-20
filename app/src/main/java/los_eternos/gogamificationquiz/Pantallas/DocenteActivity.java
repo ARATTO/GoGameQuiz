@@ -1,15 +1,21 @@
 package los_eternos.gogamificationquiz.Pantallas;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.StrictMode;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +36,7 @@ public class DocenteActivity extends AppCompatActivity {
     private ArrayList<MostrarActividades> actividades;
     private DrawerLayout mDrawerLayout;
     static  public TabLayout tabs;
+    public FloatingActionButton flot;
 
 
 
@@ -38,6 +45,21 @@ public class DocenteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_docente);
         con=new Conexion();
+
+        flot = (FloatingActionButton) findViewById(R.id.fab);
+
+        flot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle("Informacion");
+                builder.setIcon(R.drawable.gogame);
+                builder.setNegativeButton(R.string.btn_cancel,null);
+                builder.setPositiveButton(R.string.btn_ok,null);
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -68,6 +90,8 @@ public class DocenteActivity extends AppCompatActivity {
 
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+
+
     }
 
 
@@ -108,21 +132,24 @@ public class DocenteActivity extends AppCompatActivity {
 
         ArrayList<String> nommedallas = new ArrayList<>();
         ArrayList<String> fotome = new ArrayList<>();
-        ArrayList<String> id_medalla= new ArrayList<>();
+        ArrayList<String> pumi = new ArrayList<>();
 
 
         for (MostrarMedallas me:medallas){
             nommedallas.add(me.getNommedalla());
             fotome.add(me.getFoto());
-            id_medalla.add(me.getId_medalla());
+            pumi.add(me.getPuntosminimos());
         }
 
         ArrayList<String> nombres = new ArrayList<>();
         ArrayList<String> puntos = new ArrayList<>();
+        ArrayList<String> idact = new ArrayList<>();
+
 
         for (MostrarActividades act:actividades){
             nombres.add(act.getNombre());
             puntos.add(act.getIdtipo());
+            idact.add(act.getIdact());
         }
 
 
@@ -138,16 +165,17 @@ public class DocenteActivity extends AppCompatActivity {
         Bundle parametro2 = new Bundle();
         parametro2.putStringArrayList("nommedalla",nommedallas);
         parametro2.putStringArrayList("fotome",fotome);
+        parametro2.putStringArrayList("puntosmi",pumi);
         parametro2.putString("idgrupo",idgrupo);
         parametro2.putString("idmateria",idmateria);
-        parametro2.putStringArrayList("nombres_alumnos",nombre);
-        parametro2.putStringArrayList("carnets_alumno",carnet);
-        parametro2.putStringArrayList("ids_medalla",id_medalla);
         medals.setArguments(parametro2);
 
         Bundle parametro3 = new Bundle();
         parametro3.putStringArrayList("nombre",nombres);
         parametro3.putStringArrayList("puntos",puntos);
+        parametro3.putStringArrayList("nombres_alumnos",nombre);
+        parametro3.putStringArrayList("carnets_alumno",carnet);
+        parametro3.putStringArrayList("idactividades",idact);
         parametro3.putString("idgrupo",idgrupo);
         parametro3.putString("idmateria",idmateria);
         activis.setArguments(parametro3);

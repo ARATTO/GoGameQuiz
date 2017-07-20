@@ -6,10 +6,20 @@ package los_eternos.gogamificationquiz.Modelo;
 public class MostrarActividades {
     private String nombre;
     private String idtipo;
+    private String idact;
 
-    public MostrarActividades(String nombre, String idtipo) {
+    public MostrarActividades(String nombre, String idtipo, String idact) {
         this.nombre = nombre;
         this.idtipo = idtipo;
+        this.idact = idact;
+    }
+
+    public String getIdact() {
+        return idact;
+    }
+
+    public void setIdact(String idact) {
+        this.idact = idact;
     }
 
     public MostrarActividades() {
