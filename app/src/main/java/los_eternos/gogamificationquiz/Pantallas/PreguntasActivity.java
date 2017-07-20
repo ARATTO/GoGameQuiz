@@ -45,7 +45,7 @@ public class PreguntasActivity extends AppCompatActivity {
     private int numeroPregunta; //Almacena el indice del arreglo preguntasString
     private int numeroRespuesta;    //Almacena el indice del arreglo respuestasString
     private int cantidadPreguntas;  //Numero de preguntas del cuestionario
-    private double notaFinal;       //Nota obtenida al resolver todo el cuestionario
+    private double notaFinal;       //Nota obtenida al resolver el cuestionario
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
