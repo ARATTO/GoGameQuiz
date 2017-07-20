@@ -31,10 +31,10 @@ public class PreguntasActivity extends AppCompatActivity {
     RadioGroup group;
     Button boton;
 
-    public String idcuestionario;
-    public String idperfil;
-
-
+    private String idcuestionario;
+    private String idperfil;
+    private String idgrupo;
+    private String idmateria;
 
     //Variables globales
     private int idpregunta;
@@ -57,9 +57,10 @@ public class PreguntasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preguntas);
 
-        Intent inte = getIntent();
-        idcuestionario += inte.getStringExtra("idcuestionario");
-        idperfil += inte.getStringExtra("idperfil");
+        idcuestionario = getIntent().getExtras().getString("idcuestionario");
+        idperfil = getIntent().getExtras().getString("idperfil");
+        idgrupo = getIntent().getExtras().getString("idgrupo");
+        idmateria = getIntent().getExtras().getString("idmateria");
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -105,7 +106,13 @@ public class PreguntasActivity extends AppCompatActivity {
                         if (cantidadPreguntas > 10){
 
                             Intent intent = new Intent(getApplicationContext(), ResultadoActivity.class);
+                            System.out.println(idcuestionario);
+                            System.out.println(idperfil);
+                            System.out.println(idgrupo);
+                            System.out.println(idmateria);
                             intent.putExtra("idcuestionario",idcuestionario);
+                            intent.putExtra("idmateria", idmateria);
+                            intent.putExtra("idgrupo", idgrupo);
                             intent.putExtra("idperfil",idperfil);
                             intent.putExtra("notaFinal", notaFinal); //Manda notaFinal a ResultadoActivity
                             startActivity(intent);
@@ -127,7 +134,13 @@ public class PreguntasActivity extends AppCompatActivity {
                         if (cantidadPreguntas > 10){
 
                             Intent intent = new Intent(getApplicationContext(), ResultadoActivity.class);
+                            System.out.println(idcuestionario);
+                            System.out.println(idperfil);
+                            System.out.println(idgrupo);
+                            System.out.println(idmateria);
                             intent.putExtra("idcuestionario",idcuestionario);
+                            intent.putExtra("idmateria", idmateria);
+                            intent.putExtra("idgrupo", idgrupo);
                             intent.putExtra("idperfil",idperfil);
                             intent.putExtra("notaFinal", notaFinal); //Manda notaFinal a ResultadoActivity
                             startActivity(intent);

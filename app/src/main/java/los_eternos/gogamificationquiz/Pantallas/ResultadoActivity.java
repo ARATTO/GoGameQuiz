@@ -19,8 +19,10 @@ public class ResultadoActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView informacionResultado;
     Button button;
-    public String idcuestionario;
-    public String idperfil;
+    private String idcuestionario;
+    private String idperfil;
+    private String idmateria;
+    private String idgrupo;
 
     private double notaFinal;
 
@@ -29,9 +31,10 @@ public class ResultadoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado);
 
-        Intent inte = getIntent();
-        idcuestionario = inte.getStringExtra("idcuestionario");
-        idperfil += inte.getStringExtra("idperfil");
+        idcuestionario = getIntent().getExtras().getString("idcuestionario");
+        idperfil = getIntent().getExtras().getString("idperfil");
+        idgrupo = getIntent().getExtras().getString("idgrupo");
+        idmateria = getIntent().getExtras().getString("idmateria");
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -46,8 +49,15 @@ public class ResultadoActivity extends AppCompatActivity {
     }
 
     public void salirCuestionario(View view){
-        Intent intent = new Intent(getApplicationContext(), EstudianteActivity.class);
         ControlServicio.mandarNota(idperfil, idcuestionario, notaFinal);
+        Intent intent = new Intent(getApplicationContext(), EstudianteActivity.class);
+        System.out.println(idcuestionario);
+        System.out.println(idperfil);
+        System.out.println(idgrupo);
+        System.out.println(idmateria);
+        intent.putExtra("idmateria", idmateria);
+        intent.putExtra("idgrupo", idgrupo);
+        intent.putExtra("idperfil", idperfil);
         startActivity(intent);
     }
 }

@@ -14,17 +14,20 @@ import los_eternos.gogamificationquiz.R;
 public class CuestionarioActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    public String idcuestionario;
-    public String idperfil;
+    private String idcuestionario;
+    private String idperfil;
+    private String idgrupo;
+    private String idmateria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cuestionario);
 
-        Intent inte = getIntent();
-        idcuestionario += inte.getStringExtra("idcuestionario");
-        idperfil += inte.getStringExtra("idperfil");
+        idcuestionario = getIntent().getExtras().getString("idcuestionario");
+        idperfil = getIntent().getExtras().getString("idperfil");
+        idgrupo = getIntent().getExtras().getString("idgrupo");
+        idmateria = getIntent().getExtras().getString("idmateria");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -36,6 +39,12 @@ public class CuestionarioActivity extends AppCompatActivity {
 
     public void empezarCuestionario(View view){
         Intent intent = new Intent(getApplicationContext(), PreguntasActivity.class);
+        System.out.println(idcuestionario);
+        System.out.println(idperfil);
+        System.out.println(idgrupo);
+        System.out.println(idmateria);
+        intent.putExtra("idgrupo", idgrupo);
+        intent.putExtra("idmateria", idmateria);
         intent.putExtra("idcuestionario",idcuestionario);
         intent.putExtra("idperfil",idperfil);
         startActivity(intent);

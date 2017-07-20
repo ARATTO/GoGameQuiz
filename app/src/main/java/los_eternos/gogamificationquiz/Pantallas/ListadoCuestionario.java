@@ -101,8 +101,15 @@ public class ListadoCuestionario extends Fragment {
                 public void onClick(View v) {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, CuestionarioActivity.class);
+                    System.out.println(id.getText());
+                    System.out.println(perfil);
+                    System.out.println(idgrupo);
+                    System.out.println(nommateria);
                     intent.putExtra("idcuestionario",id.getText());
                     intent.putExtra("idperfil",perfil);
+                    intent.putExtra("idgrupo",idgrupo);
+                    intent.putExtra("idmateria",nommateria);
+
                     context.startActivity(intent);
                 }
             });
