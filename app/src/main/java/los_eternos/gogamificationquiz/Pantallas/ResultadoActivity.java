@@ -16,14 +16,16 @@ import los_eternos.gogamificationquiz.R;
 
 public class ResultadoActivity extends AppCompatActivity {
 
+    //Widgets de la Activity
     Toolbar toolbar;
     TextView informacionResultado;
     Button button;
+
+    //Variables globales
     private String idcuestionario;
     private String idperfil;
     private String idmateria;
     private String idgrupo;
-
     private double notaFinal;
 
     @Override
@@ -31,33 +33,35 @@ public class ResultadoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resultado);
 
+        //Recibe parametros de PreguntaActivity
         idcuestionario = getIntent().getExtras().getString("idcuestionario");
         idperfil = getIntent().getExtras().getString("idperfil");
         idgrupo = getIntent().getExtras().getString("idgrupo");
         idmateria = getIntent().getExtras().getString("idmateria");
+        notaFinal = getIntent().getExtras().getDouble("notaFinal");
 
-
+        //Inicializa la toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Cuestionario");
 
+        //Valor final del TextView
         informacionResultado = (TextView) findViewById(R.id.informacion_resultado);
-        notaFinal = getIntent().getExtras().getDouble("notaFinal");
         informacionResultado.setText("Cuestionario finalizado con nota: " + notaFinal);
 
 
     }
 
+    //Metodo que se activa al dar click en guardar y continuar
     public void salirCuestionario(View view){
-        ControlServicio.mandarNota(idperfil, idcuestionario, notaFinal);
+
+        ControlServicio.mandarNota(idperfil, idcuestionario, notaFinal);                    //Metodo que manda la nota obtenida al servidor
         Intent intent = new Intent(getApplicationContext(), EstudianteActivity.class);
-        System.out.println(idcuestionario);
-        System.out.println(idperfil);
-        System.out.println(idgrupo);
-        System.out.println(idmateria);
+        //Manda parametros a EstudiantesActivity
         intent.putExtra("idmateria", idmateria);
         intent.putExtra("idgrupo", idgrupo);
         intent.putExtra("idperfil", idperfil);
         startActivity(intent);
+        
     }
 }

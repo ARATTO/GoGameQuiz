@@ -32,8 +32,6 @@ public class MateriasExistentesActivity extends AppCompatActivity {
     private int resultado;
     private ArrayList<Materia> materias;
 
-    //FIN DE DECLARACION DE VARIABLES GLOBALES
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -100,6 +98,7 @@ public class MateriasExistentesActivity extends AppCompatActivity {
         ArrayList<String> idGrupo = new ArrayList<>();
         ArrayList<String> idPerfil = new ArrayList<>();
 
+        //Se va llenando un arreglo de String por cada dato que trae el servidor
         for (Materia mef: materias){
 
             nombreMateria.add(mef.getNombreMateria());

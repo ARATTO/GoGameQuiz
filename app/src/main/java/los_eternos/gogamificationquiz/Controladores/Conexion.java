@@ -8,8 +8,6 @@ public class Conexion {
 
     public String URLLocal = "http://172.16.66.94:8000/";
 
-
-
     public Conexion() {}
 
     public String getURLLocal() {

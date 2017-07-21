@@ -31,32 +31,33 @@ public class PreguntasActivity extends AppCompatActivity {
     RadioGroup group;
     Button boton;
 
+    //Variables globales
     private String idcuestionario;
     private String idperfil;
     private String idgrupo;
     private String idmateria;
-
-    //Variables globales
     private int idpregunta;
+    private int respuestacorrecta;                                                              //Guarda la posicion de la respuesta correcta
+    private int numeroPregunta;                                                                 //Almacena el indice del arreglo preguntasString
+    private int numeroRespuesta;                                                                //Almacena el indice del arreglo respuestasString
+    private int cantidadPreguntas;                                                              //Numero de preguntas del cuestionario
+    private double notaFinal;                                                                   //Nota obtenida al resolver el cuestionario
+    private ArrayList<Pregunta> preguntas;                                                      //Aqui se almacena la pregunta que recibe el cliente del servidor
+    private ArrayList<String> preguntasString = new ArrayList<>();                              //Aqui se guarda la pregunta que se mostrara en el textview
+    private ArrayList<Respuesta> respuestas;                                                    //Aqui se almacenan las respuestas que recibe el cliente del servidor
+    private ArrayList<String> respuestasString = new ArrayList<>();                             //Aqui se guarda la respuesta que se muestran en los radiobutton
+    private ArrayList<String> correctas = new ArrayList<>();                                    //Aqui se almacenan el identificador de respuesta correcto o incorrecta
     private int ids_respuesta[] = {
             R.id.respuesta1, R.id.respuesta2, R.id.respuesta3, R.id.respuesta4
-    }; //Arreglo con los layouts de respuestas (RadioButton)
-    private ArrayList<Pregunta> preguntas; //Aqui se almacena la pregunta que recibe el cliente del servidor
-    private ArrayList<String> preguntasString = new ArrayList<>(); //Aqui se guarda la pregunta que se mostrara en el textview
-    private ArrayList<Respuesta> respuestas; //Aqui se almacenan las respuestas que recibe el cliente del servidor
-    private ArrayList<String> respuestasString = new ArrayList<>(); //Aqui se guarda la respuesta que se muestran en los radiobutton
-    private ArrayList<String> correctas = new ArrayList<>(); //Aqui se almacenan el identificador de respuesta correcto o incorrecta
-    private int respuestacorrecta; //Guarda la posicion de la respuesta correcta
-    private int numeroPregunta; //Almacena el indice del arreglo preguntasString
-    private int numeroRespuesta;    //Almacena el indice del arreglo respuestasString
-    private int cantidadPreguntas;  //Numero de preguntas del cuestionario
-    private double notaFinal;       //Nota obtenida al resolver el cuestionario
+    };                                                                                          //Arreglo con los layouts de respuestas (RadioButton)
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preguntas);
 
+        //Recibe parametros de CuestionarioActivity
         idcuestionario = getIntent().getExtras().getString("idcuestionario");
         idperfil = getIntent().getExtras().getString("idperfil");
         idgrupo = getIntent().getExtras().getString("idgrupo");
@@ -65,10 +66,12 @@ public class PreguntasActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        //Inicializa la Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Cuestionario");             //Cambia el texto que aparece en la toolbar
 
+        //Inicializa los layoits de la activity
         titulo = (TextView) findViewById(R.id.titulo_pregunta);     //Inicializa el texto del titulo de pregunta
         pregunta = (TextView) findViewById(R.id.text_pregunta);     //Inicializa el texto del TextView
         group = (RadioGroup) findViewById(R.id.radio_group);        //Inicializa el RadioGroup
@@ -79,19 +82,22 @@ public class PreguntasActivity extends AppCompatActivity {
         cantidadPreguntas = 1;
         notaFinal = 0;
 
-        MostrarPregunta();  //Metodo que muestra las preguntas
+        MostrarPregunta();                                          //Metodo que muestra las preguntas
 
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int id = group.getCheckedRadioButtonId();   //Obtiene el valor del indice de los radiobutton
-                int index = -1; //Valor del indice cuando no se selecciona ninguna opcion
+
+                int id = group.getCheckedRadioButtonId();           //Obtiene el valor del indice de los radiobutton
+                int index = -1;                                     //Valor del indice cuando no se selecciona ninguna opcion
+
                 //Se comprueba cual de los indices fue seleccionado
                 for(int i = 0; i < ids_respuesta.length; i++) {
                     if (ids_respuesta[i] == id) {
                         index = i;
                     }
                 }
+
                 //Si se escogio alguna de las opciones (radiobutton)
                 if (index != -1){
                     //Si la opcion seleccionada es la respuesta correcta
@@ -106,20 +112,18 @@ public class PreguntasActivity extends AppCompatActivity {
                         if (cantidadPreguntas > 10){
 
                             Intent intent = new Intent(getApplicationContext(), ResultadoActivity.class);
-                            System.out.println(idcuestionario);
-                            System.out.println(idperfil);
-                            System.out.println(idgrupo);
-                            System.out.println(idmateria);
+                            //Manda parametros a ResultadoActivity
                             intent.putExtra("idcuestionario",idcuestionario);
                             intent.putExtra("idmateria", idmateria);
                             intent.putExtra("idgrupo", idgrupo);
                             intent.putExtra("idperfil",idperfil);
-                            intent.putExtra("notaFinal", notaFinal); //Manda notaFinal a ResultadoActivity
+                            intent.putExtra("notaFinal", notaFinal);
                             startActivity(intent);
                         }
+
                         //Cuando no hemos pasado 10 preguntas
                         else {
-                            MostrarPregunta();  //Metodo que muestra las preguntas
+                            MostrarPregunta();                  //Metodo que muestra las preguntas
                         }
 
                     }
@@ -134,23 +138,22 @@ public class PreguntasActivity extends AppCompatActivity {
                         if (cantidadPreguntas > 10){
 
                             Intent intent = new Intent(getApplicationContext(), ResultadoActivity.class);
-                            System.out.println(idcuestionario);
-                            System.out.println(idperfil);
-                            System.out.println(idgrupo);
-                            System.out.println(idmateria);
+                            //Manda parametros a ResultadoActivity
                             intent.putExtra("idcuestionario",idcuestionario);
                             intent.putExtra("idmateria", idmateria);
                             intent.putExtra("idgrupo", idgrupo);
                             intent.putExtra("idperfil",idperfil);
-                            intent.putExtra("notaFinal", notaFinal); //Manda notaFinal a ResultadoActivity
+                            intent.putExtra("notaFinal", notaFinal);
                             startActivity(intent);
                         }
+
                         //Cuando no hemos pasado 10 preguntas
                         else {
-                            MostrarPregunta();  //Metodo que muestra las preguntas
+                            MostrarPregunta();                    //Metodo que muestra las preguntas
                         }
                     }
                 }
+
                 //Cuando no se selecciona ninguna opcion (radiobutton)
                 else{
                     Toast.makeText(getApplicationContext(), "Debe escoger una respuesta", Toast.LENGTH_SHORT).show();
@@ -163,8 +166,8 @@ public class PreguntasActivity extends AppCompatActivity {
 
     public void MostrarPregunta(){
 
-        idpregunta = (int)(Math.random()*50+1); //Variable que le manda de parametro al servidor (1-50)
-        preguntas = ControlServicio.obtenerPreguntas(idpregunta, PreguntasActivity.this); //Consulta la pregunta segun el id que se mande de parametro
+        idpregunta = (int)(Math.random()*50+1);                                             //Variable que le manda de parametro al servidor (1-50)
+        preguntas = ControlServicio.obtenerPreguntas(idpregunta, PreguntasActivity.this);   //Consulta la pregunta segun el id que se mande de parametro
         respuestas = ControlServicio.obtenerRespuestas(idpregunta, PreguntasActivity.this); //Consulta las respuestas segun el id que se mande de parametro
 
         //Traslada la pregunta del arreglo preguntas al arreglo preguntasStrings
@@ -206,5 +209,4 @@ public class PreguntasActivity extends AppCompatActivity {
         }
 
     }
-
 }
