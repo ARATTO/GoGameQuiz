@@ -4,17 +4,25 @@ package los_eternos.gogamificationquiz.Pantallas;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
+import los_eternos.gogamificationquiz.Controladores.Conexion;
+import los_eternos.gogamificationquiz.Controladores.ControlServicio;
 import los_eternos.gogamificationquiz.Controladores.MedallaAdapter;
 import los_eternos.gogamificationquiz.Modelo.Medalla;
 import los_eternos.gogamificationquiz.R;
@@ -28,9 +36,14 @@ public class MedallasFragment extends Fragment {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
     View v;
+    public static String correo="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        correo +=getArguments().getString("correo");
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.content_perfil, container, false);
         ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
@@ -59,20 +72,39 @@ public class MedallasFragment extends Fragment {
         private static int LENGTH=0;
         private final String[] mPlaces;
         private final String[] mPlaceDesc;
-        private final Drawable[] mPlacePictures;
+        private final String[] mPlacePictures;
+
 
         public ContentAdapter(Context context) {
             Resources resources = context.getResources();
-            mPlaces = resources.getStringArray(R.array.places);
-            mPlaceDesc = resources.getStringArray(R.array.place_desc);
-            TypedArray a = resources.obtainTypedArray(R.array.places_picture);
-            mPlacePictures = new Drawable[a.length()];
-            LENGTH = mPlacePictures.length;
-            for (int i = 0; i < mPlacePictures.length; i++) {
-                mPlacePictures[i] = a.getDrawable(i);
-            }
-            a.recycle();
 
+            List<Medalla> medallas = null;
+
+            Conexion con = new Conexion();
+            String url="";
+
+
+            url += con.getURLLocal()+"medallasPerfil/"+correo;
+
+
+            medallas = ControlServicio.obtenerMedalla(url,context);
+
+            String [] nombre = new String[medallas.size()];
+            String [] descripcion = new String[medallas.size()];
+            String [] imagen = new String[medallas.size()];
+
+            for (int i=0;i<medallas.size();i++){
+                nombre[i] = medallas.get(i).getNombreMedalla();
+                descripcion[i] = medallas.get(i).getDescripcionMedalla();
+                imagen[i] = medallas.get(i).getImagenMedalla();
+            }
+
+
+            mPlaces = nombre;
+            mPlaceDesc = descripcion;
+            //TypedArray a = resources.obtainTypedArray(R.array.places_picture);
+            mPlacePictures = imagen;
+            LENGTH = medallas.size();
 
         }
 
@@ -83,14 +115,21 @@ public class MedallasFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.picture.setImageDrawable(mPlacePictures[position % mPlacePictures.length]);
+            holder.picture.setImageBitmap(decodeBase64(mPlacePictures[position % mPlacePictures.length]));
             holder.name.setText(mPlaces[position % mPlaces.length]);
             holder.description.setText(mPlaceDesc[position % mPlaceDesc.length]);
+
         }
 
         @Override
         public int getItemCount() {
             return LENGTH;
+        }
+
+        //Metodo para decodificar imagenes en Base64
+        public static Bitmap decodeBase64(String input) {
+            byte[] decodedByte = Base64.decode(input, 0);
+            return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
         }
     }
 }

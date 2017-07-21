@@ -1,5 +1,7 @@
 package los_eternos.gogamificationquiz.Pantallas;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.AsyncTask;
@@ -26,12 +28,20 @@ public class LoginActivity extends AppCompatActivity {
     private UserLoginTask userlogintask =null;
     Conexion conn;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Valores iniciales de los objetos de esta clase
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+
+
+
 
         //Obteniendo datos del formulario.
 
@@ -190,5 +200,19 @@ public class LoginActivity extends AppCompatActivity {
                 Log.v("ERROR_ASYNC", throwable.getMessage());
             }
         }
+    }
+
+    public void logOut(Context context) {
+
+        finish();
+
+
+        // After logout redirect user to Loing Activity
+
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // Closing all the Activities
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// Add new Flag to start new Activity
+        context.getApplicationContext().startActivity(intent); // Staring Login Activity
+
     }
 }

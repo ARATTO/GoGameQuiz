@@ -66,12 +66,6 @@ public class ListadoMaterias extends Fragment {
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
         ima.setImageBitmap(decodedByte);
-
-        /*byte decodedByte = Base64.decode(imagen);
-
-        ima.setImageBitmap(BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length));*/
-
-
         return rootView;
 
     }

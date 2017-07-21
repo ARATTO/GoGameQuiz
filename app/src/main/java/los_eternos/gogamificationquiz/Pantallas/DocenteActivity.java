@@ -6,17 +6,23 @@ import android.content.Intent;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +34,7 @@ import los_eternos.gogamificationquiz.Modelo.MostrarAlumnos;
 import los_eternos.gogamificationquiz.Modelo.MostrarMedallas;
 import los_eternos.gogamificationquiz.R;
 
-public class DocenteActivity extends AppCompatActivity {
+public class DocenteActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Conexion con;
     String idgrupo ="";
     String idmateria ="";
@@ -70,9 +76,17 @@ public class DocenteActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        /*Intent inte = getIntent();
-        idmateria += inte.getStringExtra("idmateria");
-        idgrupo += inte.getStringExtra("idgrupo");*/
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         //Consulta de alumnos por materia y grupo
         alumnos = ControlServicio.obtenerAlumnos(idmateria,idgrupo,DocenteActivity.this);
@@ -87,8 +101,7 @@ public class DocenteActivity extends AppCompatActivity {
         //Termina Consulta de actividades por materia y grupo
 
         /*AGREGANDO TOOLBAR*/
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
                 /*AGREGANDO MOVILIDAD A LA TOOLBAR*/
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -227,38 +240,52 @@ public class DocenteActivity extends AppCompatActivity {
         }
     }//FIN DE CLASE ADAPTER
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
-    /*CREANDO LOS MENUS DE LA BARRA*/
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
-        //MenuItem searchItem = menu.findItem(R.id.action_buscar);
-
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
-
-    /*MENU SELECCIONADO DE LA BARRA*/
-    /*@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_buscar) {
-            Intent intent = new Intent(this, Busqueda.class);
-            startActivity(intent);
 
+        if (id == R.id.action_settings) {
             return true;
-        }else {
-            mDrawerLayout.openDrawer(GravityCompat.START);
         }
 
         return super.onOptionsItemSelected(item);
     }
-    */
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_logout){
+            LoginActivity LOGOUT = new LoginActivity();
+            LOGOUT.logOut(DocenteActivity.this);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 
 
 }
