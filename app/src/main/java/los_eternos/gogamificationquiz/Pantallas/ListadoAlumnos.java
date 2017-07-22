@@ -38,7 +38,7 @@ public class ListadoAlumnos extends Fragment {
     ArrayList<String> Carnet;
     ArrayList<String> Foto;
     String materia="";
-    public static String grupo;
+    public static String grupo="";
     // static Conexion con;
 
 
