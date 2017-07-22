@@ -62,6 +62,6 @@ public class ResultadoActivity extends AppCompatActivity {
         intent.putExtra("idgrupo", idgrupo);
         intent.putExtra("idperfil", idperfil);
         startActivity(intent);
-        
+
     }
 }
