@@ -38,7 +38,7 @@ public class ListadoAlumnos extends Fragment {
     ArrayList<String> Carnet;
     ArrayList<String> Foto;
     String materia="";
-    public static String grupo="";
+    public static String grupo;
     // static Conexion con;
 
 
@@ -66,6 +66,7 @@ public class ListadoAlumnos extends Fragment {
         grupo = idgrupo;
         materia = nommateri;
 
+
         AlumnoViewHolder.idgrupo= grupo;
         AlumnoViewHolder.idmateria= materia;
 
@@ -74,6 +75,8 @@ public class ListadoAlumnos extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
 
         return recyclerView;
     }

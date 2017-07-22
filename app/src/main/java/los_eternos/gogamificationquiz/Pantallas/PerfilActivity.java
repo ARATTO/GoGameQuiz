@@ -1,5 +1,6 @@
 package los_eternos.gogamificationquiz.Pantallas;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -22,10 +23,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import los_eternos.gogamificationquiz.Controladores.MedallaAdapter;
 import los_eternos.gogamificationquiz.Modelo.Medalla;
 import los_eternos.gogamificationquiz.R;
@@ -35,7 +39,11 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
     private RecyclerView recycler;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
-    private String correo="";
+    private String correo;
+    public String idgrupo;
+    public String idmateria;
+    public String idperfil;
+    public String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +57,11 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
         StrictMode.setThreadPolicy(policy);
 
         Intent inte = getIntent();
-        correo += inte.getStringExtra("email");
+        idmateria = inte.getStringExtra("idmateria");
+        idgrupo = inte.getStringExtra("idgrupo");
+        idperfil = inte.getStringExtra("idperfil");
+        email =inte.getStringExtra("email");
+        correo = inte.getStringExtra("email");
 
         System.out.println("el correo que recibo: "+correo);
 
@@ -69,7 +81,29 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View header = navigationView.getHeaderView(0);
+        System.out.println("La variable text view es: "+header);
 
+        TextView text = (TextView) header.findViewById(R.id.email);
+        text.setText(email.toString());
+
+        CircleImageView imageView = (CircleImageView) header.findViewById(R.id.profile_image);
+
+        imageView.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+
+                Context context = view.getContext();
+                Intent intent = new Intent(context.getApplicationContext(), PerfilActivity.class);
+                intent.putExtra("email", email);
+                intent.putExtra("idmateria",idmateria);
+                intent.putExtra("idgrupo",idgrupo);
+                intent.putExtra("idperfil",idperfil);
+                context.startActivity(intent);
+
+            }
+        });
     }
 
     /*  CODIGO DE LAS TAB  */
@@ -84,7 +118,7 @@ public class PerfilActivity extends AppCompatActivity implements NavigationView.
 
         perfilFragment.setArguments(datos);
         medallasFragment.setArguments(datos);
-
+        System.out.println("El correo es: "+correo);
         adapter.addFragment(perfilFragment, "Perfil");
         adapter.addFragment(medallasFragment, "Medallas");
 
