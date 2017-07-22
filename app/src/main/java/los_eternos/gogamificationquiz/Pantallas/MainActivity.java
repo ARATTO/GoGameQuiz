@@ -83,36 +83,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_perfil) {
-            // Handle the camera action
 
-            Intent intent1 = new Intent(getApplicationContext(), PerfilActivity.class);
-            startActivity(intent1);
-
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_listamateria) {
-
-            Intent intent2 = new Intent(getApplicationContext(), MateriasExistentesActivity.class);
-            startActivity(intent2);
-
-        } else if (id == R.id.nav_manage) {
-
-            //Esto es solo para probar el ResultadoActivity
-            Intent intent = new Intent(getApplicationContext(), ResultadoActivity.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_share) {
-
-            //Esto es solo para probar el DocenteActivity
-            Intent intent = new Intent(getApplicationContext(), DocenteActivity.class);
-            startActivity(intent);
-
-        } else if (id == R.id.nav_send) {
-            //Esto es solo para probar el CuestionarioActivity
-            Intent intent = new Intent(getApplicationContext(), CuestionarioActivity.class);
-            startActivity(intent);
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import los_eternos.gogamificationquiz.Modelo.Materia;
+import los_eternos.gogamificationquiz.Modelo.Medalla;
 import los_eternos.gogamificationquiz.Modelo.MostrarActividades;
 import los_eternos.gogamificationquiz.Modelo.MostrarAlumnos;
 import los_eternos.gogamificationquiz.Modelo.MostrarCuestionario;
@@ -820,6 +821,30 @@ public class ControlServicio {
             Log.v("ERROR_DESCONOCIDO",e.getMessage());
 
         }
+    }
+
+
+    public static List<Medalla> obtenerMedalla(String peticion, Context ctx) {
+        String json = obtenerRespuestaPeticion(peticion, ctx);
+        List<Medalla> listaMedallas = new ArrayList<Medalla>();
+        try {
+            JSONArray librosJSON = new JSONArray(json);
+            for (int i = 0; i < librosJSON.length(); i++) {
+                JSONObject obj = librosJSON.getJSONObject(i);
+                Medalla medalla = new Medalla();
+                medalla.setNombreMedalla(obj.getString("NOMBREMEDALLA"));
+                medalla.setDescripcionMedalla(obj.getString("DESCRIPCIONMEDALLA"));
+                medalla.setImagenMedalla(obj.getString("IMAGENMEDALLA"));
+
+                listaMedallas.add(medalla);
+            }
+            return listaMedallas;
+        } catch (Exception e) {
+            Toast.makeText(ctx, "Error en parseo de JSON", Toast.LENGTH_LONG).show();
+            return null;
+        }
+
+
     }
 
 }

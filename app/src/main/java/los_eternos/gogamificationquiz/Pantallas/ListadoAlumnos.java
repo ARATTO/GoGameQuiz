@@ -196,9 +196,7 @@ public class ListadoAlumnos extends Fragment {
             holder.nommateria.setText(nombres[position % nombres.length]);
             holder.descripcion.setText(carnets[position % carnets.length]);
             holder.mano.setImageResource(R.drawable.ic_participacion_gray);
-            //holder.mano.setTag(R.id.TAG_COLOR_ID,"gray");
             holder.punto.setImageResource(R.drawable.ic_asistencia_gray);
-            //holder.punto.setTag(R.id.TAG_COLOR_ID,"gray");
 
         }
 
