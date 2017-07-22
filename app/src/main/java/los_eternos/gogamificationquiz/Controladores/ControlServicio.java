@@ -697,7 +697,6 @@ public class ControlServicio {
 
     }
 
-
     public static String obtenerRespuestaLideres(String idMateria,String idGrupo, Context ctx){
         String resultado = "";
         HttpClient cliente = new DefaultHttpClient();
@@ -790,6 +789,7 @@ public class ControlServicio {
 
     }
 
+    //Metodo de Alam que manda la nota del cuestionario realizado al servidor y guardar esa nota
     public static void mandarNota(String idperfil, String idcuestionario, double notaFinal){
 
         String resultado;
@@ -823,6 +823,7 @@ public class ControlServicio {
         }
     }
 
+
     public static List<Medalla> obtenerMedalla(String peticion, Context ctx) {
         String json = obtenerRespuestaPeticion(peticion, ctx);
         List<Medalla> listaMedallas = new ArrayList<Medalla>();
@@ -845,11 +846,5 @@ public class ControlServicio {
 
 
     }
-
-
-
-
-
-
 
 }

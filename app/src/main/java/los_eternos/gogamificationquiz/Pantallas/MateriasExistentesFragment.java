@@ -69,6 +69,7 @@ public class MateriasExistentesFragment extends Fragment{
 
         }
 
+        //Las variable pasan de un arreglo a otro
         nombreMateria = nomMateria;
         codigoMateria = codiMateria;
         nombreGrupo = nomGrupo;
@@ -149,6 +150,7 @@ public class MateriasExistentesFragment extends Fragment{
                         System.out.println("Id perfil: " + idperfil.getText().toString());
                         System.out.println("Email: " + email);
 
+                        //Lo manda a EstudianteActivity y le pasa ciertos parametros
                         Intent intent = new Intent(context.getApplicationContext(), EstudianteActivity.class);
                         intent.putExtra("idmateria", idmateria.getText().toString());
                         intent.putExtra("idgrupo", idgrupo.getText().toString());
@@ -170,6 +172,7 @@ public class MateriasExistentesFragment extends Fragment{
                         System.out.println("Id perfil: " + idperfil.getText().toString());
                         System.out.println("Email: " + email);
 
+                        //Lo manda a DocenteActivity y le pasa ciertos parametros
                         Intent intent = new Intent(context.getApplicationContext(), DocenteActivity.class);
                         intent.putExtra("idmateria", idmateria.getText().toString());
                         intent.putExtra("idgrupo", idgrupo.getText().toString());
@@ -191,7 +194,7 @@ public class MateriasExistentesFragment extends Fragment{
 
     //CLASE ANIDADA
     public static class ContentAdapter extends RecyclerView.Adapter<MateriaViewHolder> {
-        // Set numbers of List in RecyclerView.
+        // Obtiene el numero de lista en RecyclerView.
 
 
         private int LENGTH;
@@ -204,13 +207,9 @@ public class MateriasExistentesFragment extends Fragment{
         private String[] codigoCiclos;
         private String[] idPerfiles;
         Context context;
-         //private String[] mPlaceDesc;
-        // private final Drawable[] mPlaceAvators;
 
-
-
+        //Constructor de la clase
         public ContentAdapter(Context context, ArrayList<String> nom, ArrayList<String> cod, ArrayList<String> gru, ArrayList<String> cic, ArrayList<String> idm, ArrayList<String> idg, ArrayList<String> idp, ArrayList<String> ima) {
-            Resources resources = context.getResources();
 
             this.context = context;
 
@@ -241,8 +240,6 @@ public class MateriasExistentesFragment extends Fragment{
 
         }
 
-
-
         @Override
         public MateriaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return new MateriaViewHolder(LayoutInflater.from(parent.getContext()), parent);
@@ -251,6 +248,7 @@ public class MateriasExistentesFragment extends Fragment{
         @Override
         public void onBindViewHolder(MateriaViewHolder holder, int position) {
 
+            //Valor que mostrara los widgets del cardview
             holder.imagmateria.setImageBitmap(decodeBase64(imagenMaterias[position % imagenMaterias.length]));
             holder.nommateria.setText(nombreMaterias[position % nombreMaterias.length]);
             holder.codmateria.setText(codigoMaterias[position % codigoMaterias.length]);
@@ -269,6 +267,7 @@ public class MateriasExistentesFragment extends Fragment{
             return LENGTH;
         }
 
+        //Metodo que convierte las imagenes en Base64
         public static Bitmap decodeBase64(String input){
             byte[] decodedByte = Base64.decode(input, 0);
             return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);

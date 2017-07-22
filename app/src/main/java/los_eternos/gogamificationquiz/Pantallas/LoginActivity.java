@@ -19,10 +19,8 @@ import los_eternos.gogamificationquiz.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-
-    private UserLoginTask mAuthTask = null;
-
     // Variables globales de la clase
+    private UserLoginTask mAuthTask = null;
     private EditText mEmailView;
     private EditText mPasswordView;
     private UserLoginTask userlogintask =null;
@@ -49,6 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordView = (EditText) findViewById(R.id.password);
         conn=new Conexion();
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+
+        //Cuando damos click al boton ingresar
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,20 +70,18 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Reset errors.
+        // Mensajes de error
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
-        // Store values at the time of the login attempt.
+        // Almacena los valores que tienen los textview del login
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the user entered one.
-
-        // Check for a valid email address.
+        // Checa que hay un email en el formulario.
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
@@ -91,16 +89,10 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
             focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
+        }
+        else {
 
-
-            //mAuthTask = new UserLoginTask(email, password);
-            //mAuthTask.execute((Void) null);
         }
     }
 
@@ -129,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
 
+            //Si lo acontecido en el metodo doInBackGround tiene exito
             if (success) {
 
                 System.out.println(resultado);
