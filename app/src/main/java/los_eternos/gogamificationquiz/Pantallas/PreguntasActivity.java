@@ -166,7 +166,10 @@ public class PreguntasActivity extends AppCompatActivity {
 
     public void MostrarPregunta(){
 
-        idpregunta = (int)(Math.random()*50+1);                                             //Variable que le manda de parametro al servidor (1-50)
+        idpregunta = (int)(Math.random()*84);                                             //Variable que le manda de parametro al servidor (1-50)
+        while (idpregunta<65 || idpregunta>84){
+            idpregunta = (int)(Math.random()*84);
+        }
         preguntas = ControlServicio.obtenerPreguntas(idpregunta, PreguntasActivity.this);   //Consulta la pregunta segun el id que se mande de parametro
         respuestas = ControlServicio.obtenerRespuestas(idpregunta, PreguntasActivity.this); //Consulta las respuestas segun el id que se mande de parametro
 
