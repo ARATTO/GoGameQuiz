@@ -36,12 +36,13 @@ public class MedallasFragment extends Fragment {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager lManager;
     View v;
-    public static String correo="";
+    public static String correo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        correo +=getArguments().getString("correo");
+        correo =getArguments().getString("correo");
+        System.out.println(correo+" :El correo en el fragament medalla");
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 

@@ -1,6 +1,8 @@
 package los_eternos.gogamificationquiz.Pantallas;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.StrictMode;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -14,15 +16,24 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import los_eternos.gogamificationquiz.Controladores.Conexion;
 import los_eternos.gogamificationquiz.Controladores.ControlServicio;
 import los_eternos.gogamificationquiz.Modelo.Materia;
 import los_eternos.gogamificationquiz.Modelo.MostrarCuestionario;
 import los_eternos.gogamificationquiz.Modelo.MostrarLideres;
+import los_eternos.gogamificationquiz.Modelo.Perfil;
 import los_eternos.gogamificationquiz.R;
 
 public class EstudianteActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -30,6 +41,7 @@ public class EstudianteActivity extends AppCompatActivity implements NavigationV
     public String idgrupo ="";
     public String idmateria ="";
     public String idperfil ="";
+    public String email="";
     private ArrayList<MostrarCuestionario> cuestionarios;
     private Materia materias;
     private ArrayList<MostrarLideres> lideres;
@@ -52,6 +64,9 @@ public class EstudianteActivity extends AppCompatActivity implements NavigationV
         idmateria += inte.getStringExtra("idmateria");
         idgrupo += inte.getStringExtra("idgrupo");
         idperfil += inte.getStringExtra("idperfil");
+        email +=inte.getStringExtra("email");
+
+        System.out.println("el correo es: "+email);
 
         //Consulta de actividades por materia y grupo
         cuestionarios = ControlServicio.obtenerCuestionario(idmateria,idgrupo,EstudianteActivity.this);
@@ -82,6 +97,36 @@ public class EstudianteActivity extends AppCompatActivity implements NavigationV
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+        System.out.println("La variable text view es: "+header);
+
+        TextView text = (TextView) header.findViewById(R.id.email);
+        text.setText(email.toString());
+
+        CircleImageView imageView = (CircleImageView) header.findViewById(R.id.profile_image);
+
+
+
+        imageView.setOnClickListener(new View.OnClickListener(){
+
+
+            @Override
+            public void onClick(View view) {
+             //   Toast.makeText(view.getContext(),"touch imagen",Toast.LENGTH_LONG).show();
+
+                Context context = view.getContext();
+                Intent intent = new Intent(context.getApplicationContext(), PerfilActivity.class);
+                intent.putExtra("email", email);
+                intent.putExtra("idmateria",idmateria);
+                intent.putExtra("idgrupo",idgrupo);
+                intent.putExtra("idperfil",idperfil);
+                context.startActivity(intent);
+
+            }
+        });
+
+
 
     }
 
@@ -232,6 +277,7 @@ public class EstudianteActivity extends AppCompatActivity implements NavigationV
         int id = item.getItemId();
 
         if (id == R.id.nav_logout){
+            finish(); //cierra sesion
             LoginActivity LOGOUT = new LoginActivity();
             LOGOUT.logOut(EstudianteActivity.this);
         }
